@@ -1,37 +1,44 @@
 import { Fragment, useRef, useState, useEffect } from "react";
 import ReactDOM from "react-dom";
-import Axios from "axios";
 
-import classes from "./AddDokumentModal.module.css";
+import classes from "./DokumentiEdit.module.css";
+
+import Axios from "axios";
 
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-import { Calendar } from "react-date-range";
-import { format } from "date-fns";
-
 const ModalOverlay = (props) => {
-  const [datum, setDatum] = useState("");
-  const [oznaka, setOznaka] = useState("");
-  const [napomena, setNapomena] = useState("");
-  const [datumIsValid, setDatumIsValid] = useState(false);
+  const [oznaka, setOznaka] = useState(props.data.oznaka);
+  const [napomena, setNapomena] = useState(props.data.napomena);
   const [oznakaIsValid, setOznakaIsValid] = useState(false);
   const [napomenaIsValid, setNapomenaIsValid] = useState(false);
-  const [date, setDate] = useState(new Date());
-  let formatedDate = format(date, "yyyy-MM-dd");
   const [showCalendar, setShowCalendar] = useState(false);
-  const [statusIsValid, setStatusIsValid] = useState(false);
-
-  const [selectedOption, setSelectedOption] = useState("");
+  const [selectedOption, setSelectedOption] = useState(
+    Number(props.data.id_status) === Number(1) ? "Aktivan" : "Neaktivan"
+  );
   const [focusedOption, setFocusedOption] = useState("");
   const [showList, setShowList] = useState(false);
-  const [selectedOptionId, setSelectedOptionId] = useState("");
+  const [selectedOptionId, setSelectedOptionId] = useState(
+    Number(props.data.id_status) === Number(1) ? "1" : "2"
+  );
 
-  const datumRef = useRef(null);
   const oznakaRef = useRef(null);
   const napomenaRef = useRef(null);
-  const statusRef = useRef(null);
   const refCloseCalendar = useRef(null);
+
+  const notify = () => {
+    toast.success("Uspješno izmijenjeno!", {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: true,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+  };
 
   const data = [
     { id: 1, naziv: "Aktivan" },
@@ -49,22 +56,8 @@ const ModalOverlay = (props) => {
     }
   };
 
-  const notify = () => {
-    toast.success("Dokument je uspješno dodan!", {
-      position: "top-right",
-      autoClose: 5000,
-      hideProgressBar: true,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "light",
-    });
-  };
-
-  const addNewData = async (e) => {
+  const editData = async (e) => {
     e.preventDefault();
-
     if (oznaka.trim() == "" || oznaka.trim().length == 0) {
       oznakaRef.current.focus();
       return setOznakaIsValid(true);
@@ -76,33 +69,17 @@ const ModalOverlay = (props) => {
       napomenaRef.current.focus();
       return setNapomenaIsValid(true);
     }
-    if (napomenaRef.current === document.activeElement) {
-      setShowList(true);
-      statusRef.current.focus();
-    }
-    if (selectedOption === "" || selectedOption === null) {
-      statusRef.current.focus();
-      setShowList(true);
-      return setStatusIsValid(true);
-    }
-
     notify();
-    Axios.post("http://localhost:3001/dokumentDodaj", {
-      vrsta: "ulaz",
-      datum: formatedDate,
-      oznaka: oznaka,
-      id_studijskog_centra: props.studijId,
-      broj_dostavnice: 0,
-      id_veze: 0,
-      storno: 0,
-      napomena: napomena,
-      id_statusa: selectedOptionId,
-    }).then((response) => {
-      props.refresh();
-      console.log(response);
-    });
 
     setTimeout(async () => {
+      Axios.put("http://localhost:3001/dokumentUpdate", {
+        id: props.data.id,
+        oznaka: oznaka,
+        napomena: napomena,
+        id_statusa: selectedOptionId,
+      });
+      props.refresh();
+
       close();
     }, 1000);
   };
@@ -150,38 +127,26 @@ const ModalOverlay = (props) => {
   const showListFunc = () => {
     setShowList(!showList);
   };
+
   return (
     <div>
       <ToastContainer />
-      <div onClick={close} className={classes.backdrop} />
+      <div
+        onClick={() => {
+          props.closeModal(false);
+        }}
+        className={classes.backdrop}
+      />
       <div className={`${classes.modal} ${classes.card}`}>
         <header className={classes.header}>
           <h2>{props.title}</h2>
         </header>
         <div className={classes.content}>
-          <form onSubmit={addNewData} className={classes.modalWrapper}>
-            <div className={classes.smallWrapper}>
-              <label className={classes.label}>Datum</label>
-              <input
-                value={formatedDate}
-                onClick={showCalendarFunc}
-                onChange={(e) => setDatum(e.target.value)}
-                className={`${classes.input} ${classes.dateInput}`}
-                type="text"
-              />
-            </div>
-            <div ref={refCloseCalendar}>
-              {showCalendar && (
-                <Calendar
-                  style={{ zIndex: 100000 }}
-                  className={classes.Calendar}
-                  onChange={(item) => setDate(item)}
-                />
-              )}
-            </div>
+          <form onSubmit={editData} className={classes.modalWrapper}>
             <div className={classes.smallWrapper}>
               <label className={classes.label}>Oznaka</label>
               <input
+                value={oznaka}
                 ref={oznakaRef}
                 onChange={(e) => setOznaka(e.target.value)}
                 className={`${classes.input} ${
@@ -196,6 +161,7 @@ const ModalOverlay = (props) => {
             <div className={classes.smallWrapper}>
               <label className={classes.label}>Napomena</label>
               <input
+                value={napomena}
                 ref={napomenaRef}
                 onChange={(e) => setNapomena(e.target.value)}
                 className={`${classes.input} ${
@@ -211,19 +177,12 @@ const ModalOverlay = (props) => {
             <div className={classes.smallWrapper}>
               <label className={classes.label}>Status</label>
               <input
-                className={`${classes.input}  ${
-                  statusIsValid &&
-                  (selectedOption.trim() === null ||
-                    selectedOption.trim() === "")
-                    ? classes.border
-                    : ""
-                }`}
+                className={classes.input}
                 type="text"
                 value={selectedOption}
                 onChange={handleChange}
                 onKeyDown={handleKeyDown}
                 onClick={showListFunc}
-                ref={statusRef}
               />
               {showList && (
                 <div
@@ -256,12 +215,16 @@ const ModalOverlay = (props) => {
                 </div>
               )}
             </div>
-
             <footer className={classes.actions}>
               <button type="submit" className={classes.button}>
-                Dodaj dokument
+                Sačuvaj
               </button>
-              <button onClick={close} className={classes.close}>
+              <button
+                onClick={() => {
+                  props.closeModal(false);
+                }}
+                className={classes.close}
+              >
                 Otkaži
               </button>
             </footer>
@@ -279,8 +242,7 @@ const Modal = (props) => {
     <Fragment>
       {ReactDOM.createPortal(
         <ModalOverlay
-          studijId={props.studijId}
-          submitData={props.submitData}
+          data={props.data}
           refresh={props.refresh}
           closeModal={props.closeModal}
           title={props.title}
