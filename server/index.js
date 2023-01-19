@@ -576,7 +576,7 @@ app.post('/dokumentDodaj', (req, res) => {
   const id_statusa = req.body.id_statusa
 
   db.query(
-    'INSERT INTO studij_dokumenti (vrsta, datum, oznaka, id_studijskog_centra, broj_dostavnice, id_veze, storno, datum_kreranja, napomena, id_statusa ) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', [vrsta, datum, oznaka, id_studijskog_centra, broj_dostavnice, id_veze, storno, napomena, id_statusa],
+    'INSERT INTO studij_dokumenti (vrsta, datum, oznaka, id_studijskog_centra, broj_dostavnice, id_veze, storno, datum_kreranja, napomena, id_statusa ) values (?, ?, ?, ?, ?, ?, ?, ?, ?)', [vrsta, datum, oznaka, id_studijskog_centra, broj_dostavnice, id_veze, storno, napomena, id_statusa],
     (err, result) => {
       if(err) {
         console.log(err)

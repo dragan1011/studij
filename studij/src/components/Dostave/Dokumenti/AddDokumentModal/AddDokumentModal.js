@@ -72,24 +72,28 @@ const ModalOverlay = (props) => {
       return setNapomenaIsValid(true)
     }
     
+    console.log(formatedDate, oznaka, napomena)
 
-    notify();
-/*       setTimeout( async()=> {
-
-      Axios.post('http://localhost:3001/lijekDodaj', {
+notify();
+      Axios.post('http://localhost:3001/dokumentDodaj', {
+        vrsta: 'ulaz',
+        datum: formatedDate, 
         oznaka: oznaka,
+        id_studijskog_centra: 10,
+        broj_dostavnice: 0,
+        id_veze: 0,
+        storno: 0,
         napomena: napomena,
-        jmId: selectedOptionId,
-        id_rezim: selectedOptionId,
-        id_studija: props.studijId
+        id_statusa: 1
       }).then((response)=> {
         props.refresh();
         console.log(response)
       })
-
+    
+     setTimeout( async()=> {
  close() 
 }, 1000);
-  */
+
    }
 
   
