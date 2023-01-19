@@ -9,6 +9,11 @@
   text-align: left;
   display: flex;
   align-items: center;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 .row {
   display: flex;
@@ -25,6 +30,7 @@
 .lokacija {
   width: 50%;
   justify-content: center;
+  transition: 300ms;
 }
 .naziv {
   width: 50%;
@@ -52,4 +58,8 @@
 
 .red {
   background-color: #fadcda;
+}
+.izmjena:hover {
+  font-weight: 700;
+  transition: 300ms;
 }

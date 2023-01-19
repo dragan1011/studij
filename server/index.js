@@ -597,13 +597,13 @@ app.get("/dokumenti", (req, res) => {
 
 app.put("/dokumentUpdate", (req, res) => {
   const id = req.body.id;
-  const datum = req.body.datum;
   const oznaka = req.body.oznaka;
   const napomena = req.body.napomena;
+  const id_status = req.body.id_statusa;
 
   db.query(
-    "UPDATE studij_dokumenti SET datum=?, oznaka=?, napomena=?, id_statusa=? WHERE id=? ",
-    [datum, oznaka, napomena, id],
+    "UPDATE studij_dokumenti SET oznaka=?, napomena=?, id_status=? WHERE id=? ",
+    [oznaka, napomena, id_status, id],
 
     (err, result) => {
       if (err) {

@@ -88,9 +88,7 @@ const ModalOverlay = (props) => {
     props.closeModal(false);
     document.body.style.overflow = "visible";
   };
-  const showCalendarFunc = () => {
-    setShowCalendar((prevState) => !prevState);
-  };
+
   const hideOnClickOutside = (e) => {
     if (
       refCloseCalendar.current &&

@@ -1,52 +1,83 @@
-.show{
-    display: flex;
+.show {
+  display: flex;
 }
-.sideMenu{
-    width: 20rem;
-    height: 100vh;
-    font-size: 50px;
-    background: #14213d;
-    box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
-    z-index: 2;
-    transition: all 0.2s ease-out 0.2s;
-}
-
-.sideMenuSmall{
-    width: 5rem;
-}
-.margin{
-    margin-top: 18rem;
-}
-.img{
-    padding-right: 15px;
-    transition: all 0.5s ease-out 0.5s;
-}
-.imgSmall{
-    padding-right: 15px;
-    margin-left: -15px;
-    transition: all 0.3s ease-out;
-}
-.imgArrow{
-    position: absolute;
-    left: 1%;
-    top: 1%;
-    z-index: 5;
-    transition: 300ms;
-    cursor: pointer;
-}
-.left{
-    rotate: 180deg;
-    transition: 300ms;
-    cursor: pointer;
+.sideMenu {
+  width: 20rem;
+  height: 100vh;
+  font-size: 50px;
+  background: #14213d;
+  box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px,
+    rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+  z-index: 2;
+  transition: all 0.2s ease-out 0.2s;
 }
 
-span{
-    transition: all 0.5s ease-out 0.5s;
+.sideMenuSmall {
+  width: 5rem;
+}
+.margin {
+  margin-top: 18rem;
+}
+.img {
+  padding-right: 15px;
+  transition: all 0.5s ease-out 0.5s;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.imgSmall {
+  padding-right: 15px;
+  margin-left: -15px;
+  transition: all 0.3s ease-out;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.imgArrow {
+  position: absolute;
+  left: 1%;
+  top: 1%;
+  z-index: 5;
+  transition: 300ms;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.left {
+  rotate: 180deg;
+  transition: 300ms;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+span {
+  transition: all 0.5s ease-out 0.5s;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 .smallText {
-    opacity: 0;
-    visibility: hidden;
-    transition: all 0.3s ease-out;
-    margin-left: -5px;
-  }
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease-out;
+  margin-left: -5px;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}

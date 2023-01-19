@@ -23,13 +23,18 @@ export const Dokumenti = (props) => {
         (props.id / 2) % 1 ? classes.drugiRed : classes.prviRed
       } ${Number(props.id_status) === Number(2) ? classes.red : ""}`}
       key={props.id}
-      onClick={openModalHandler}
     >
       <div className={`${classes.cell} ${classes.naziv}`}>{props.oznaka}</div>
       <div className={`${classes.cell} ${classes.naziv}`}>{props.datum}</div>
       <div className={`${classes.cell} ${classes.naziv}`}>{props.napomena}</div>
-      <div className={`${classes.cell} ${classes.lokacija}`}>
+      <div className={`${classes.cell} ${classes.naziv}`}>
         {Number(props.id_status) === Number(1) ? "Aktivan" : "Neaktivan"}
+      </div>
+      <div
+        className={`${classes.cell} ${classes.lokacija} ${classes.izmjena}`}
+        onClick={openModalHandler}
+      >
+        Izmjena
       </div>
     </div>
   );

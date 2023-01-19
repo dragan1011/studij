@@ -61,6 +61,7 @@ function Statusi(props) {
           placeholder="Brza pretraga..."
           className={classes.search}
         />
+        <h2 className={classes.nazivCentra}>{props.centarIme}</h2>
         <button onClick={modal} className={classes.add}>
           Dodaj novi dokument
         </button>
@@ -78,6 +79,7 @@ function Statusi(props) {
         <div className={`${classes.heading} ${classes.half}`}>Datum</div>
         <div className={`${classes.heading} ${classes.half}`}>Napomena</div>
         <div className={`${classes.heading} ${classes.half}`}>Status</div>
+        <div className={`${classes.heading} ${classes.half}`}>Opcije</div>
       </div>
       <DokumentiTabela
         studijId={props.studijId}

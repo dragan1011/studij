@@ -31,7 +31,7 @@ export default function DijetaTabela(props) {
             <Dokumenti
               jedinica={props.jm}
               rezim={props.rezim}
-              key={item.naziv}
+              key={item.id}
               {...item}
               open={openModalHandler}
             ></Dokumenti>
