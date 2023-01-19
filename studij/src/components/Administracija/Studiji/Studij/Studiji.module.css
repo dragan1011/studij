@@ -1,0 +1,77 @@
+.dijeteWrapper{
+    position: relative;
+    margin: 0 50px;
+    background-color: white;
+    padding-bottom: 20px;
+    transition: 300ms;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    border-radius: 0 20px 20px 20px;
+}
+.components{
+    display: flex;
+    margin:0 50px 10px 50px;
+}
+.add{
+    margin-left: auto;
+    font-family: 'Poppins', sans-serif;
+    font-weight: bold;
+    color: white;
+    background-color:  #14213d;
+    border-radius: 10px;
+    letter-spacing: 1px;
+    cursor: pointer;
+    margin-top: 3rem;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+.cell{
+    width: 20rem;
+    text-align: left;
+    display: flex;
+    align-items: center;
+    padding-left: 15px;
+}
+.heading{
+    width: 20rem;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+}
+.naziv{
+    width: 20%;
+}
+.opis{
+    width: 20%;
+}
+.odjel{
+    width: 65%;
+}
+
+.row_heading{
+    display: flex;
+    margin-bottom: 5px;
+    border-bottom: 1px solid black;
+    background-color: beige;
+    margin: 0 50px;
+    border-radius: 5px 5px 0 0 ;
+}
+.naziv{
+    font-weight: bold;
+}
+.search{
+    width: 15rem;
+    height: 1.5rem;
+    margin-bottom: 1rem;
+    border-radius: 5px;
+    border: 1px solid;
+    font-family: 'Poppins', sans-serif;
+    font-weight:600;
+    border: none;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    margin-top: 3rem;
+}
+.search:focus{
+    outline: none;
+    font-family: 'Poppins', sans-serif;
+}

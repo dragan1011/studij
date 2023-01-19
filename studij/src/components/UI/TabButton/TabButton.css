@@ -1,0 +1,27 @@
+.tabButton{
+    margin-right: 15px;
+    width: auto;
+    height: 3.8rem;
+    cursor: pointer;
+    background-color: #14213d;
+    color: white;
+    font-weight: bold;
+    font-size: 16px;
+    text-align: center;
+    border: 0;
+    transition: 300ms;
+    width: max-content;
+    border-radius: 15px;
+    width: 10rem;
+   }
+   .tabButton:hover{
+    background-color: white;
+    color: #14213d;
+    transition: 300ms;
+   }
+   .act{
+    background-color: white;
+    color: #14213d;
+   }
+   
+   

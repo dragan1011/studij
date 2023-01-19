@@ -1,0 +1,44 @@
+.container{
+  overflow: hidden;
+}
+.menuButton{
+  width: fit-content;
+  display: flex;
+  flex-direction: column;  
+  align-items: center;   
+  margin-top: 5px;
+  padding: 5px;
+  transition: 0.3s;
+  font-size: 20px;
+  font-weight: 500;
+  margin-top: 15px;
+  background-color: transparent;
+  border: none;
+  background-color: #FAFAFF;
+  padding: 10px 20px;
+  /* border-radius: 10px 10px 0 0; */
+  /*box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;*/
+  opacity: 50%;
+  z-index: 3;
+  -webkit-transform: skew(20deg);
+  -moz-transform: skew(20deg);
+  -o-transform: skew(20deg);
+  position: relative;
+  margin-right: 15px;
+  margin-left: -8px;
+  border-radius: 160px 70px 0 0;
+}
+.menuButton:hover{
+  cursor: pointer;
+}
+.active{
+  background-color: #FFFFFF;
+  transition: 300ms;
+  transform: scale(1.1);
+  opacity: 100%;
+  -webkit-transform: skew(20deg);
+  -moz-transform: skew(20deg);
+  -o-transform: skew(20deg);
+  overflow: hidden;
+  position: relative;
+}
