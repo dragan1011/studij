@@ -7,6 +7,9 @@ import classes from './AddDokumentModal.module.css';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+import { Calendar } from 'react-date-range';
+import { format } from 'date-fns'
+
 
 const ModalOverlay = (props) => {
 
@@ -18,17 +21,20 @@ const ModalOverlay = (props) => {
   const [datumIsValid, setDatumIsValid] = useState(false)
   const [oznakaIsValid, setOznakaIsValid] = useState(false)
   const [napomenaIsValid, setNapomenaIsValid] = useState(false)
-
+  const [date, setDate] = useState(new Date);
+  let formatedDate = format(date, 'yyyy-MM-dd' )
+  const [showCalendar, setShowCalendar] = useState(false)
 
   const datumRef = useRef(null)
   const oznakaRef = useRef(null)
   const napomenaRef = useRef(null)
+  const refCloseCalendar = useRef(null)
 
 
 
   useEffect(()=> {
     document.addEventListener('keydown', hideOnEscape, true)
-   // datumRef.current.focus()
+    document.addEventListener('click', hideOnClickOutside, true)
   }, [])
 
   const hideOnEscape = (e) =>{
@@ -92,6 +98,14 @@ const ModalOverlay = (props) => {
     props.closeModal(false)
     document.body.style.overflow = 'visible'
    } 
+   const showCalendarFunc = () => {
+    setShowCalendar(prevState => !prevState)
+   }
+   const hideOnClickOutside = (e) => {
+    if (refCloseCalendar.current && !refCloseCalendar.current.contains(e.target)) {
+  setShowCalendar(false)
+  }
+  }
 
   return (
     <div>
@@ -104,27 +118,21 @@ const ModalOverlay = (props) => {
         </header>
         <div className={classes.content}>
         <form onSubmit={addNewData} className={classes.modalWrapper}>
-   {/* <div className={classes.smallWrapper}>
+   <div className={classes.smallWrapper}>
    <label className={classes.label}>Datum</label>
-  <input ref={nazivRef} onChange={e => setNaziv(e.target.value)}  className={`${classes.input} ${nazivIsValid&&(naziv.trim()===null || naziv.trim() === '')  ? classes.border : ''}`} type="text" />
-     {nazivIsValid&&naziv.length<=0 ? <label className={classes.labelUpozorenja}>Ovo je polje obavezno i ne može biti prazno!</label>:""}
-     {nazivIsValid&&naziv.length>0&&naziv.length<3 ? <label className={classes.labelUpozorenja}>Morate unijeti više od tri karaktera!</label>:""}
-    </div> */}
-
+  <input value={formatedDate} onClick={showCalendarFunc} onChange={e => setDatum(e.target.value)}  className={`${classes.input} ${classes.dateInput}`} type="text" />
+    </div> 
+    <div ref={refCloseCalendar} >
+  {showCalendar && <Calendar style={{zIndex: 100000}} className={classes.Calendar} onChange={item => setDate(item)} />}
+</div>
    <div className={classes.smallWrapper}>
    <label className={classes.label}>Oznaka</label>
    <input ref={oznakaRef} onChange={e => setOznaka(e.target.value)}  className={`${classes.input} ${oznakaIsValid&&(oznaka.trim()===null || oznaka.trim() === '')  ? classes.border : ''}`} type="text" />
-{/*       {lokacijaIsValid&&lokacija==='Izaberite grupu' ? <label className={classes.labelUpozorenja}>Morate izabrati grupu namirnica!</label>:""}
-      {lokacijaIsValid&&lokacija==='' ? <label className={classes.labelUpozorenja}>Morate izabrati grupu namirnica!</label>:""}
-      {lokacijaIsValid&&lokacija===null ? <label className={classes.labelUpozorenja}>Morate izabrati grupu namirnica!</label>:""}
-  */}  </div>
+ </div>
     <div className={classes.smallWrapper}>
    <label className={classes.label}>Napomena</label>
    <input ref={napomenaRef} onChange={e => setNapomena(e.target.value)}  className={`${classes.input} ${napomenaIsValid&&(napomena.trim()===null || napomena.trim() === '')  ? classes.border : ''}`} type="text" />
-{/*       {lokacijaIsValid&&lokacija==='Izaberite grupu' ? <label className={classes.labelUpozorenja}>Morate izabrati grupu namirnica!</label>:""}
-      {lokacijaIsValid&&lokacija==='' ? <label className={classes.labelUpozorenja}>Morate izabrati grupu namirnica!</label>:""}
-      {lokacijaIsValid&&lokacija===null ? <label className={classes.labelUpozorenja}>Morate izabrati grupu namirnica!</label>:""}
-  */}  </div>
+  </div>
 
      
 
