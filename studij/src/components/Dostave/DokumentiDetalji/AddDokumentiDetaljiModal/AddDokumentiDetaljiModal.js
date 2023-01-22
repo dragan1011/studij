@@ -12,15 +12,16 @@ import { format } from "date-fns";
 
 const ModalOverlay = (props) => {
   const [datum, setDatum] = useState("");
-  const [oznaka, setOznaka] = useState("");
-  const [napomena, setNapomena] = useState("");
+  const [serija, setSerija] = useState("");
+  const [kodLijeka, setKodLijeka] = useState("");
   const [datumIsValid, setDatumIsValid] = useState(false);
-  const [oznakaIsValid, setOznakaIsValid] = useState(false);
-  const [napomenaIsValid, setNapomenaIsValid] = useState(false);
+  const [serijaIsValid, setSerijaIsValid] = useState(false);
+  const [kodLijekaIsValid, setKodLijekaIsValid] = useState(false);
   const [date, setDate] = useState(new Date());
   let formatedDate = format(date, "yyyy-MM-dd");
   const [showCalendar, setShowCalendar] = useState(false);
-  const [statusIsValid, setStatusIsValid] = useState(false);
+  const [lijekIsValid, setLijekIsValid] = useState(false);
+  const [data, setData] = useState([]);
 
   const [selectedOption, setSelectedOption] = useState("");
   const [focusedOption, setFocusedOption] = useState("");
@@ -28,19 +29,15 @@ const ModalOverlay = (props) => {
   const [selectedOptionId, setSelectedOptionId] = useState("");
 
   const datumRef = useRef(null);
-  const oznakaRef = useRef(null);
-  const napomenaRef = useRef(null);
-  const statusRef = useRef(null);
+  const serijaRef = useRef(null);
+  const kodLijekaRef = useRef(null);
+  const lijekRef = useRef(null);
   const refCloseCalendar = useRef(null);
-
-  const data = [
-    { id: 1, naziv: "Aktivan" },
-    { id: 2, naziv: "Neaktivan" },
-  ];
 
   useEffect(() => {
     document.addEventListener("keydown", hideOnEscape, true);
     document.addEventListener("click", hideOnClickOutside, true);
+    dataFetch();
   }, []);
 
   const hideOnEscape = (e) => {
@@ -49,6 +46,12 @@ const ModalOverlay = (props) => {
     }
   };
 
+  const dataFetch = async () => {
+    const data = await (await fetch("http://localhost:3001/lijekovi")).json();
+
+    // set state when the data received
+    setData(data);
+  };
   const notify = () => {
     toast.success("Dokument je uspješno dodan!", {
       position: "top-right",
@@ -65,42 +68,51 @@ const ModalOverlay = (props) => {
   const addNewData = async (e) => {
     e.preventDefault();
 
-    if (oznaka.trim() == "" || oznaka.trim().length == 0) {
-      oznakaRef.current.focus();
-      return setOznakaIsValid(true);
-    }
-    if (oznakaRef.current === document.activeElement) {
-      napomenaRef.current.focus();
-    }
-    if (napomena === "" || napomena === null) {
-      napomenaRef.current.focus();
-      return setNapomenaIsValid(true);
-    }
-    if (napomenaRef.current === document.activeElement) {
-      setShowList(true);
-      statusRef.current.focus();
-    }
     if (selectedOption === "" || selectedOption === null) {
-      statusRef.current.focus();
+      lijekRef.current.focus();
       setShowList(true);
-      return setStatusIsValid(true);
+      return setKodLijekaIsValid(true);
+    }
+    if (lijekRef.current === document.activeElement) {
+      serijaRef.current.focus();
+      setShowList(false);
+    }
+    if (serija.trim() == "" || serija.trim().length == 0) {
+      serijaRef.current.focus();
+      return setSerijaIsValid(true);
+    }
+    if (serijaRef.current === document.activeElement) {
+      kodLijeka.current.focus();
+    }
+    if (kodLijeka === "" || kodLijeka === null) {
+      kodLijekaRef.current.focus();
+      return setKodLijekaIsValid(true);
     }
 
+    console.log(
+      props.data.id,
+      selectedOption,
+      serija,
+      kodLijeka,
+      formatedDate,
+      props.studijId
+    );
+
     notify();
-    Axios.post("http://localhost:3001/dokumentDodaj", {
-      vrsta: "ulaz",
-      datum: formatedDate,
-      oznaka: oznaka,
-      id_studijskog_centra: props.studijId,
-      broj_dostavnice: 0,
-      id_veze: 0,
-      storno: 0,
-      napomena: napomena,
-      id_statusa: selectedOptionId,
+    /*   Axios.post("http://localhost:3001/dokumentDodaj", {
+      id_dokumenta: props.data.id,
+      id_lijeka: selectedOptionId,
+      rok_trajanja: formatedDate,
+      jk_lijeka: 1,
+      kizlaz: 0,
+      kulaz: 1,
+      knarudzbe: 0,
+      sifra_pacijenta: napomena,
+      id_studijskog_centra: props.studijId
     }).then((response) => {
       props.refresh();
       console.log(response);
-    });
+    }); */
 
     setTimeout(async () => {
       close();
@@ -179,11 +191,11 @@ const ModalOverlay = (props) => {
                 />
               )}
             </div>
-              <div className={classes.smallWrapper}>
-              <label className={classes.label}>Status</label>
+            <div className={classes.smallWrapper}>
+              <label className={classes.label}>Lijek</label>
               <input
                 className={`${classes.input}  ${
-                  statusIsValid &&
+                  lijekIsValid &&
                   (selectedOption.trim() === null ||
                     selectedOption.trim() === "")
                     ? classes.border
@@ -194,7 +206,7 @@ const ModalOverlay = (props) => {
                 onChange={handleChange}
                 onKeyDown={handleKeyDown}
                 onClick={showListFunc}
-                ref={statusRef}
+                ref={lijekRef}
               />
               {showList && (
                 <div
@@ -221,20 +233,22 @@ const ModalOverlay = (props) => {
                       }}
                       className={classes.optionSelect}
                     >
-                      {option.naziv}
+                      {Number(option.studij_id) === Number(props.studijId)
+                        ? option.naziv
+                        : ""}
                     </div>
                   ))}
                 </div>
               )}
             </div>
             <div className={classes.smallWrapper}>
-              <label className={classes.label}>Oznaka</label>
+              <label className={classes.label}>Serija</label>
               <input
-                ref={oznakaRef}
-                onChange={(e) => setOznaka(e.target.value)}
+                ref={serijaRef}
+                onChange={(e) => setSerija(e.target.value)}
                 className={`${classes.input} ${
-                  oznakaIsValid &&
-                  (oznaka.trim() === null || oznaka.trim() === "")
+                  serijaIsValid &&
+                  (serija.trim() === null || serija.trim() === "")
                     ? classes.border
                     : ""
                 }`}
@@ -242,13 +256,13 @@ const ModalOverlay = (props) => {
               />
             </div>
             <div className={classes.smallWrapper}>
-              <label className={classes.label}>Napomena</label>
+              <label className={classes.label}>Jedinstveni kod lijeka</label>
               <input
-                ref={napomenaRef}
-                onChange={(e) => setNapomena(e.target.value)}
+                ref={kodLijekaRef}
+                onChange={(e) => setKodLijeka(e.target.value)}
                 className={`${classes.input} ${
-                  napomenaIsValid &&
-                  (napomena.trim() === null || napomena.trim() === "")
+                  kodLijekaIsValid &&
+                  (kodLijeka.trim() === null || kodLijeka.trim() === "")
                     ? classes.border
                     : ""
                 }`}
@@ -283,6 +297,7 @@ const Modal = (props) => {
           refresh={props.refresh}
           closeModal={props.closeModal}
           title={props.title}
+          data={props.data}
         >
           {props.children}
         </ModalOverlay>,
