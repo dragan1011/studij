@@ -14,9 +14,11 @@ const ModalOverlay = (props) => {
   const [datum, setDatum] = useState("");
   const [serija, setSerija] = useState("");
   const [kodLijeka, setKodLijeka] = useState("");
+  const [pacijent, setPacijent] = useState("");
   const [datumIsValid, setDatumIsValid] = useState(false);
   const [serijaIsValid, setSerijaIsValid] = useState(false);
   const [kodLijekaIsValid, setKodLijekaIsValid] = useState(false);
+  const [pacijentIsValid, setPacijentIsValid] = useState(false);
   const [date, setDate] = useState(new Date());
   let formatedDate = format(date, "yyyy-MM-dd");
   const [showCalendar, setShowCalendar] = useState(false);
@@ -32,6 +34,7 @@ const ModalOverlay = (props) => {
   const serijaRef = useRef(null);
   const kodLijekaRef = useRef(null);
   const lijekRef = useRef(null);
+  const pacijentRef = useRef(null)
   const refCloseCalendar = useRef(null);
 
   useEffect(() => {
@@ -88,7 +91,13 @@ const ModalOverlay = (props) => {
       kodLijekaRef.current.focus();
       return setKodLijekaIsValid(true);
     }
-
+    if (kodLijeka.current === document.activeElement) {
+      pacijentRef.current.focus();
+    }
+      if (pacijent === "" || pacijent === null) {
+      pacijentRef.current.focus();
+      return setPacijentIsValid(true);
+    }
     console.log(
       props.data.id,
       selectedOption,
@@ -99,20 +108,21 @@ const ModalOverlay = (props) => {
     );
 
     notify();
-    /*   Axios.post("http://localhost:3001/dokumentDodaj", {
+       Axios.post("http://localhost:3001/dokumentDetaljiDodaj", {
       id_dokumenta: props.data.id,
       id_lijeka: selectedOptionId,
+      serja: serija,
       rok_trajanja: formatedDate,
-      jk_lijeka: 1,
+      jk_lijeka: kodLijeka,
       kizlaz: 0,
       kulaz: 1,
-      knarudzbe: 0,
-      sifra_pacijenta: napomena,
+      knarudzba: 0,
+      sifra_pacijenta: pacijent,
       id_studijskog_centra: props.studijId
     }).then((response) => {
       props.refresh();
       console.log(response);
-    }); */
+    }); 
 
     setTimeout(async () => {
       close();
@@ -269,7 +279,20 @@ const ModalOverlay = (props) => {
                 type="text"
               />
             </div>
-
+                <div className={classes.smallWrapper}>
+              <label className={classes.label}>Šifra pacijenta</label>
+              <input
+                ref={pacijentRef}
+                onChange={(e) => setPacijent(e.target.value)}
+                className={`${classes.input} ${
+                  pacijentIsValid &&
+                  (pacijent.trim() === null || pacijent.trim() === "")
+                    ? classes.border
+                    : ""
+                }`}
+                type="text"
+              />
+            </div>
             <footer className={classes.actions}>
               <button type="submit" className={classes.button}>
                 Dodaj seriju

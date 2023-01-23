@@ -8,7 +8,7 @@ import AddDokumentiDetaljiModal from "./AddDokumentiDetaljiModal/AddDokumentiDet
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-//import CentriTabela from './Centri/CentriTabela'
+import DokumentDetaljiTabela from './DokumentDetaljiTabela'
 
 const ModalOverlay = (props) => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -48,11 +48,12 @@ const ModalOverlay = (props) => {
   const search = (data) => {
     return data.filter(
       (item) =>
-        item.naziv
+        item.serija
           .toString()
           .toLowerCase()
           .includes(searchTerm.toLowerCase()) ||
-        item.sifra.toString().toLowerCase().includes(searchTerm.toLowerCase())
+        item.rok_trajanja.toString().toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.jedinstveni_kod_lijeka.toString().toLowerCase().includes(searchTerm.toLowerCase())
     );
   };
   const searchUserFunc = (data) => {
@@ -66,7 +67,7 @@ const ModalOverlay = (props) => {
 
   // fetch data centri
   const dataFetch = async () => {
-    const data = await (await fetch("http://localhost:3001/centri")).json();
+    const data = await (await fetch("http://localhost:3001/dokumentiDetalji")).json();
 
     // set state when the data received
     setData(data);
@@ -112,6 +113,7 @@ const ModalOverlay = (props) => {
     setCentarId(childData);
   };
 
+
   return (
     <div>
       <ToastContainer />
@@ -151,16 +153,18 @@ const ModalOverlay = (props) => {
         </div>
         <div className={classes.row_heading}>
           <div className={`${classes.heading} ${classes.half}`}>Lijek</div>
-          <div className={`${classes.heading} ${classes.half}`}>Serija</div>
+          <div className={`${classes.heading} ${classes.half}`}>Rok trajanja</div>
           <div className={`${classes.heading} ${classes.half}`}>
-            Rok trajanja
+            Serija
           </div>
           <div className={`${classes.heading} ${classes.half}`}>
             Jedinstveni kod lijeka
           </div>
-          <div className={`${classes.heading} ${classes.half}`}>Centar</div>
+           <div className={`${classes.heading} ${classes.half}`}>
+            Pacijent
+          </div>
         </div>
-        {/* <CentriTabela centarId={handleData} studijData={props.data}  refresh={refreshFunc}  data={(search(data))}  /> */}
+         <DokumentDetaljiTabela centarId={handleData} lijekData={props.data}  refresh={refreshFunc}  data={search(data)}  />
 
         <footer className={classes.actions}>
           <button

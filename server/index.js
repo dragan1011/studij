@@ -615,6 +615,50 @@ app.put("/dokumentUpdate", (req, res) => {
   );
 });
 
+app.post("/dokumentDetaljiDodaj", (req, res) => {
+  const id_dokumenta = req.body.id_dokumenta;
+  const id_lijeka = req.body.id_lijeka;
+  const serja = req.body.serja;
+  const rok_trajanja = req.body.rok_trajanja;
+  const kod_lijeka = req.body.jk_lijeka;
+  const kizlaz = req.body.kizlaz;
+  const kulaz = req.body.kulaz;
+  const knarudzba = req.body.knarudzba;
+  const pacijent = req.body.sifra_pacijenta;
+  const id_studijskog_centra = req.body.id_studijskog_centra
+
+  db.query(
+    "INSERT INTO studij_dokumenti_detalji (id_dokumenta, id_lijeka, serija, rok_trajanja, jedinstveni_kod_lijeka, kizlaz, kulaz, knarudzba, sifra_pacijenta, id_studijskog_centra) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+    [
+      id_dokumenta,
+      id_lijeka,
+      serja,
+      rok_trajanja,
+      kod_lijeka,
+      kizlaz,
+      kulaz,
+      knarudzba,
+      pacijent,
+      id_studijskog_centra
+    ],
+    (err, result) => {
+      if (err) {
+        console.log(err);
+      }
+      res.send(result);
+    }
+  );
+});
+app.get("/dokumentiDetalji", (req, res) => {
+  db.query("SELECT * FROM studij_dokumenti_detalji", (error, results) => {
+    if (error) {
+      console.log(err);
+    } else {
+      res.send(results);
+    }
+  });
+});
+
 app.listen(3001, () => {
   console.log("Server je pokrenut");
 });
