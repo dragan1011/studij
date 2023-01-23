@@ -8,7 +8,7 @@ import AddDokumentiDetaljiModal from "./AddDokumentiDetaljiModal/AddDokumentiDet
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-import DokumentDetaljiTabela from './DokumentDetaljiTabela'
+import DokumentDetaljiTabela from "./DokumentDetaljiTabela";
 
 const ModalOverlay = (props) => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -52,12 +52,18 @@ const ModalOverlay = (props) => {
           .toString()
           .toLowerCase()
           .includes(searchTerm.toLowerCase()) ||
-        item.rok_trajanja.toString().toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.jedinstveni_kod_lijeka.toString().toLowerCase().includes(searchTerm.toLowerCase())
+        item.rok_trajanja
+          .toString()
+          .toLowerCase()
+          .includes(searchTerm.toLowerCase()) ||
+        item.jedinstveni_kod_lijeka
+          .toString()
+          .toLowerCase()
+          .includes(searchTerm.toLowerCase())
     );
   };
   const searchUserFunc = (data) => {
-    return Array.from(korisnici).filter((item) =>
+    return Array.from(lijek).filter((item) =>
       item.imePrezime
         .toString()
         .toLowerCase()
@@ -67,35 +73,27 @@ const ModalOverlay = (props) => {
 
   // fetch data centri
   const dataFetch = async () => {
-    const data = await (await fetch("http://localhost:3001/dokumentiDetalji")).json();
+    const data = await (
+      await fetch("http://localhost:3001/dokumentiDetalji")
+    ).json();
 
     // set state when the data received
     setData(data);
   };
 
-  const [korisnici, setKorisnici] = useState("");
+  const [lijek, setLijek] = useState("");
 
   // fetch data korisnici
-  const korisniciFetch = async () => {
-    const data = await (await fetch("http://localhost:3001/korisnici")).json();
+  const lijekFetch = async () => {
+    const data = await (await fetch("http://localhost:3001/lijekovi")).json();
 
     // set state when the data received
-    setKorisnici(data);
-  };
-
-  const [uloga, setUloga] = useState("");
-  // fetch data korisnici
-  const ulogaFetch = async () => {
-    const data = await (await fetch("http://localhost:3001/uloga")).json();
-
-    // set state when the data received
-    setUloga(data);
+    setLijek(data);
   };
 
   useEffect(() => {
     dataFetch();
-    korisniciFetch();
-    ulogaFetch();
+    lijekFetch();
   }, [refresh]);
 
   const refreshFunc = () => {
@@ -112,7 +110,6 @@ const ModalOverlay = (props) => {
   const handleData = (childData) => {
     setCentarId(childData);
   };
-
 
   return (
     <div>
@@ -153,18 +150,21 @@ const ModalOverlay = (props) => {
         </div>
         <div className={classes.row_heading}>
           <div className={`${classes.heading} ${classes.half}`}>Lijek</div>
-          <div className={`${classes.heading} ${classes.half}`}>Rok trajanja</div>
           <div className={`${classes.heading} ${classes.half}`}>
-            Serija
+            Rok trajanja
           </div>
+          <div className={`${classes.heading} ${classes.half}`}>Serija</div>
           <div className={`${classes.heading} ${classes.half}`}>
             Jedinstveni kod lijeka
           </div>
-           <div className={`${classes.heading} ${classes.half}`}>
-            Pacijent
-          </div>
+          <div className={`${classes.heading} ${classes.half}`}>Pacijent</div>
         </div>
-         <DokumentDetaljiTabela centarId={handleData} lijekData={props.data}  refresh={refreshFunc}  data={search(data)}  />
+        <DokumentDetaljiTabela
+          centarId={handleData}
+          dokumentData={props.data}
+          refresh={refreshFunc}
+          data={search(data)}
+        />
 
         <footer className={classes.actions}>
           <button

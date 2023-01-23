@@ -34,13 +34,15 @@ const ModalOverlay = (props) => {
   const serijaRef = useRef(null);
   const kodLijekaRef = useRef(null);
   const lijekRef = useRef(null);
-  const pacijentRef = useRef(null)
+  const pacijentRef = useRef(null);
   const refCloseCalendar = useRef(null);
 
   useEffect(() => {
     document.addEventListener("keydown", hideOnEscape, true);
     document.addEventListener("click", hideOnClickOutside, true);
     dataFetch();
+    lijekRef.current.focus();
+    setShowList(true);
   }, []);
 
   const hideOnEscape = (e) => {
@@ -80,35 +82,27 @@ const ModalOverlay = (props) => {
       serijaRef.current.focus();
       setShowList(false);
     }
-    if (serija.trim() == "" || serija.trim().length == 0) {
+    if (serija.trim() === "" || serija.trim().length === 0) {
       serijaRef.current.focus();
       return setSerijaIsValid(true);
     }
     if (serijaRef.current === document.activeElement) {
-      kodLijeka.current.focus();
+      kodLijekaRef.current.focus();
     }
-    if (kodLijeka === "" || kodLijeka === null) {
+    if (kodLijeka.trim() === "" || kodLijeka.trim() === null) {
       kodLijekaRef.current.focus();
       return setKodLijekaIsValid(true);
     }
     if (kodLijeka.current === document.activeElement) {
       pacijentRef.current.focus();
     }
-      if (pacijent === "" || pacijent === null) {
+    if (pacijent.trim() === "" || pacijent.trim() === null) {
       pacijentRef.current.focus();
       return setPacijentIsValid(true);
     }
-    console.log(
-      props.data.id,
-      selectedOption,
-      serija,
-      kodLijeka,
-      formatedDate,
-      props.studijId
-    );
 
     notify();
-       Axios.post("http://localhost:3001/dokumentDetaljiDodaj", {
+    Axios.post("http://localhost:3001/dokumentDetaljiDodaj", {
       id_dokumenta: props.data.id,
       id_lijeka: selectedOptionId,
       serja: serija,
@@ -118,11 +112,11 @@ const ModalOverlay = (props) => {
       kulaz: 1,
       knarudzba: 0,
       sifra_pacijenta: pacijent,
-      id_studijskog_centra: props.studijId
+      id_studijskog_centra: props.studijId,
     }).then((response) => {
       props.refresh();
       console.log(response);
-    }); 
+    });
 
     setTimeout(async () => {
       close();
@@ -183,7 +177,7 @@ const ModalOverlay = (props) => {
         <div className={classes.content}>
           <form onSubmit={addNewData} className={classes.modalWrapper}>
             <div className={classes.smallWrapper}>
-              <label className={classes.label}>Datum</label>
+              <label className={classes.label}>Rok trajanja</label>
               <input
                 value={formatedDate}
                 onClick={showCalendarFunc}
@@ -279,7 +273,7 @@ const ModalOverlay = (props) => {
                 type="text"
               />
             </div>
-                <div className={classes.smallWrapper}>
+            <div className={classes.smallWrapper}>
               <label className={classes.label}>Šifra pacijenta</label>
               <input
                 ref={pacijentRef}
