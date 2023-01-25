@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Administracija from "../Administracija/Administracija";
 import Dostave from "../Dostave/Dostave/Dostave";
 import Magacin from "../Magacin/Magacin";
+import EtičkiOdbor from '../EtičkiOdbor/EtičkiOdbora'
 import MenuButton from "../UI/MenuButton/MenuButton";
 import classes from "./SideMenu.module.css";
 
@@ -94,7 +95,7 @@ function SideMenu() {
       </div>} */}
 
       {active === "Administracija" && <Administracija />}
-      {/* {active === "Etičkiodbor" && <Studij />} */}
+      {active === "Etičkiodbor" && <EtičkiOdbor />}
       {active === "Dostave" && <Dostave />}
       {active === "Magacin" && <Magacin />}
     </div>

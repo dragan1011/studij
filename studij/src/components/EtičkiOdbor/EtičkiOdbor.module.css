@@ -1,0 +1,14 @@
+.component{
+width: 100vw;
+background-color: #F4F4FB;
+}
+.menuLook{
+display: flex;
+flex-direction: row;
+margin-left: 50px;
+}
+.ispravljenje{
+    -webkit-transform: skew(-20deg);
+  -moz-transform: skew(-20deg);
+  -o-transform: skew(-20deg);
+}

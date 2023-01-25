@@ -1,0 +1,52 @@
+.dijeteWrapper{
+    position: relative;
+    margin: 0 50px;
+}
+.cell{
+    width: 20rem;
+    text-align: left;
+    display: flex;
+    align-items: center;
+    padding-left: 15px;
+}
+.row{
+    display: flex;
+    cursor: pointer;
+    background-color: white;
+    border: none;
+    /*box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;*/
+    transition: 300ms;
+}
+.row:hover{
+    background-color: #F4F4FB;
+    transition: 300ms;
+}
+.lokacija{
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    margin-left: -10px;
+    width: 50%;
+    border-right: 1px solid rgba(0, 0, 0, 0.20);
+}
+
+.drugiRed{
+    border-bottom: 1px solid rgba(0, 0, 0, 0.20);
+    border-left: 1px solid rgba(0, 0, 0, 0.20);
+    border-right: 1px solid rgba(0, 0, 0, 0.20);
+}
+.prviRed{
+    border-bottom: 1px solid rgba(0, 0, 0, 0.20);
+    border-left: 1px solid rgba(0, 0, 0, 0.20);
+    border-right: 1px solid rgba(0, 0, 0, 0.20);
+}
+.red{
+    background-color: #fadcda;
+}
+.izmjena{
+    transition: 300ms;
+}
+.izmjena:hover{
+    font-weight: 700;
+    transition: 300ms;
+}

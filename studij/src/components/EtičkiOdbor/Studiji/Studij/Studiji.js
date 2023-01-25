@@ -1,0 +1,106 @@
+import React, { useState, useEffect } from 'react'
+import StudijTabela from './StudijTabela';
+import AddStudijModal from '../AddStudijModal/AddStudijModal';
+
+import classes from './Studiji.module.css'
+
+function Studij() {
+ 
+  const [searchTerm, setSearchTerm] = useState('')
+  const [isModal, setIsModal] = useState(false)
+  const [data, setData] = useState([])
+  const [status, setStatus] = useState([])
+  const [sponzor, setSponzor] = useState([])
+
+  const [refresh, setRefresh] = useState(false)
+
+  const modal = () => {
+    setIsModal(true)
+    document.body.style.overflow = 'hidden'
+   }
+
+  const search = (data) => {
+     return data.filter(
+      (item)=> 
+      item.broj.toString().toLowerCase().includes(searchTerm.toLowerCase()) ||
+      item.opis.toString().toLowerCase().includes(searchTerm.toLowerCase())
+    ) 
+
+    
+  }
+
+
+      // fetch data
+      const dataFetch = async () => {
+        const data = await (
+          await fetch(
+            "http://localhost:3001/studij"
+          )
+        ).json();
+  
+        // set state when the data received
+        setData(data);
+      };
+
+  
+    useEffect(() => {
+      dataFetch();
+      statusFetch();
+      sponzorFetch()
+    }, [refresh]);
+  
+    const refreshFunc = () => {
+  
+      setRefresh(prev => !prev) 
+    
+    }
+        // fetch status
+        const statusFetch = async () => {
+          const data = await (
+            await fetch(
+              "http://localhost:3001/status"
+            )
+          ).json();
+    
+          // set state when the data received
+          setStatus(data);
+        };
+         // fetch status
+         const sponzorFetch = async () => {
+          const data = await (
+            await fetch(
+              "http://localhost:3001/sponzor"
+            )
+          ).json();
+    
+          // set state when the data received
+          setSponzor(data);
+        };
+
+  
+
+ 
+  return (
+   
+ <div className={classes.dijeteWrapper}>
+  <div className={classes.components}>
+     <input type="text" onChange={event => {setSearchTerm(event.target.value)}} placeholder='Brza pretraga...' className={classes.search} />
+    <button onClick={modal} className={classes.add}>Dodaj novi studij</button>
+   { isModal && <AddStudijModal refresh={refreshFunc} closeModal={setIsModal} title="Dodaj novi studij" />}
+        </div>
+    <div className={classes.row_heading}>
+    <div className={`${classes.heading} ${classes.naziv}`}>Broj</div>
+    <div className={`${classes.heading} ${classes.opis}`}>Opis</div>
+    <div className={`${classes.heading} ${classes.opis}`}>Datum od</div>
+    <div className={`${classes.heading} ${classes.opis}`}>Datum do</div>
+    <div className={`${classes.heading} ${classes.opis}`}>Sponzor</div>
+    <div className={`${classes.heading} ${classes.opis}`}>Status</div>
+    <div className={`${classes.heading} ${classes.opis}`}>Opcije</div>
+  </div>
+  <StudijTabela sponzor={sponzor} status={status} refresh={refreshFunc} data={search(data)}  />
+
+</div>
+  );
+}
+
+export default Studij
