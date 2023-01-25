@@ -23,24 +23,10 @@ const ModalOverlay = (props) => {
     }
   };
 
-  const prihvatiStudij = () => {
+  const vratiStudij = () => {
     Axios.put("http://localhost:3001/studijStatusUpdate", {
       id: props.data.id,
       id_status: 1,
-    }).then((response) => {
-      props.refresh();
-      console.log(response);
-    });
-    setTimeout(async () => {
-      close();
-    }, 1000);
-    props.notify();
-  };
-
-  const odbijStudij = () => {
-    Axios.put("http://localhost:3001/studijStatusUpdate", {
-      id: props.data.id,
-      id_status: 14,
     }).then((response) => {
       props.refresh();
       console.log(response);
@@ -70,14 +56,8 @@ const ModalOverlay = (props) => {
           <h3>Broj studija: {props.data.broj}</h3>
         </header>
         <div className={classes.content}>
-          <button
-            onClick={() => prihvatiStudij()}
-            className={`${classes.button} ${classes.green}`}
-          >
-            Prihvati studij
-          </button>
-          <button onClick={() => odbijStudij()} className={classes.close}>
-            Odbij studij
+          <button onClick={() => vratiStudij()} className={classes.button}>
+            Vrati studij
           </button>
         </div>
         <footer className={classes.actions}>

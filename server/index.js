@@ -649,6 +649,42 @@ app.post("/dokumentDetaljiDodaj", (req, res) => {
     }
   );
 });
+
+app.post("/dokumentiDetaljiDodaj", (req, res) => {
+  const id_dokumenta = req.body.id_dokumenta;
+  const id_lijeka = req.body.id_lijeka;
+  const serja = req.body.serja;
+  const rok_trajanja = req.body.rok_trajanja;
+  const kod_lijeka = req.body.jk_lijeka;
+  const kizlaz = req.body.kizlaz;
+  const kulaz = req.body.kulaz;
+  const knarudzba = req.body.knarudzba;
+  const pacijent = req.body.sifra_pacijenta;
+  const id_studijskog_centra = req.body.id_studijskog_centra;
+
+  db.query(
+    "INSERT INTO studij_dokumenti_detalji (id_dokumenta, id_lijeka, serija, rok_trajanja, jedinstveni_kod_lijeka, kizlaz, kulaz, knarudzba, sifra_pacijenta, id_studijskog_centra) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+    [
+      id_dokumenta,
+      id_lijeka,
+      serja,
+      rok_trajanja,
+      kod_lijeka,
+      kizlaz,
+      kulaz,
+      knarudzba,
+      pacijent,
+      id_studijskog_centra,
+    ],
+    (err, result) => {
+      if (err) {
+        console.log(err);
+      }
+      res.send(result);
+    }
+  );
+});
+
 app.get("/dokumentiDetalji", (req, res) => {
   db.query("SELECT * FROM studij_dokumenti_detalji", (error, results) => {
     if (error) {
@@ -668,6 +704,24 @@ app.put("/dokumentDetaljiUpdate", (req, res) => {
   db.query(
     "UPDATE studij_dokumenti_detalji SET serija=?, jedinstveni_kod_lijeka=?, sifra_pacijenta=? WHERE id=? ",
     [serija, kodLijeka, pacijent, id],
+
+    (err, result) => {
+      if (err) {
+        console.log(err);
+      } else {
+        res.send(result);
+      }
+    }
+  );
+});
+
+app.put("/studijStatusUpdate", (req, res) => {
+  const id = req.body.id;
+  const id_status = req.body.id_status;
+
+  db.query(
+    "UPDATE studij_opis SET id_statusa=? WHERE id=? ",
+    [id_status, id],
 
     (err, result) => {
       if (err) {

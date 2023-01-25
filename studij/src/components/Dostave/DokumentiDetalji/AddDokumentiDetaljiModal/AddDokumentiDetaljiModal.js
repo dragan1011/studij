@@ -10,7 +10,11 @@ import "react-toastify/dist/ReactToastify.css";
 import { Calendar } from "react-date-range";
 import { format } from "date-fns";
 
+import TabButton from "../../../UI/TabButton/TabButton";
+
 const ModalOverlay = (props) => {
+  const [active, setActive] = useState("jednaSerija");
+
   const [datum, setDatum] = useState("");
   const [serija, setSerija] = useState("");
   const [kodLijeka, setKodLijeka] = useState("");
@@ -25,6 +29,16 @@ const ModalOverlay = (props) => {
   const [lijekIsValid, setLijekIsValid] = useState(false);
   const [data, setData] = useState([]);
 
+  const [pocetnaSerija, setPocetnaSerija] = useState("");
+  const [krajnjaSerija, setKrajnjaSerija] = useState("");
+  const [korakSerije, setKorakSerije] = useState("");
+  const [nazivSerije, setNazivSerije] = useState("");
+
+  const [pocetnaSerijaIsValid, setPocetnaSerijaIsValid] = useState(false);
+  const [krajnjaSerijaIsValid, setKrajnjaSerijaIsValid] = useState(false);
+  const [korakSerijaIsValid, setKorakSerijaIsValid] = useState(false);
+  const [nazivSerijaIsValid, setNazivSerijaIsValid] = useState(false);
+
   const [selectedOption, setSelectedOption] = useState("");
   const [focusedOption, setFocusedOption] = useState("");
   const [showList, setShowList] = useState(false);
@@ -37,12 +51,15 @@ const ModalOverlay = (props) => {
   const pacijentRef = useRef(null);
   const refCloseCalendar = useRef(null);
 
+  const pocetnaSerijaRef = useRef(null);
+  const krajnjaSerijaRef = useRef(null);
+  const korakSerijaRef = useRef(null);
+  const nazivSerijeRef = useRef(null);
+
   useEffect(() => {
     document.addEventListener("keydown", hideOnEscape, true);
     document.addEventListener("click", hideOnClickOutside, true);
     dataFetch();
-    lijekRef.current.focus();
-    setShowList(true);
   }, []);
 
   const hideOnEscape = (e) => {
@@ -58,9 +75,9 @@ const ModalOverlay = (props) => {
     setData(data);
   };
   const notify = () => {
-    toast.success("Dokument je uspješno dodan!", {
+    toast.success("Serija je uspješno dodana!", {
       position: "top-right",
-      autoClose: 5000,
+      autoClose: 1500,
       hideProgressBar: true,
       closeOnClick: true,
       pauseOnHover: true,
@@ -123,6 +140,83 @@ const ModalOverlay = (props) => {
     }, 1000);
   };
 
+  const addNewMultipleData = async (e) => {
+    e.preventDefault();
+
+    if (selectedOption === "" || selectedOption === null) {
+      lijekRef.current.focus();
+      setShowList(true);
+      return setKodLijekaIsValid(true);
+    }
+    if (lijekRef.current === document.activeElement) {
+      nazivSerijeRef.current.focus();
+      setShowList(false);
+    }
+    if (nazivSerije.trim() === "" || nazivSerije.trim().length === 0) {
+      nazivSerijeRef.current.focus();
+      return setNazivSerijaIsValid(true);
+    }
+    if (nazivSerijeRef.current === document.activeElement) {
+      pocetnaSerijaRef.current.focus();
+    }
+    if (pocetnaSerija.trim() === "" || pocetnaSerija.trim().length === 0) {
+      pocetnaSerijaRef.current.focus();
+      return setPocetnaSerijaIsValid(true);
+    }
+    if (pocetnaSerijaRef.current === document.activeElement) {
+      krajnjaSerijaRef.current.focus();
+    }
+    if (krajnjaSerija.trim() === "" || krajnjaSerija.trim().length === 0) {
+      krajnjaSerijaRef.current.focus();
+      return setKrajnjaSerijaIsValid(true);
+    }
+    if (krajnjaSerijaRef.current === document.activeElement) {
+      korakSerijaRef.current.focus();
+    }
+    if (korakSerije.trim() === "" || korakSerije.trim().length === 0) {
+      korakSerijaRef.current.focus();
+      return setKorakSerijaIsValid(true);
+    }
+    if (korakSerijaRef.current === document.activeElement) {
+      kodLijekaRef.current.focus();
+    }
+    if (kodLijeka.trim() === "" || kodLijeka.trim() === null) {
+      kodLijekaRef.current.focus();
+      return setKodLijekaIsValid(true);
+    }
+    if (kodLijeka.current === document.activeElement) {
+      pacijentRef.current.focus();
+    }
+    if (pacijent.trim() === "" || pacijent.trim() === null) {
+      pacijentRef.current.focus();
+      return setPacijentIsValid(true);
+    }
+
+    for (let i = pocetnaSerija; i <= krajnjaSerija; i++) {
+      let serijaIme = nazivSerije + i;
+
+      return Axios.post("http://localhost:3001/dokumentiDetaljiDodaj", {
+        id_dokumenta: props.data.id,
+        id_lijeka: selectedOptionId,
+        serja: serijaIme,
+        rok_trajanja: formatedDate,
+        jk_lijeka: kodLijeka,
+        kizlaz: 0,
+        kulaz: 1,
+        knarudzba: 0,
+        sifra_pacijenta: pacijent,
+        id_studijskog_centra: props.studijId,
+      }).then((response) => {
+        props.refresh();
+        console.log(response);
+      });
+    }
+    notify();
+    setTimeout(async () => {
+      close();
+    }, 1000);
+  };
+
   const close = () => {
     props.closeModal(false);
     document.body.style.overflow = "visible";
@@ -141,6 +235,11 @@ const ModalOverlay = (props) => {
 
   const handleChange = (event) => {
     setSelectedOption(event.target.value);
+  };
+
+  //Promjena tabova
+  const setSelectedHandler = (name) => {
+    setActive(name);
   };
 
   const handleKeyDown = (event) => {
@@ -172,131 +271,318 @@ const ModalOverlay = (props) => {
       <div onClick={close} className={classes.backdrop} />
       <div className={`${classes.modal} ${classes.card}`}>
         <header className={classes.header}>
-          <h2>{props.title}</h2>
+          <TabButton
+            name={"jednaSerija"}
+            activ={active}
+            select={setSelectedHandler}
+          >
+            Korisnici
+          </TabButton>
+          <TabButton
+            name={"viseSerija"}
+            activ={active}
+            select={setSelectedHandler}
+          >
+            {props.title}
+          </TabButton>
         </header>
-        <div className={classes.content}>
-          <form onSubmit={addNewData} className={classes.modalWrapper}>
-            <div className={classes.smallWrapper}>
-              <label className={classes.label}>Rok trajanja</label>
-              <input
-                value={formatedDate}
-                onClick={showCalendarFunc}
-                onChange={(e) => setDatum(e.target.value)}
-                className={`${classes.input} ${classes.dateInput}`}
-                type="text"
-              />
-            </div>
-            <div ref={refCloseCalendar}>
-              {showCalendar && (
-                <Calendar
-                  style={{ zIndex: 100000 }}
-                  className={classes.Calendar}
-                  onChange={(item) => setDate(item)}
+        {active === "jednaSerija" && (
+          <div className={classes.content}>
+            <form onSubmit={addNewData} className={classes.modalWrapper}>
+              <div className={classes.smallWrapper}>
+                <label className={classes.label}>Rok trajanja</label>
+                <input
+                  value={formatedDate}
+                  onClick={showCalendarFunc}
+                  onChange={(e) => setDatum(e.target.value)}
+                  className={`${classes.input} ${classes.dateInput}`}
+                  type="text"
                 />
-              )}
-            </div>
-            <div className={classes.smallWrapper}>
-              <label className={classes.label}>Lijek</label>
-              <input
-                className={`${classes.input}  ${
-                  lijekIsValid &&
-                  (selectedOption.trim() === null ||
-                    selectedOption.trim() === "")
-                    ? classes.border
-                    : ""
-                }`}
-                type="text"
-                value={selectedOption}
-                onChange={handleChange}
-                onKeyDown={handleKeyDown}
-                onClick={showListFunc}
-                ref={lijekRef}
-              />
-              {showList && (
-                <div
-                  className={classes.options}
-                  style={{ display: "block" }}
-                  onMouseDown={(event) => {
-                    // Show options list
-                  }}
-                >
-                  {data.map((option) => (
-                    <div
-                      key={option.id}
-                      style={{
-                        backgroundColor:
-                          option === focusedOption ? "#eee" : "white",
-                      }}
-                      onMouseDown={(event) => {
-                        setSelectedOption(option.naziv);
-                        setSelectedOptionId(option.id);
-                        setShowList(false);
-                      }}
-                      onMouseEnter={(event) => {
-                        setFocusedOption(option);
-                      }}
-                      className={classes.optionSelect}
-                    >
-                      {Number(option.studij_id) === Number(props.studijId)
-                        ? option.naziv
-                        : ""}
-                    </div>
-                  ))}
-                </div>
-              )}
-            </div>
-            <div className={classes.smallWrapper}>
-              <label className={classes.label}>Serija</label>
-              <input
-                ref={serijaRef}
-                onChange={(e) => setSerija(e.target.value)}
-                className={`${classes.input} ${
-                  serijaIsValid &&
-                  (serija.trim() === null || serija.trim() === "")
-                    ? classes.border
-                    : ""
-                }`}
-                type="text"
-              />
-            </div>
-            <div className={classes.smallWrapper}>
-              <label className={classes.label}>Jedinstveni kod lijeka</label>
-              <input
-                ref={kodLijekaRef}
-                onChange={(e) => setKodLijeka(e.target.value)}
-                className={`${classes.input} ${
-                  kodLijekaIsValid &&
-                  (kodLijeka.trim() === null || kodLijeka.trim() === "")
-                    ? classes.border
-                    : ""
-                }`}
-                type="text"
-              />
-            </div>
-            <div className={classes.smallWrapper}>
-              <label className={classes.label}>Šifra pacijenta</label>
-              <input
-                ref={pacijentRef}
-                onChange={(e) => setPacijent(e.target.value)}
-                className={`${classes.input} ${
-                  pacijentIsValid &&
-                  (pacijent.trim() === null || pacijent.trim() === "")
-                    ? classes.border
-                    : ""
-                }`}
-                type="text"
-              />
-            </div>
-            <footer className={classes.actions}>
-              <button type="submit" className={classes.button}>
-                Dodaj seriju
-              </button>
-              <button onClick={close} className={classes.close}>
-                Otkaži
-              </button>
-            </footer>
-          </form>
-        </div>
+              </div>
+              <div ref={refCloseCalendar}>
+                {showCalendar && (
+                  <Calendar
+                    style={{ zIndex: 100000 }}
+                    className={classes.Calendar}
+                    onChange={(item) => setDate(item)}
+                  />
+                )}
+              </div>
+              <div className={classes.smallWrapper}>
+                <label className={classes.label}>Lijek</label>
+                <input
+                  className={`${classes.input}  ${
+                    lijekIsValid &&
+                    (selectedOption.trim() === null ||
+                      selectedOption.trim() === "")
+                      ? classes.border
+                      : ""
+                  }`}
+                  type="text"
+                  value={selectedOption}
+                  onChange={handleChange}
+                  onKeyDown={handleKeyDown}
+                  onClick={showListFunc}
+                  ref={lijekRef}
+                />
+                {showList && (
+                  <div
+                    className={classes.options}
+                    style={{ display: "block" }}
+                    onMouseDown={(event) => {
+                      // Show options list
+                    }}
+                  >
+                    {data.map((option) => (
+                      <div
+                        key={option.id}
+                        style={{
+                          backgroundColor:
+                            option === focusedOption ? "#eee" : "white",
+                        }}
+                        onMouseDown={(event) => {
+                          setSelectedOption(option.naziv);
+                          setSelectedOptionId(option.id);
+                          setShowList(false);
+                        }}
+                        onMouseEnter={(event) => {
+                          setFocusedOption(option);
+                        }}
+                        className={classes.optionSelect}
+                      >
+                        {Number(option.studij_id) === Number(props.studijId)
+                          ? option.naziv
+                          : ""}
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+              <div className={classes.smallWrapper}>
+                <label className={classes.label}>Serija</label>
+                <input
+                  ref={serijaRef}
+                  onChange={(e) => setSerija(e.target.value)}
+                  className={`${classes.input} ${
+                    serijaIsValid &&
+                    (serija.trim() === null || serija.trim() === "")
+                      ? classes.border
+                      : ""
+                  }`}
+                  type="text"
+                />
+              </div>
+              <div className={classes.smallWrapper}>
+                <label className={classes.label}>Jedinstveni kod lijeka</label>
+                <input
+                  ref={kodLijekaRef}
+                  onChange={(e) => setKodLijeka(e.target.value)}
+                  className={`${classes.input} ${
+                    kodLijekaIsValid &&
+                    (kodLijeka.trim() === null || kodLijeka.trim() === "")
+                      ? classes.border
+                      : ""
+                  }`}
+                  type="text"
+                />
+              </div>
+              <div className={classes.smallWrapper}>
+                <label className={classes.label}>Šifra pacijenta</label>
+                <input
+                  ref={pacijentRef}
+                  onChange={(e) => setPacijent(e.target.value)}
+                  className={`${classes.input} ${
+                    pacijentIsValid &&
+                    (pacijent.trim() === null || pacijent.trim() === "")
+                      ? classes.border
+                      : ""
+                  }`}
+                  type="text"
+                />
+              </div>
+              <footer className={classes.actions}>
+                <button type="submit" className={classes.button}>
+                  Dodaj seriju
+                </button>
+                <button onClick={close} className={classes.close}>
+                  Otkaži
+                </button>
+              </footer>
+            </form>
+          </div>
+        )}
+        {active === "viseSerija" && (
+          <div className={classes.content}>
+            <form
+              onSubmit={addNewMultipleData}
+              className={classes.modalWrapper}
+            >
+              <div className={classes.smallWrapper}>
+                <label className={classes.label}>Rok trajanja</label>
+                <input
+                  value={formatedDate}
+                  onClick={showCalendarFunc}
+                  onChange={(e) => setDatum(e.target.value)}
+                  className={`${classes.input} ${classes.dateInput}`}
+                  type="text"
+                />
+              </div>
+              <div ref={refCloseCalendar}>
+                {showCalendar && (
+                  <Calendar
+                    style={{ zIndex: 100000 }}
+                    className={classes.Calendar}
+                    onChange={(item) => setDate(item)}
+                  />
+                )}
+              </div>
+              <div className={classes.smallWrapper}>
+                <label className={classes.label}>Lijek</label>
+                <input
+                  className={`${classes.input}  ${
+                    lijekIsValid &&
+                    (selectedOption.trim() === null ||
+                      selectedOption.trim() === "")
+                      ? classes.border
+                      : ""
+                  }`}
+                  type="text"
+                  value={selectedOption}
+                  onChange={handleChange}
+                  onKeyDown={handleKeyDown}
+                  onClick={showListFunc}
+                  ref={lijekRef}
+                />
+                {showList && (
+                  <div
+                    className={classes.options}
+                    style={{ display: "block" }}
+                    onMouseDown={(event) => {
+                      // Show options list
+                    }}
+                  >
+                    {data.map((option) => (
+                      <div
+                        key={option.id}
+                        style={{
+                          backgroundColor:
+                            option === focusedOption ? "#eee" : "white",
+                        }}
+                        onMouseDown={(event) => {
+                          setSelectedOption(option.naziv);
+                          setSelectedOptionId(option.id);
+                          setShowList(false);
+                        }}
+                        onMouseEnter={(event) => {
+                          setFocusedOption(option);
+                        }}
+                        className={classes.optionSelect}
+                      >
+                        {Number(option.studij_id) === Number(props.studijId)
+                          ? option.naziv
+                          : ""}
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+              <div className={classes.smallWrapper}>
+                <label className={classes.label}>Naziv serije</label>
+                <input
+                  ref={nazivSerijeRef}
+                  onChange={(e) => setNazivSerije(e.target.value)}
+                  className={`${classes.input} ${
+                    nazivSerijaIsValid &&
+                    (nazivSerije.trim() === null || nazivSerije.trim() === "")
+                      ? classes.border
+                      : ""
+                  }`}
+                  type="text"
+                />
+              </div>
+              <div className={classes.smallWrapper}>
+                <label className={classes.label}>Početna serija</label>
+                <input
+                  ref={pocetnaSerijaRef}
+                  onChange={(e) => setPocetnaSerija(e.target.value)}
+                  className={`${classes.input} ${
+                    pocetnaSerijaIsValid &&
+                    (pocetnaSerija.trim() === null ||
+                      pocetnaSerija.trim() === "")
+                      ? classes.border
+                      : ""
+                  }`}
+                  type="text"
+                />
+              </div>
+              <div className={classes.smallWrapper}>
+                <label className={classes.label}>Zadnja serija</label>
+                <input
+                  ref={krajnjaSerijaRef}
+                  onChange={(e) => setKrajnjaSerija(e.target.value)}
+                  className={`${classes.input} ${
+                    krajnjaSerijaIsValid &&
+                    (krajnjaSerija.trim() === null ||
+                      krajnjaSerija.trim() === "")
+                      ? classes.border
+                      : ""
+                  }`}
+                  type="text"
+                />
+              </div>
+              <div className={classes.smallWrapper}>
+                <label className={classes.label}>Korak serije</label>
+                <input
+                  ref={korakSerijaRef}
+                  onChange={(e) => setKorakSerije(e.target.value)}
+                  className={`${classes.input} ${
+                    korakSerijaIsValid &&
+                    (korakSerije.trim() === null || korakSerije.trim() === "")
+                      ? classes.border
+                      : ""
+                  }`}
+                  type="text"
+                />
+              </div>
+              <div className={classes.smallWrapper}>
+                <label className={classes.label}>Jedinstveni kod lijeka</label>
+                <input
+                  ref={kodLijekaRef}
+                  onChange={(e) => setKodLijeka(e.target.value)}
+                  className={`${classes.input} ${
+                    kodLijekaIsValid &&
+                    (kodLijeka.trim() === null || kodLijeka.trim() === "")
+                      ? classes.border
+                      : ""
+                  }`}
+                  type="text"
+                />
+              </div>
+              <div className={classes.smallWrapper}>
+                <label className={classes.label}>Šifra pacijenta</label>
+                <input
+                  ref={pacijentRef}
+                  onChange={(e) => setPacijent(e.target.value)}
+                  className={`${classes.input} ${
+                    pacijentIsValid &&
+                    (pacijent.trim() === null || pacijent.trim() === "")
+                      ? classes.border
+                      : ""
+                  }`}
+                  type="text"
+                />
+              </div>
+              <footer className={classes.actions}>
+                <button type="submit" className={classes.button}>
+                  Dodaj serije
+                </button>
+                <button onClick={close} className={classes.close}>
+                  Otkaži
+                </button>
+              </footer>
+            </form>
+          </div>
+        )}
       </div>
     </div>
   );

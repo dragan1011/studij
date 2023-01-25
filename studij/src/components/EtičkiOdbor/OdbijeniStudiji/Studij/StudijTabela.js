@@ -33,7 +33,7 @@ export default function DijetaTabela(props) {
       {props.data
         .sort((a, b) => (+a.broj > +b.broj ? 1 : -1))
         .map((item) =>
-          Number(item.id_statusa) === Number(3) ? (
+          Number(item.id_statusa) === Number(14) ? (
             <StudijRed
               sponzor={props.sponzor}
               status={props.status}
