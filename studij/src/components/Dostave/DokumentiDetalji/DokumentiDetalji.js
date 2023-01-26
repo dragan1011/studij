@@ -159,12 +159,14 @@ const ModalOverlay = (props) => {
           </div>
           <div className={`${classes.heading} ${classes.half}`}>Pacijent</div>
         </div>
+        <div className={classes.content}>
         <DokumentDetaljiTabela
           centarId={handleData}
           dokumentData={props.data}
           refresh={refreshFunc}
           data={search(data)}
         />
+        </div>
 
         <footer className={classes.actions}>
           <button

@@ -1,7 +1,26 @@
 .dijeteWrapper{
     position: relative;
     margin:  0 50px;
+    overflow-y: scroll;
+    height: 36rem;
+    /*box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;*/
+    background-color: white;
 }
+
+.dijeteWrapper::-webkit-scrollbar {
+  width: 1em;
+  background-color: beige;
+}
+ 
+.dijeteWrapper::-webkit-scrollbar-track {
+  /*box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);*/
+}
+ 
+.dijeteWrapper::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.20);
+  outline: 1px solid rgba(0, 0, 0, 0.20);;
+}
+
 .cell{
     width: 20rem;
     text-align: left;
