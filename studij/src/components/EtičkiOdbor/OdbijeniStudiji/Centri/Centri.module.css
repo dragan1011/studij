@@ -12,7 +12,7 @@
 
 .modal {
   position: fixed;
-  height: 25%;
+  height: 30%;
   top: 25%;
   left: 1%;
   z-index: 100;
@@ -39,9 +39,9 @@ h3 {
 
 .actions {
   padding: 1rem;
-  position: absolute;
-  bottom: 0;
-  left: 34%;
+   display: flex;
+  position: relative;
+  justify-content: center;
 }
 
 .card {

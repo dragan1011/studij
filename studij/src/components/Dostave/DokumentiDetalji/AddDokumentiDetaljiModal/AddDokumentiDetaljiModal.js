@@ -192,10 +192,14 @@ const ModalOverlay = (props) => {
       return setPacijentIsValid(true);
     }
 
-    for (let i = pocetnaSerija; i <= krajnjaSerija; i++) {
+    let pocetak = Number(pocetnaSerija)
+    let kraj = Number(krajnjaSerija)
+    let korak = Number(korakSerije)
+
+    for (let i = pocetak; i <= kraj; i+=korak) {
       let serijaIme = nazivSerije + i;
 
-      return Axios.post("http://localhost:3001/dokumentiDetaljiDodaj", {
+       Axios.post("http://localhost:3001/dokumentiDetaljiDodaj", {
         id_dokumenta: props.data.id,
         id_lijeka: selectedOptionId,
         serja: serijaIme,

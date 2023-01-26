@@ -31,9 +31,8 @@ const ModalOverlay = (props) => {
       props.refresh();
       console.log(response);
     });
-    setTimeout(async () => {
-      close();
-    }, 1000);
+    close();
+    
     props.notify();
   };
 
