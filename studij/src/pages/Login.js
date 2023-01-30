@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 
+import classes from "./Login.modules.css";
+
 import Axios from "axios";
 
 import { useNavigate } from "react-router-dom";
@@ -28,26 +30,67 @@ const Login = ({ setUserData, userData }) => {
     }
   }, [userData]);
 
+  const inputs = document.querySelectorAll(".input");
+
+  function addcl() {
+    let parent = this.parentNode.parentNode;
+    parent.classList.add("focus");
+  }
+
+  function remcl() {
+    let parent = this.parentNode.parentNode;
+    if (this.value == "") {
+      parent.classList.remove("focus");
+    }
+  }
+
+  inputs.forEach((input) => {
+    input.addEventListener("focus", addcl);
+    input.addEventListener("blur", remcl);
+  });
+
   return (
-    <div>
-      <div>Prijava</div>
-      <div>
+    <div className={classes.container}>
+      <div className={classes.img}>
+        <img src="./utilities/scientisc.svg" />
+      </div>
+      <div className={classes.login_content}>
         <form onSubmit={login}>
-          <label>Korisničko ime</label>
-          <input
-            type="text"
-            onChange={(e) => {
-              setUsername(e.target.value);
-            }}
-          />
-          <label>Lozinka</label>
-          <input
-            type="password"
-            onChange={(e) => {
-              setPassword(e.target.value);
-            }}
-          ></input>
-          <button>Prijavi se</button>
+          <img src="utilities/test.png" />
+          <h2 className={classes.title}>Welcome</h2>
+          <div className={`${classes.input_div} ${classes.one}`}>
+            <div className={classes.i}>
+              <i className="fas fa-user"></i>
+            </div>
+            <div className={classes.div}>
+              <h5>Korisničko ime</h5>
+              <input
+                onChange={(e) => {
+                  setUsername(e.target.value);
+                }}
+                type="text"
+                className={classes.input}
+              />
+            </div>
+          </div>
+          <div className={`${classes.input_div} ${classes.pass}`}>
+            <div className={classes.i}>
+              <i className="fas fa-lock"></i>
+            </div>
+            <div className="div">
+              <h5>Lozinka</h5>
+              <input
+                onChange={(e) => {
+                  setPassword(e.target.value);
+                }}
+                type="password"
+                className={classes.input}
+              />
+            </div>
+          </div>
+          <button type="submit" className={classes.btn}>
+            Prijavi se
+          </button>
         </form>
       </div>
     </div>

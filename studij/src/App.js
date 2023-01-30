@@ -33,7 +33,7 @@ function App() {
           <Route
             element={<PrivateRoutes userData={userData} checking={checking} />}
           >
-            <Route element={<SideMenu />} path="/" exact />
+            <Route element={<SideMenu userData={userData} />} path="/" exact />
             {/*  <Route element={<Products />} path="/products" /> */}
           </Route>
           <Route

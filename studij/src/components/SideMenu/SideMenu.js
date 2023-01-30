@@ -2,12 +2,14 @@ import React, { useState } from "react";
 import Administracija from "../Administracija/Administracija";
 import Dostave from "../Dostave/Dostave/Dostave";
 import Magacin from "../Magacin/Magacin";
-import EtičkiOdbor from '../EtičkiOdbor/EtičkiOdbora'
+import EtičkiOdbor from "../EtičkiOdbor/EtičkiOdbora";
 import MenuButton from "../UI/MenuButton/MenuButton";
 import classes from "./SideMenu.module.css";
 
-function SideMenu() {
-  const [active, setActive] = useState("Administracija");
+function SideMenu({ userData }) {
+  const [active, setActive] = useState(
+    userData?.user[0].role === "admin" ? "Administracija" : "Etičkiodbor"
+  );
   const [menu, setMenu] = useState(false);
   const setSelectedHandler = (naziv) => {
     setActive(naziv);
@@ -29,21 +31,23 @@ function SideMenu() {
         className={`${classes.sideMenu} ${!menu ? "" : classes.sideMenuSmall}`}
       >
         <div className={classes.margin}>
-          <MenuButton
-            name={"Administracija"}
-            activ={active}
-            select={setSelectedHandler}
-          >
-            {" "}
-            <img
-              className={`${classes.img} ${menu ? classes.imgSmall : ""}`}
-              alt="administracija"
-              src="./utilities/analysis.png"
-            />
-            <span className={`${menu ? classes.smallText : ""}`}>
-              Administracija
-            </span>
-          </MenuButton>
+          {userData?.user[0].role === "admin" && (
+            <MenuButton
+              name={"Administracija"}
+              activ={active}
+              select={setSelectedHandler}
+            >
+              {" "}
+              <img
+                className={`${classes.img} ${menu ? classes.imgSmall : ""}`}
+                alt="administracija"
+                src="./utilities/analysis.png"
+              />
+              <span className={`${menu ? classes.smallText : ""}`}>
+                Administracija
+              </span>
+            </MenuButton>
+          )}
           <MenuButton
             name={"Etičkiodbor"}
             activ={active}
@@ -94,7 +98,9 @@ function SideMenu() {
       </div>
       </div>} */}
 
-      {active === "Administracija" && <Administracija />}
+      {active === "Administracija" && userData?.user[0].role === "admin" && (
+        <Administracija />
+      )}
       {active === "Etičkiodbor" && <EtičkiOdbor />}
       {active === "Dostave" && <Dostave />}
       {active === "Magacin" && <Magacin />}
