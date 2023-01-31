@@ -6,7 +6,6 @@ const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
 
-
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
 
@@ -80,7 +79,6 @@ app.get("/login", (req, res) => {
   }
 });
 
-
 app.post("/login", (req, res) => {
   const username = req.body.username;
   const password = req.body.password;
@@ -109,6 +107,16 @@ app.post("/login", (req, res) => {
       }
     }
   );
+});
+
+app.get("/korisnici", (req, res) => {
+  db.query("SELECT * FROM studij_users", (error, results) => {
+    if (error) {
+      console.log(err);
+    } else {
+      res.send(results);
+    }
+  });
 });
 
 db.connect(function (err) {

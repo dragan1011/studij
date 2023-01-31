@@ -1,61 +1,66 @@
-.container{
+.container {
   display: flex;
   margin-left: 5rem;
   margin-top: 10rem;
 }
-.slika{
-    text-align: left;
-    justify-content: left;
-    margin-right: 50px;
+.slika {
+  text-align: left;
+  justify-content: left;
+  margin-right: 50px;
 }
-.login_content{
-    margin-left: 10rem;
+.login_content {
+  margin-left: 10rem;
 }
-.avatar{
-    height: 100px;
+.avatar {
+  height: 100px;
 }
-.title{
+.title {
   margin: 15px 0;
-	color: #333;
-	text-transform: uppercase;
-	font-size: 2.9rem;
+  color: #333;
+  text-transform: uppercase;
+  font-size: 2.9rem;
 }
-.label{
+.label {
   font-size: 1.1rem;
   margin: 0;
   margin-bottom: 5px;
 }
 
-.input{
+.input {
   height: 1.5rem;
   font-size: 1rem;
   border-radius: 8px;
   border: 2px solid black;
   margin-bottom: 5px;
 }
-.input:focus{
+.input:focus {
   outline: none;
 }
 
-  .button {
-    font: inherit;
-    border: 1px solid #14213d;
-    background: #14213d;
-    color: white;
-    padding: 0.25rem 1rem;
-    cursor: pointer;
-    font-family: 'Poppins', sans-serif;
-    border-radius: 10px;
-    transition: 300ms;
-    margin-right: 10px;
-  }
-  
-  .button:hover,
-  .button:active {
-    background: #2f3e5e;
-    border-color: #2f3e5e;
-    transition: 300ms;
-  }
-  .button:focus {
-    outline: none;
-  }
+.button {
+  font: inherit;
+  border: 1px solid #14213d;
+  background: #14213d;
+  color: white;
+  padding: 0.25rem 1rem;
+  cursor: pointer;
+  font-family: "Poppins", sans-serif;
+  border-radius: 10px;
+  transition: 300ms;
+  margin-right: 10px;
+}
+
+.button:hover,
+.button:active {
+  background: #2f3e5e;
+  border-color: #2f3e5e;
+  transition: 300ms;
+}
+.button:focus {
+  outline: none;
+}
+.labelUpozorenja {
+  margin-top: 1rem;
+  font-family: "Poppins", sans-serif;
+  color: #e94d4d;
+}
