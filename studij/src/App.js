@@ -26,6 +26,16 @@ function App() {
       });
   }, []);
 
+   const handleClick = async () => {
+    try {
+      await Axios.post("http://localhost:3001/logout", {
+        name: "userId",
+      });
+      window.location.reload(true);
+    } catch (error) {
+      console.error(error);
+    }
+  };
   return (
     <div className="App">
       <Router>
@@ -33,7 +43,7 @@ function App() {
           <Route
             element={<PrivateRoutes userData={userData} checking={checking} />}
           >
-            <Route element={<SideMenu userData={userData} />} path="/" exact />
+            <Route element={<SideMenu handleClick={handleClick} userData={userData} />} path="/" exact />
             {/*  <Route element={<Products />} path="/products" /> */}
           </Route>
           <Route

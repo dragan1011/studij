@@ -6,6 +6,7 @@ const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
 
+
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
 
@@ -46,6 +47,11 @@ app.use(
   })
 );
 
+app.post("/logout", (req, res) => {
+  res.clearCookie(req.body.name, { path: "/" });
+  res.send({ message: "Cookie cleared successfully" });
+});
+
 app.post("/register", (req, res) => {
   const username = req.body.username;
   const password = req.body.password;
@@ -73,6 +79,7 @@ app.get("/login", (req, res) => {
     res.send({ loggedIn: false });
   }
 });
+
 
 app.post("/login", (req, res) => {
   const username = req.body.username;

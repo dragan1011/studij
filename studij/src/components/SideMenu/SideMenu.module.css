@@ -16,7 +16,7 @@
   width: 5rem;
 }
 .margin {
-  margin-top: 18rem;
+  margin-top: 10rem;
 }
 .img {
   padding-right: 15px;
@@ -80,4 +80,35 @@ span {
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+}
+
+.logoutWrapper{
+  position: absolute;
+  bottom: 3%;
+}
+
+.logout{
+    display: flex;
+    height: 25px;
+    align-items: center;   
+    margin-left: 15px;
+    margin-top: 5px;
+    padding: 5px;
+    width: 100%;
+    transition: 0.3s;
+    font-size: 20px;
+    font-weight: 600;
+    margin-top: 15px;
+    background-color: transparent;
+    border: none;
+    padding-left: 2.0rem;
+    color: white;
+}
+.logout:hover{
+  cursor: pointer;
+}
+.userDataWrapper{
+  color: white;
+  font-size: 20px;
+  margin-top: 3rem;
 }

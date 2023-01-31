@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Administracija from "../Administracija/Administracija";
 import Dostave from "../Dostave/Dostave/Dostave";
 import Magacin from "../Magacin/Magacin";
@@ -6,7 +6,8 @@ import EtičkiOdbor from "../EtičkiOdbor/EtičkiOdbora";
 import MenuButton from "../UI/MenuButton/MenuButton";
 import classes from "./SideMenu.module.css";
 
-function SideMenu({ userData }) {
+
+function SideMenu({ userData, handleClick }) {
   const [active, setActive] = useState(
     userData?.user[0].role === "admin" ? "Administracija" : "Etičkiodbor"
   );
@@ -19,6 +20,7 @@ function SideMenu({ userData }) {
     setMenu(!menu);
   };
 
+
   return (
     <div className={classes.show}>
       <img
@@ -30,6 +32,7 @@ function SideMenu({ userData }) {
       <div
         className={`${classes.sideMenu} ${!menu ? "" : classes.sideMenuSmall}`}
       >
+         <div className={classes.userDataWrapper}><span className={`${menu ? classes.smallText : ""}`}>Dobro došao</span> {userData.user[0].ime}</div>
         <div className={classes.margin}>
           {userData?.user[0].role === "admin" && (
             <MenuButton
@@ -86,6 +89,16 @@ function SideMenu({ userData }) {
             />
             <span className={`${menu ? classes.smallText : ""}`}>Magacin</span>
           </MenuButton>
+        </div>
+
+        <div className={classes.logoutWrapper}>
+          <button onClick={() => handleClick()} className={classes.logout}>
+            <img
+              className={`${classes.img} ${menu ? classes.imgSmall : ""}`}
+              alt="magacin"
+              src="./utilities/logout.png"
+            /> <span className={`${menu ? classes.smallText : ""}`}>Odjavi se</span>
+          </button>
         </div>
       </div>
       {/*   {menu && <div className={classes.sideMenuSmall} >
