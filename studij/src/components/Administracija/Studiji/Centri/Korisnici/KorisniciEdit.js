@@ -90,7 +90,6 @@ const ModalOverlay = (props) => {
       aktivno: selectedOptionId,
     }).then((response) => {
       props.refresh();
-      console.log(response);
     });
 
     close();

@@ -32,7 +32,7 @@ function SideMenu({ userData, handleClick }) {
       <div
         className={`${classes.sideMenu} ${!menu ? "" : classes.sideMenuSmall}`}
       >
-         <div className={classes.userDataWrapper}><span className={`${menu ? classes.smallText : ""}`}>Dobro došao</span> {userData.user[0].ime}</div>
+         <div className={classes.userDataWrapper}><span className={`${menu ? classes.smallText : ""}`}>{userData.user[0].pol === 'M' ? 'Dobro došao' : 'Dobro došla'}</span> {userData.user[0].ime}</div>
         <div className={classes.margin}>
           {userData?.user[0].role === "admin" && (
             <MenuButton

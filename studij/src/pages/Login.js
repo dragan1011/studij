@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 
 import Axios from "axios";
 
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import classes from "./Login.module.css";
 
@@ -20,16 +20,16 @@ const Login = ({ setUserData, userData }) => {
       password: password,
     }).then((response) => {
       setUserData(response.data);
-      navigate("/");
+      window.location.reload(true);
     });
   };
 
-  /* 
+  
   useEffect(() => {
     if (userData) {
       navigate("/");
     }
-  }, [userData]); */
+  }, [userData]); 
 
   return (
     <div className={classes.container}>
@@ -64,9 +64,11 @@ const Login = ({ setUserData, userData }) => {
               />
             </div>
           </div>
+          
           <button type="submit" className={classes.button}>
             Prijavi se
           </button>
+          
         </form>
         <h3 className={classes.labelUpozorenja}>{userData?.message}</h3>
       </div>

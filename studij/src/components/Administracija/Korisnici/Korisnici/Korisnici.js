@@ -29,7 +29,7 @@ function Statusi() {
 
   // fetch data
   const dataFetch = async () => {
-    const data = await (await fetch("http://localhost:3001/korisnici")).json();
+    const data = await (await fetch("http://localhost:3001/users")).json();
 
     // set state when the data received
     setData(data);
@@ -68,10 +68,10 @@ function Statusi() {
       <div className={classes.row_heading}>
         <div className={`${classes.heading} ${classes.half}`}>Ime</div>
         <div className={`${classes.heading} ${classes.half}`}>Prezime</div>
-        <div className={`${classes.heading} ${classes.half}`}>Pol</div>
         <div className={`${classes.heading} ${classes.half}`}>JMBG</div>
+        <div className={`${classes.heading} ${classes.half}`}>Kontakt telefon</div>
         <div className={`${classes.heading} ${classes.half}`}>
-          Kontakt telefon
+          E-mail
         </div>
       </div>
       <KorisniciTabela refresh={refreshFunc} data={data} />
