@@ -48,6 +48,7 @@
   border-radius: 10px;
   transition: 300ms;
   margin-right: 10px;
+  margin-top: 1rem;
 }
 
 .button:hover,

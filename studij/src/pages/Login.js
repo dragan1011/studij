@@ -14,7 +14,6 @@ const Login = ({ setUserData, userData }) => {
   Axios.defaults.withCredentials = true;
 
   const login = (e) => {
-
     e.preventDefault();
     Axios.post("http://localhost:3001/login", {
       username: username,
@@ -25,12 +24,11 @@ const Login = ({ setUserData, userData }) => {
     });
   };
 
-  
   useEffect(() => {
     if (userData) {
       navigate("/");
     }
-  }, [userData]); 
+  }, [userData]);
 
   return (
     <div className={classes.container}>
@@ -65,11 +63,10 @@ const Login = ({ setUserData, userData }) => {
               />
             </div>
           </div>
-          
+
           <button type="submit" className={classes.button}>
             Prijavi se
           </button>
-          
         </form>
         <h3 className={classes.labelUpozorenja}>{userData?.message}</h3>
       </div>

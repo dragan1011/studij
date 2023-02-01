@@ -18,24 +18,16 @@ const ModalOverlay = (props) => {
   const [pol, setPol] = useState(props.data.pol);
   const [email, setEmail] = useState(props.data.email);
   const [jmbg, setJmbg] = useState(props.data.jmbg);
-  const [date, setDate] = useState(new Date());
   const [imeIsValid, setImeIsValid] = useState(false);
   const [prezimeIsValid, setPrezimeIsValid] = useState(false);
-  const [usernameIsValid, setUsernameIsValid] = useState(false);
-  const [passwordIsValid, setPasswordIsValid] = useState(false);
   const [telefonIsValid, setTelefonIsValid] = useState(false);
   const [polsValid, setPolIsValid] = useState(false);
   const [emailIsValid, setEmailIsValid] = useState(false);
   const [jmbgIsValid, setJmbgIsValid] = useState(false);
-  const [showCalendar, setShowCalendar] = useState(false);
-  let formatedDate = format(date, "yyyy-MM-dd");
-  const [datum, setDatum] = useState("");
 
   const imeRef = useRef(null);
   const prezimeRef = useRef(null);
   const refCloseCalendar = useRef(null);
-  const usernameRef = useRef(null);
-  const passowrdRef = useRef(null);
   const telefonRef = useRef(null);
   const polRef = useRef(null);
   const emailRef = useRef(null);
@@ -56,7 +48,6 @@ const ModalOverlay = (props) => {
 
   useEffect(() => {
     document.addEventListener("keydown", hideOnEscape, true);
-    document.addEventListener("click", hideOnClickOutside, true);
   }, []);
 
   const hideOnEscape = (e) => {
@@ -65,22 +56,9 @@ const ModalOverlay = (props) => {
     }
   };
 
-  const showCalendarFunc = () => {
-    setShowCalendar((prevState) => !prevState);
-  };
-  const hideOnClickOutside = (e) => {
-    if (
-      refCloseCalendar.current &&
-      !refCloseCalendar.current.contains(e.target)
-    ) {
-      setShowCalendar(false);
-    }
-  };
-
   const editData = async (e) => {
     e.preventDefault();
-    /* 
-    
+
     if (ime.trim() == "" || ime.trim().length == 0) {
       imeRef.current.focus();
       return setImeIsValid(true);
@@ -93,20 +71,6 @@ const ModalOverlay = (props) => {
       return setPrezimeIsValid(true);
     }
     if (prezimeRef.current === document.activeElement) {
-      usernameRef.current.focus();
-    }
-    if (username === "" || username === null) {
-      usernameRef.current.focus();
-      return setUsernameIsValid(true);
-    }
-    if (usernameRef.current === document.activeElement) {
-      passowrdRef.current.focus();
-    }
-    if (password === "" || password === null) {
-      passowrdRef.current.focus();
-      return setPasswordIsValid(true);
-    }
-    if (passowrdRef.current === document.activeElement) {
       telefonRef.current.focus();
     }
     if (
@@ -137,18 +101,23 @@ const ModalOverlay = (props) => {
     if (jmbg === "" || jmbg === null || (jmbg.length > 0 && jmbg.length < 14)) {
       jmbgRef.current.focus();
       return setJmbgIsValid(true);
-    } */
+    }
 
-    notify();
-    /* 
+    Axios.put("http://localhost:3001/usersUpdate", {
+      id: props.data.id,
+      ime: ime,
+      prezime: prezime,
+      telefon: telefon,
+      pol: pol,
+      email: email,
+      jmbg: jmbg,
+    });
+    props.refresh();
+
     setTimeout(async () => {
-      Axios.put("http://localhost:3001/ulogaUpdate", {
-      
-      });
-      props.refresh();
-
       close();
-    }, 1000); */
+    }, 1000);
+    notify();
   };
 
   const close = () => {

@@ -6,7 +6,6 @@ import EtičkiOdbor from "../EtičkiOdbor/EtičkiOdbora";
 import MenuButton from "../UI/MenuButton/MenuButton";
 import classes from "./SideMenu.module.css";
 
-
 function SideMenu({ userData, handleClick }) {
   const [active, setActive] = useState(
     userData?.user[0].role === "admin" ? "Administracija" : "Etičkiodbor"
@@ -20,7 +19,6 @@ function SideMenu({ userData, handleClick }) {
     setMenu(!menu);
   };
 
-
   return (
     <div className={classes.show}>
       <img
@@ -32,7 +30,21 @@ function SideMenu({ userData, handleClick }) {
       <div
         className={`${classes.sideMenu} ${!menu ? "" : classes.sideMenuSmall}`}
       >
-         <div className={classes.userDataWrapper}><span className={`${menu ? classes.smallText : ""}`}>{userData.user[0].pol === 'M' ? 'Dobro došao' : 'Dobro došla'}</span> {userData.user[0].ime}</div>
+        <div className={classes.userDataWrapper}>
+          <span className={`${menu ? classes.ikonica : ""}`}>
+            {userData.user[0].pol === "M" ? (
+              <img src="./utilities/male.png" />
+            ) : (
+              <img src="./utilities/business-woman.png" />
+            )}
+          </span>
+          <div className={`${classes.userIme}`}>
+            <span className={` ${menu ? classes.smallmenu : ""}`}>
+              {userData.user[0].pol === "M" ? "Dobro došao " : "Dobro došla "}{" "}
+              <div className={classes.userData}>{userData.user[0].ime}</div>
+            </span>
+          </div>
+        </div>
         <div className={classes.margin}>
           {userData?.user[0].role === "admin" && (
             <MenuButton
@@ -97,7 +109,10 @@ function SideMenu({ userData, handleClick }) {
               className={`${classes.img} ${menu ? classes.imgSmall : ""}`}
               alt="magacin"
               src="./utilities/logout.png"
-            /> <span className={`${menu ? classes.smallText : ""}`}>Odjavi se</span>
+            />{" "}
+            <span className={`${menu ? classes.smallText : ""}`}>
+              Odjavi se
+            </span>
           </button>
         </div>
       </div>

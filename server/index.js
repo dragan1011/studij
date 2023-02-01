@@ -52,7 +52,7 @@ app.post("/logout", (req, res) => {
 });
 
 app.post("/register", (req, res) => {
-   const ime = req.body.ime;
+  const ime = req.body.ime;
   const prezime = req.body.prezime;
   const username = req.body.username;
   const password = req.body.password;
@@ -69,8 +69,8 @@ app.post("/register", (req, res) => {
     }
 
     db.query(
-     "INSERT INTO studij_users (username, password, role, ime, prezime, pol, kontakt_telefon, email, jmbg, datum_rođenja) values (?, ?, ?, ?, ?, ?, ? ,? ,? ,?)",
-    [username, hash, role, ime, prezime, pol, telefon, email, jmbg, datum],
+      "INSERT INTO studij_users (username, password, role, ime, prezime, pol, kontakt_telefon, email, jmbg, datum_rođenja) values (?, ?, ?, ?, ?, ?, ? ,? ,? ,?)",
+      [username, hash, role, ime, prezime, pol, telefon, email, jmbg, datum],
       (err, result) => {
         console.log(err);
       }
@@ -86,12 +86,32 @@ app.get("/login", (req, res) => {
   }
 });
 
+app.put("/usersUpdate", (req, res) => {
+  const id = req.body.id;
+  const ime = req.body.ime;
+  const prezime = req.body.prezime;
+  const telefon = req.body.telefon;
+  const pol = req.body.pol;
+  const email = req.body.email;
+  const jmbg = req.body.jmbg;
+
+  db.query(
+    "UPDATE studij_users SET ime=?, prezime=?, kontakt_telefon=?, pol=?, email=?, jmbg=? WHERE id=? ",
+    [ime, prezime, telefon, pol, email, jmbg, id],
+
+    (err, result) => {
+      if (err) {
+        console.log(err);
+      } else {
+        res.send(result);
+      }
+    }
+  );
+});
 
 app.post("/login", (req, res) => {
   const username = req.body.username;
   const password = req.body.password;
-
-console.log(password, username)
 
   db.query(
     "SELECT * FROM studij_users WHERE username = ?;",

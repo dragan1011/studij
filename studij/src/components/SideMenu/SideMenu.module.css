@@ -82,33 +82,62 @@ span {
   user-select: none;
 }
 
-.logoutWrapper{
+.logoutWrapper {
   position: absolute;
   bottom: 3%;
 }
 
-.logout{
-    display: flex;
-    height: 25px;
-    align-items: center;   
-    margin-left: 15px;
-    margin-top: 5px;
-    padding: 5px;
-    width: 100%;
-    transition: 0.3s;
-    font-size: 20px;
-    font-weight: 600;
-    margin-top: 15px;
-    background-color: transparent;
-    border: none;
-    padding-left: 2.0rem;
-    color: white;
+.logout {
+  display: flex;
+  height: 25px;
+  align-items: center;
+  margin-left: 15px;
+  margin-top: 5px;
+  padding: 5px;
+  width: 100%;
+  transition: 0.3s;
+  font-size: 20px;
+  font-weight: 600;
+  margin-top: 15px;
+  background-color: transparent;
+  border: none;
+  padding-left: 2rem;
+  color: white;
+  opacity: 80%;
 }
-.logout:hover{
+.logout:hover {
   cursor: pointer;
+  opacity: 100%;
 }
-.userDataWrapper{
+.userDataWrapper {
   color: white;
   font-size: 20px;
-  margin-top: 3rem;
+  margin-top: 5rem;
+  display: flex;
+  flex-direction: column;
+}
+.dbrdl {
+  margin-right: 5px;
+  transition: 0.3s;
+}
+.userIme {
+  display: flex;
+  justify-content: center;
+}
+.smallmenu {
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease-out;
+  margin-left: -5rem;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.userData {
+  margin-left: 5px;
+}
+.ikonica {
+  opacity: 60%;
 }
