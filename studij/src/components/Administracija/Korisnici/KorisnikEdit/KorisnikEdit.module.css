@@ -14,7 +14,7 @@
   position: fixed;
   top: 20vh;
   left: 10%;
-  width: 60%;
+  width: 80%;
   z-index: 100;
   overflow: hidden;
 }
@@ -109,14 +109,12 @@
   margin-top: 5px;
   border-radius: 8px;
   border: 2px solid black;
-  margin-right: 20px;
+  font-family: "Poppins", sans-serif;
 }
 .input:focus {
   outline: none;
 }
-::placeholder {
-  font-family: "Poppins", sans-serif;
-}
+
 .labelUpozorenja {
   font-family: "Poppins", sans-serif;
   color: #e94d4d;
@@ -128,9 +126,11 @@
     width: 30rem;
   }
 }
+
 .border {
   border-color: #f18686;
 }
+
 .lineDisplay {
   display: flex;
   text-align: center;
@@ -156,11 +156,11 @@ select {
 }
 
 /* select:hover {
-  background: beige;
-} */
+    background: beige;
+  } */
 /* .option:hover {
-  background-color: beige;
-} */
+    background-color: beige;
+  } */
 
 .Calendar {
   position: absolute;

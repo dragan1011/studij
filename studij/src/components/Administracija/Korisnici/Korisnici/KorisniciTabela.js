@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import UlogeEdit from "../UlogeEdit/UlogeEdit";
+import KorisnikEdit from "../KorisnikEdit/KorisnikEdit";
 
 import classes from "./KorisniciTabela.module.css";
 import { KorisniciRed } from "./KorisniciRed";
@@ -17,9 +17,9 @@ export default function DijetaTabela(props) {
   return (
     <div className={classes.dijeteWrapper}>
       {edit && (
-        <UlogeEdit
+        <KorisnikEdit
           refresh={props.refresh}
-          title="Izmjena uloge"
+          title="Izmjena korisnika"
           data={modalData}
           closeModal={() => setEdit(false)}
         />

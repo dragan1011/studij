@@ -1,7 +1,7 @@
 import { Fragment, useRef, useState, useEffect } from "react";
 import ReactDOM from "react-dom";
 
-import classes from "./AddKorisnikModal.module.css";
+import classes from "./KorisnikEdit.module.css";
 
 import Axios from "axios";
 
@@ -12,14 +12,12 @@ import { Calendar } from "react-date-range";
 import { format } from "date-fns";
 
 const ModalOverlay = (props) => {
-  const [ime, setIme] = useState("");
-  const [prezime, setPrezime] = useState("");
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [telefon, setTelefon] = useState("");
-  const [pol, setPol] = useState("Pol");
-  const [email, setEmail] = useState("");
-  const [jmbg, setJmbg] = useState("");
+  const [ime, setIme] = useState(props.data.ime);
+  const [prezime, setPrezime] = useState(props.data.prezime);
+  const [telefon, setTelefon] = useState(props.data.kontakt_telefon);
+  const [pol, setPol] = useState(props.data.pol);
+  const [email, setEmail] = useState(props.data.email);
+  const [jmbg, setJmbg] = useState(props.data.jmbg);
   const [date, setDate] = useState(new Date());
   const [imeIsValid, setImeIsValid] = useState(false);
   const [prezimeIsValid, setPrezimeIsValid] = useState(false);
@@ -42,6 +40,20 @@ const ModalOverlay = (props) => {
   const polRef = useRef(null);
   const emailRef = useRef(null);
   const jmbgRef = useRef(null);
+
+  const notify = () => {
+    toast.success("Uspješno izmijenjeno!", {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: true,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+  };
+
   useEffect(() => {
     document.addEventListener("keydown", hideOnEscape, true);
     document.addEventListener("click", hideOnClickOutside, true);
@@ -65,22 +77,10 @@ const ModalOverlay = (props) => {
     }
   };
 
-  const notify = () => {
-    toast.success(`Korisnik je uspešno dodana!`, {
-      position: "top-right",
-      autoClose: 5000,
-      hideProgressBar: true,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "light",
-    });
-  };
-
-  const addNewData = async (e) => {
+  const editData = async (e) => {
     e.preventDefault();
-
+    /* 
+    
     if (ime.trim() == "" || ime.trim().length == 0) {
       imeRef.current.focus();
       return setImeIsValid(true);
@@ -137,26 +137,18 @@ const ModalOverlay = (props) => {
     if (jmbg === "" || jmbg === null || (jmbg.length > 0 && jmbg.length < 14)) {
       jmbgRef.current.focus();
       return setJmbgIsValid(true);
-    }
-    Axios.post("http://localhost:3001/register", {
-      ime: ime,
-      prezime: prezime,
-      username: username,
-      password: password,
-      telefon: telefon,
-      pol: pol,
-      email: email,
-      jmbg: jmbg,
-      datum: formatedDate,
-      role: "user",
-    }).then((response) => {
-      props.refresh();
-      console.log(response);
-    });
-    setTimeout(async () => {
-      close();
-    }, 1000);
+    } */
+
     notify();
+    /* 
+    setTimeout(async () => {
+      Axios.put("http://localhost:3001/ulogaUpdate", {
+      
+      });
+      props.refresh();
+
+      close();
+    }, 1000); */
   };
 
   const close = () => {
@@ -167,13 +159,18 @@ const ModalOverlay = (props) => {
   return (
     <div>
       <ToastContainer />
-      <div onClick={close} className={classes.backdrop} />
+      <div
+        onClick={() => {
+          props.closeModal(false);
+        }}
+        className={classes.backdrop}
+      />
       <div className={`${classes.modal} ${classes.card}`}>
         <header className={classes.header}>
           <h2>{props.title}</h2>
         </header>
         <div className={classes.content}>
-          <form onSubmit={addNewData} className={classes.modalWrapper}>
+          <form onSubmit={editData} className={classes.modalWrapper}>
             <div className={classes.smallWrapper}>
               <div className={classes.lineDisplay}>
                 <input
@@ -185,6 +182,7 @@ const ModalOverlay = (props) => {
                       : ""
                   }`}
                   type="text"
+                  value={ime}
                   placeholder="Ime"
                 />
 
@@ -197,37 +195,9 @@ const ModalOverlay = (props) => {
                       ? classes.border
                       : ""
                   }`}
+                  value={prezime}
                   type="text"
                   placeholder="Prezime"
-                />
-              </div>
-            </div>
-            <div className={classes.smallWrapper}>
-              <div className={classes.lineDisplay}>
-                <input
-                  ref={usernameRef}
-                  onChange={(e) => setUsername(e.target.value)}
-                  className={`${classes.input} ${
-                    usernameIsValid &&
-                    (username.trim() === null || username.trim() === "")
-                      ? classes.border
-                      : ""
-                  }`}
-                  type="text"
-                  placeholder="Korisničko ime"
-                />
-
-                <input
-                  ref={passowrdRef}
-                  onChange={(e) => setPassword(e.target.value)}
-                  className={`${classes.input} ${
-                    passwordIsValid &&
-                    (password.trim() === null || password.trim() === "")
-                      ? classes.border
-                      : ""
-                  }`}
-                  type="text"
-                  placeholder="Lozinka"
                 />
               </div>
             </div>
@@ -245,6 +215,7 @@ const ModalOverlay = (props) => {
                       : ""
                   }`}
                   type="number"
+                  value={telefon}
                   placeholder="Kontakt telefon"
                 />
                 <select
@@ -255,6 +226,7 @@ const ModalOverlay = (props) => {
                       ? classes.border
                       : ""
                   }`}
+                  value={pol}
                 >
                   <option className={classes.option}>Pol</option>
                   <option className={classes.option}>M</option>
@@ -263,20 +235,21 @@ const ModalOverlay = (props) => {
               </div>
             </div>
             <div className={classes.smallWrapper}>
-              <input
-                ref={emailRef}
-                onChange={(e) => setEmail(e.target.value)}
-                className={`${classes.input} ${
-                  emailIsValid && (email.trim() === null || email.trim() === "")
-                    ? classes.border
-                    : ""
-                }`}
-                type="text"
-                placeholder="E-mail adresa"
-              />
-            </div>
-            <div className={classes.smallWrapper}>
               <div className={classes.lineDisplay}>
+                <input
+                  ref={emailRef}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className={`${classes.input} ${
+                    emailIsValid &&
+                    (email.trim() === null || email.trim() === "")
+                      ? classes.border
+                      : ""
+                  }`}
+                  type="text"
+                  value={email}
+                  placeholder="E-mail adresa"
+                />
+
                 <input
                   ref={jmbgRef}
                   onChange={(e) => setJmbg(e.target.value)}
@@ -288,34 +261,23 @@ const ModalOverlay = (props) => {
                       ? classes.border
                       : ""
                   }`}
+                  value={jmbg}
                   type="number"
                   placeholder="JMBG"
                 />
-
-                <input
-                  value={formatedDate}
-                  onClick={showCalendarFunc}
-                  onChange={(e) => setDatum(e.target.value)}
-                  className={`${classes.input} ${classes.dateInput}`}
-                  type="text"
-                />
-              </div>
-              <div ref={refCloseCalendar}>
-                {showCalendar && (
-                  <Calendar
-                    style={{ zIndex: 100000 }}
-                    className={classes.Calendar}
-                    onChange={(item) => setDate(item)}
-                  />
-                )}
               </div>
             </div>
-
+            <div className={classes.smallWrapper}></div>
             <footer className={classes.actions}>
               <button type="submit" className={classes.button}>
-                Dodaj korisnika
+                Sačuvaj
               </button>
-              <button onClick={close} className={classes.close}>
+              <button
+                onClick={() => {
+                  props.closeModal(false);
+                }}
+                className={classes.close}
+              >
                 Otkaži
               </button>
             </footer>
@@ -333,7 +295,7 @@ const Modal = (props) => {
     <Fragment>
       {ReactDOM.createPortal(
         <ModalOverlay
-          submitData={props.submitData}
+          data={props.data}
           refresh={props.refresh}
           closeModal={props.closeModal}
           title={props.title}
