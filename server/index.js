@@ -52,8 +52,15 @@ app.post("/logout", (req, res) => {
 });
 
 app.post("/register", (req, res) => {
+   const ime = req.body.ime;
+  const prezime = req.body.prezime;
   const username = req.body.username;
   const password = req.body.password;
+  const telefon = req.body.telefon;
+  const pol = req.body.pol;
+  const email = req.body.email;
+  const jmbg = req.body.jmbg;
+  const datum = req.body.datum;
   const role = req.body.role;
 
   bcrypt.hash(password, saltRounds, (err, hash) => {
@@ -62,8 +69,8 @@ app.post("/register", (req, res) => {
     }
 
     db.query(
-      "INSERT INTO studij_users (username, password, role) VALUES (?,?,?)",
-      [username, hash, role],
+     "INSERT INTO studij_users (username, password, role, ime, prezime, pol, kontakt_telefon, email, jmbg, datum_rođenja) values (?, ?, ?, ?, ?, ?, ? ,? ,? ,?)",
+    [username, hash, role, ime, prezime, pol, telefon, email, jmbg, datum],
       (err, result) => {
         console.log(err);
       }
@@ -79,9 +86,12 @@ app.get("/login", (req, res) => {
   }
 });
 
+
 app.post("/login", (req, res) => {
   const username = req.body.username;
   const password = req.body.password;
+
+console.log(password, username)
 
   db.query(
     "SELECT * FROM studij_users WHERE username = ?;",
@@ -94,6 +104,7 @@ app.post("/login", (req, res) => {
         bcrypt.compare(password, result[0].password, (error, response) => {
           if (response) {
             req.session.user = result;
+            console.log(req.session.user);
             res.send({ message: "Prijavljen si" });
           } else {
             res.send({
@@ -116,30 +127,6 @@ app.get("/users", (req, res) => {
       res.send(results);
     }
   });
-});
-app.post("/usersDodaj", (req, res) => {
-  const ime = req.body.ime;
-  const prezime = req.body.prezime;
-  const username = req.body.username;
-  const password = req.body.password;
-  const telefon = req.body.telefon;
-  const pol = req.body.pol;
-  const email = req.body.email;
-  const jmbg = req.body.jmbg;
-  const datum = req.body.datum;
-  const role = req.body.role;
-
-
-  db.query(
-    "INSERT INTO studij_users (username, password, role, ime, prezime, pol, kontakt_telefon, email, jmbg, datum_rođenja) values (?, ?, ?, ?, ?, ?, ? ,? ,? ,?)",
-    [username, password, role, ime, prezime, pol, telefon, email, jmbg, datum],
-    (err, result) => {
-      if (err) {
-        console.log(err);
-      }
-      res.send(result);
-    }
-  );
 });
 
 db.connect(function (err) {

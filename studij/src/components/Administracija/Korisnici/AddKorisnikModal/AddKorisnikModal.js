@@ -135,7 +135,7 @@ const ModalOverlay = (props) => {
       jmbgRef.current.focus()
       return setJmbgIsValid(true)
     }
-    Axios.post("http://localhost:3001/usersDodaj", {
+    Axios.post("http://localhost:3001/register", {
         ime: ime,
         prezime: prezime,
         username: username,
