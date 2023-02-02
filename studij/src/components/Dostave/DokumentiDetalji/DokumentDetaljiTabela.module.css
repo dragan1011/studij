@@ -1,7 +1,30 @@
 .dijeteWrapper{
     position: relative;
     margin:  0 50px;
+    overflow-y: scroll;
+    height: 70%;
 }
+
+/* width */
+::-webkit-scrollbar {
+    display: none;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  display: none;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  display: none;
+}
+
 .cell{
     width: 20rem;
     text-align: left;

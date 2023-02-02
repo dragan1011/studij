@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 
 import Axios from "axios";
 
-import { Link, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 import classes from "./Login.module.css";
 
@@ -10,6 +10,8 @@ const Login = ({ setUserData, userData }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  const location = useLocation();
+
 
   Axios.defaults.withCredentials = true;
 
@@ -37,6 +39,7 @@ const Login = ({ setUserData, userData }) => {
       </div>
       <div className={classes.login_content}>
         <form onSubmit={login}>
+          <div className={classes.formBorder}>
           <img className={classes.avatar} src="utilities/test.png" />
           <h2 className={classes.title}>Welcome</h2>
           <div /* className={`${classes.input_div} ${classes.one}`} */>
@@ -67,6 +70,7 @@ const Login = ({ setUserData, userData }) => {
           <button type="submit" className={classes.button}>
             Prijavi se
           </button>
+          </div>
         </form>
         <h3 className={classes.labelUpozorenja}>{userData?.message}</h3>
       </div>

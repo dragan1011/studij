@@ -5,6 +5,7 @@ import DokumentiDetaljiEdit from "./DokumentiDetaljiEdit/DokumentiDetaljiEdit";
 import classes from "./DokumentDetaljiTabela.module.css";
 import { DokumentDetaljiRed } from "./DokumentDetaljiRed";
 
+
 export default function DijetaTabela(props) {
   const [edit, setEdit] = useState(false);
   const [modalData, setModalData] = useState([]);
@@ -24,6 +25,7 @@ export default function DijetaTabela(props) {
           closeModal={() => setEdit(false)}
         />
       )}
+
       {props.data
         .sort((a, b) => (+a.id > +b.id ? 1 : -1))
         .map((item) =>
@@ -36,9 +38,10 @@ export default function DijetaTabela(props) {
               open={openModalHandler}
             ></DokumentDetaljiRed>
           ) : (
-            ""
+            ''
           )
         )}
+    
     </div>
   );
 }

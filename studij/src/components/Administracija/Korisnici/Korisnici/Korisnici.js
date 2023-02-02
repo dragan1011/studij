@@ -19,11 +19,14 @@ function Statusi() {
   const search = (data) => {
     return data.filter(
       (item) =>
-        item.naziv
+        item.ime
           .toString()
           .toLowerCase()
           .includes(searchTerm.toLowerCase()) ||
-        item.opis.toString().toLowerCase().includes(searchTerm.toLowerCase())
+        item.prezime.toString().toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.jmbg.toString().toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.kontakt_telefon.toString().toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.email.toString().toLowerCase().includes(searchTerm.toLowerCase())
     );
   };
 
@@ -74,7 +77,7 @@ function Statusi() {
           E-mail
         </div>
       </div>
-      <KorisniciTabela refresh={refreshFunc} data={data} />
+      <KorisniciTabela refresh={refreshFunc} data={search(data)} />
     </div>
   );
 }

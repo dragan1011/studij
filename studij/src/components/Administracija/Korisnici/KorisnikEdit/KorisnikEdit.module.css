@@ -110,11 +110,15 @@
   border-radius: 8px;
   border: 2px solid black;
   font-family: "Poppins", sans-serif;
+  width: 210px;
 }
 .input:focus {
   outline: none;
 }
+.inputRight{
+  margin-left: 5px;
 
+}
 .labelUpozorenja {
   font-family: "Poppins", sans-serif;
   color: #e94d4d;

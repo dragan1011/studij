@@ -163,7 +163,7 @@ const ModalOverlay = (props) => {
                     (prezime.trim() === null || prezime.trim() === "")
                       ? classes.border
                       : ""
-                  }`}
+                  } ${classes.inputRight}`}
                   value={prezime}
                   type="text"
                   placeholder="Prezime"
@@ -194,7 +194,7 @@ const ModalOverlay = (props) => {
                     polsValid && (pol.trim() === null || pol.trim() === "Pol")
                       ? classes.border
                       : ""
-                  }`}
+                  }  ${classes.inputRight}`}
                   value={pol}
                 >
                   <option className={classes.option}>Pol</option>
@@ -229,7 +229,7 @@ const ModalOverlay = (props) => {
                       (jmbg.length > 0 && jmbg.length < 14))
                       ? classes.border
                       : ""
-                  }`}
+                  }  ${classes.inputRight}`}
                   value={jmbg}
                   type="number"
                   placeholder="JMBG"

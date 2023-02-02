@@ -50,6 +50,19 @@
   -ms-user-select: none;
   user-select: none;
 }
+.imgChat{
+   position: absolute;
+  left: 12.9%;
+  top: 1%;
+  z-index: 5;
+  transition: 1s;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
 .left {
   rotate: 180deg;
   transition: 300ms;
@@ -74,6 +87,20 @@ span {
   opacity: 0;
   visibility: hidden;
   transition: all 0.3s ease-out;
+  margin-left: -5px;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.smallIcon {
+  opacity: 0;
+  left: 1%;
+  top: 1%;
+  visibility: hidden;
+  transition: all 0.5s ease-out;
   margin-left: -5px;
   -webkit-user-select: none;
   -webkit-touch-callout: none;
