@@ -3,7 +3,7 @@ import Administracija from "../Administracija/Administracija";
 import Dostave from "../Dostave/Dostave/Dostave";
 import Magacin from "../Magacin/Magacin";
 import EtičkiOdbor from "../EtičkiOdbor/EtičkiOdbora";
-import Chat from '../Chat/Chat'
+import Chat from "../Chat/Chat";
 import MenuButton from "../UI/MenuButton/MenuButton";
 import classes from "./SideMenu.module.css";
 
@@ -12,34 +12,35 @@ function SideMenu({ userData, handleClick }) {
     userData?.user[0].role === "admin" ? "Administracija" : "Etičkiodbor"
   );
   const [menu, setMenu] = useState(false);
-  const [chat, setChat] = useState(false)
+  const [chat, setChat] = useState(false);
   const setSelectedHandler = (naziv) => {
     setActive(naziv);
   };
 
   const toggleMenu = () => {
-    setMenu(!menu);
+    setMenu((prevState) => !prevState);
   };
-
+  const toggleChat = () => {
+    setChat((prevState) => !prevState);
+  };
   return (
     <div className={classes.show}>
-      {chat && <Chat title="Pomoć i podrška" />}
+      {chat && <Chat closeModal={setChat} title="Pomoć i podrška" />}
       <img
         className={`${classes.imgArrow} ${!menu ? classes.left : ""}`}
         onClick={toggleMenu}
         alt="strelica"
         src="./utilities/right-arrow.png"
       />
-       <img
-        className={`${classes.imgChat} ${menu ? classes.smallIcon : '' }`}
-        /* onClick={toggleMenu} */
+      <img
+        className={`${classes.imgChat} ${menu ? classes.smallIcon : ""}`}
+        onClick={toggleChat}
         alt="chat"
         src="./utilities/chatting.png"
       />
       <div
         className={`${classes.sideMenu} ${!menu ? "" : classes.sideMenuSmall}`}
       >
-
         <div className={classes.userDataWrapper}>
           <span className={`${menu ? classes.ikonica : ""}`}>
             {userData.user[0].pol === "M" ? (

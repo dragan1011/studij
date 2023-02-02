@@ -50,9 +50,9 @@
   -ms-user-select: none;
   user-select: none;
 }
-.imgChat{
-   position: absolute;
-  left: 12.9%;
+.imgChat {
+  position: absolute;
+  left: 12%;
   top: 1%;
   z-index: 5;
   transition: 1s;
