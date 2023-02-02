@@ -866,6 +866,32 @@ app.put("/studijStatusUpdate", (req, res) => {
   );
 });
 
+app.post("/porukaDodaj", (req, res) => {
+  const id_korisnika = req.body.id_korisnika;
+  const poruka = req.body.poruka;
+
+  db.query(
+    "INSERT INTO studij_chat_poruke (id_korisnika, poruka) values (?, ?)",
+    [id_korisnika, poruka],
+    (err, result) => {
+      if (err) {
+        console.log(err);
+      }
+      res.send(result);
+    }
+  );
+});
+
+app.get("/poruke", (req, res) => {
+  db.query("SELECT * FROM studij_chat_poruke", (error, results) => {
+    if (error) {
+      console.log(err);
+    } else {
+      res.send(results);
+    }
+  });
+});
+
 app.listen(3001, () => {
   console.log("Server je pokrenut");
 });

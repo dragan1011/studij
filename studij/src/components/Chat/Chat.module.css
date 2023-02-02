@@ -30,7 +30,9 @@
 }
 
 .content {
-  padding: 1rem;
+  justify-content: center;
+  text-align: center;
+  padding-top: 1rem;
 }
 
 .actions {
@@ -40,34 +42,15 @@
 }
 
 .card {
-  background: white;
+  background: #f4f4fb;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
   border-radius: 10px;
 }
 
 .button {
-  font: inherit;
-  border: 1px solid #14213d;
-  background: #14213d;
-  color: white;
-  padding: 0.25rem 1rem;
+  border: 0;
+  background-color: transparent;
   cursor: pointer;
-  font-family: "Poppins", sans-serif;
-  border-radius: 10px;
-  transition: 300ms;
-  margin-right: 10px;
-  margin-top: 15px;
-}
-
-.button:hover,
-.button:active {
-  background: #2f3e5e;
-  border-color: #2f3e5e;
-  transition: 300ms;
-}
-
-.button:focus {
-  outline: none;
 }
 
 .close {
@@ -106,13 +89,16 @@
   font-size: 1.1rem;
 }
 .input {
-  height: 1.5rem;
+  height: 24px;
   font-size: 1rem;
   margin-top: 5px;
-  border-radius: 8px;
-  border: 1px solid black;
+  width: 70%;
+  font-family: "Poppins";
+  border: 0;
 }
-
+.input:focus {
+  outline: none;
+}
 .labelUpozorenja {
   font-family: "Poppins", sans-serif;
   color: #e94d4d;
@@ -127,21 +113,43 @@
 .border {
   border-color: #f18686;
 }
-.options {
-  position: absolute;
+.messageWraper {
   border: 1px solid black;
-  width: 37.7rem;
-  margin-top: 3.7rem;
+  width: 95%;
+  border-radius: 25px;
+  padding: 0;
+  position: relative;
+  margin-right: auto;
+  margin-left: auto;
+  box-shadow: rgb(0 0 0 / 24%) 0px 3px 8px;
   background-color: white;
-  margin-left: 1px;
 }
-.dateInput {
-  width: 5.5rem;
-  text-align: center;
+.messageWindow {
+  text-align: left;
+  max-width: 70%;
+  position: relative;
+  margin-left: auto;
+  margin-right: auto;
+  border-top: 1px solid black;
+  border-left: 1px solid black;
+  border-right: 1px solid black;
+  border-radius: 10px 10px 0 0;
+  background-color: white;
+  box-shadow: rgb(0 0 0 / 24%) 0px 3px 8px;
+  padding: 3px;
+  overflow-y: scroll;
 }
-.Calendar {
-  position: absolute;
-  margin-top: -5rem;
-  margin-left: 6rem;
-  border: 1px solid black;
+.message {
+  margin: 5px;
+  background-color: #f4f4fb;
+  width: fit-content;
+  padding: 5px;
+  border-radius: 10px;
+}
+.right {
+  margin-left: auto;
+  background-color: beige;
+}
+.useraname {
+  font-size: 10px;
 }

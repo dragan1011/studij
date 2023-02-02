@@ -13,8 +13,29 @@ function SideMenu({ userData, handleClick }) {
   );
   const [menu, setMenu] = useState(false);
   const [chat, setChat] = useState(false);
+  const [data, setData] = useState("");
+  const [users, setUsers] = useState("");
+  const [refresh, setRefresh] = useState(false);
+
   const setSelectedHandler = (naziv) => {
     setActive(naziv);
+  };
+  useEffect(() => {
+    messageFetch();
+    usersFetch();
+  }, [refresh]);
+
+  const messageFetch = async () => {
+    const data = await (await fetch("http://localhost:3001/poruke")).json();
+
+    // set state when the data received
+    setData(data);
+  };
+  const usersFetch = async () => {
+    const data = await (await fetch("http://localhost:3001/users")).json();
+
+    // set state when the data received
+    setUsers(data);
   };
 
   const toggleMenu = () => {
@@ -23,9 +44,19 @@ function SideMenu({ userData, handleClick }) {
   const toggleChat = () => {
     setChat((prevState) => !prevState);
   };
+
   return (
     <div className={classes.show}>
-      {chat && <Chat closeModal={setChat} title="Pomoć i podrška" />}
+      {chat && (
+        <Chat
+          users={users}
+          refresh={setRefresh}
+          userData={userData}
+          closeModal={setChat}
+          title="Pomoć i podrška"
+          data={data}
+        />
+      )}
       <img
         className={`${classes.imgArrow} ${!menu ? classes.left : ""}`}
         onClick={toggleMenu}
