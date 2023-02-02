@@ -81,11 +81,15 @@ const ModalOverlay = (props) => {
                             {Number(korisnik.id) === Number(item.id_korisnika)
                               ? korisnik.ime + " " + korisnik.prezime + " "
                               : ""}
-                            {Number(korisnik.id) === Number(item.id_korisnika)
-                              ? " " + item.vrijeme.slice(11, 19)
-                              : ""}
                           </div>
                         ))}
+                    {props.users.map((korisnik) => (
+                      <div className={classes.useraname}>
+                        {Number(korisnik.id) === Number(item.id_korisnika)
+                          ? " " + item.vrijeme.slice(11, 19)
+                          : ""}
+                      </div>
+                    ))}
                   </div>
                 </div>
               );
