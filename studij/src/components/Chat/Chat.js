@@ -10,6 +10,7 @@ const ModalOverlay = (props) => {
 
   useEffect(() => {
     document.addEventListener("keydown", hideOnEscape, true);
+    scrollToBottom()
   }, []);
 
   const hideOnEscape = (e) => {
@@ -21,6 +22,8 @@ const ModalOverlay = (props) => {
   const scrollToBottom = () => {
     containerRef.current.scrollTop = containerRef.current.scrollHeight;
   };
+
+  
 
   const sendMessage = async (e) => {
     e.preventDefault();
@@ -71,20 +74,20 @@ const ModalOverlay = (props) => {
                   }`}
                   key={item.id}
                 >
-                  <div>{item.poruka} </div>
+                  <div key={Math.random()}>{item.poruka} </div>
                   <div>
                     {Number(item.id_korisnika) ===
                     Number(props.userData.user[0].id)
                       ? ""
                       : props.users.map((korisnik) => (
-                          <div className={classes.useraname}>
+                          <div key={Math.random()} className={classes.useraname}>
                             {Number(korisnik.id) === Number(item.id_korisnika)
                               ? korisnik.ime + " " + korisnik.prezime + " "
                               : ""}
                           </div>
                         ))}
                     {props.users.map((korisnik) => (
-                      <div className={classes.useraname}>
+                      <div key={Math.random()} className={classes.useraname}>
                         {Number(korisnik.id) === Number(item.id_korisnika)
                           ? " " + item.vrijeme.slice(11, 19)
                           : ""}
@@ -110,7 +113,7 @@ const ModalOverlay = (props) => {
         </div>
         <footer className={classes.actions}>
           <button onClick={close} className={classes.close}>
-            Otkaži
+            Zatvori
           </button>
         </footer>
       </div>

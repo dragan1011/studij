@@ -1,0 +1,60 @@
+.studiji {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  margin-left: 3rem;
+  margin-right: 1rem;
+  padding: 50px;
+  transition: 300ms;
+  background-color: white;
+  box-shadow: rgb(0 0 0 / 24%) 0px 3px 8px;
+  border-radius: 0 20px 20px 20px;
+}
+.studijWrapper {
+  background-color: #f4f4fb;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  width: 250px;
+  height: 120px;
+  border-radius: 10px;
+  margin-top: 1.5rem;
+  transition: 300ms;
+}
+.studijWrapper:hover {
+  transform: scale(1.1);
+  transition: 300ms;
+  cursor: pointer;
+}
+.brojStudija {
+  margin-top: 1rem;
+  font-size: 20px;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.opisStudija {
+  font-size: 18px;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.component {
+  background-color: #f4f4fb;
+}
+.menuLook {
+  display: flex;
+  flex-direction: row;
+  margin-left: 48px;
+}
+.ispravljenje {
+  -webkit-transform: skew(-20deg);
+  -moz-transform: skew(-20deg);
+  -o-transform: skew(-20deg);
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}

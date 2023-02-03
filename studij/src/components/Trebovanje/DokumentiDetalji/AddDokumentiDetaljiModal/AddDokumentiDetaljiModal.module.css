@@ -4,7 +4,7 @@
   left: 0;
   width: 100%;
   height: 100vh;
-  z-index: 10;
+  z-index: 100;
   background: rgba(0, 0, 0, 0.75);
   overflow: hidden;
   backdrop-filter: blur(3px);
@@ -12,10 +12,10 @@
 
 .modal {
   position: fixed;
-  height: 30%;
-  top: 25%;
-  left: 1%;
-  z-index: 100;
+  top: 10vh;
+  left: 10%;
+  width: 80%;
+  z-index: 101;
   overflow: hidden;
 }
 
@@ -24,28 +24,22 @@
   padding: 1rem;
 }
 
-.header h2,
-h3 {
+.header h2 {
   margin: 0;
   color: white;
 }
 
 .content {
   padding: 1rem;
-  display: flex;
-  position: relative;
-  justify-content: center;
 }
 
 .actions {
-  padding: 1rem;
-  position: absolute;
-  bottom: 0;
-  left: 34%;
+  display: flex;
+  justify-content: center;
 }
 
 .card {
-  background: #f4f4fb;
+  background: white;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
   border-radius: 10px;
 }
@@ -61,6 +55,7 @@ h3 {
   border-radius: 10px;
   transition: 300ms;
   margin-right: 10px;
+  margin-top: 15px;
 }
 
 .button:hover,
@@ -84,6 +79,7 @@ h3 {
   font-family: "Poppins", sans-serif;
   border-radius: 10px;
   transition: 300ms;
+  margin-top: 15px;
 }
 
 .close:hover,
@@ -105,20 +101,49 @@ h3 {
   flex-direction: column;
   margin-bottom: 10px;
 }
+.label {
+  font-size: 1.1rem;
+}
+.input {
+  height: 1.5rem;
+  font-size: 1rem;
+  margin-top: 5px;
+  border-radius: 8px;
+  border: 1px solid black;
+}
+
+.labelUpozorenja {
+  font-family: "Poppins", sans-serif;
+  color: #e94d4d;
+}
 
 @media (min-width: 768px) {
   .modal {
-    left: 40%;
-    width: 25%;
+    left: calc(50% - 20rem);
+    width: 40rem;
   }
 }
-
-.green {
-  background-color: #42855b;
-  border: #42855b;
+.border {
+  border-color: #f18686;
 }
-
-.green:hover {
-  background-color: #98c283;
-  border: #98c283;
+.options {
+  position: absolute;
+  border: 1px solid black;
+  width: 37.7rem;
+  margin-top: 3.7rem;
+  background-color: white;
+  margin-left: 1px;
+}
+.dateInput {
+  width: 5.5rem;
+  text-align: center;
+}
+.Calendar {
+  position: absolute;
+  margin-top: -5rem;
+  margin-left: 6rem;
+  border: 1px solid black;
+}
+.optionSelect {
+  cursor: pointer;
 }

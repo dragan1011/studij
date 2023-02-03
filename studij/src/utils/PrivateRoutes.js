@@ -3,7 +3,7 @@ import React from "react";
 
 const PrivateRoutes = ({ userData, checking }) => {
   return checking ? (
-    <p>Checking...</p>
+    <p>Učitavanje...</p>
   ) : userData?.loggedIn ? (
     <Outlet />
   ) : (

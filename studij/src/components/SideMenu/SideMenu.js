@@ -4,6 +4,7 @@ import Dostave from "../Dostave/Dostave/Dostave";
 import Magacin from "../Magacin/Magacin";
 import EtičkiOdbor from "../EtičkiOdbor/EtičkiOdbora";
 import Chat from "../Chat/Chat";
+import Trebovanje from '../Trebovanje/Dostave/Dostave'
 import MenuButton from "../UI/MenuButton/MenuButton";
 import classes from "./SideMenu.module.css";
 
@@ -131,6 +132,18 @@ function SideMenu({ userData, handleClick }) {
             />
             <span className={`${menu ? classes.smallText : ""}`}>Dostave</span>
           </MenuButton>
+           <MenuButton
+            name={"Trebovanje"}
+            activ={active}
+            select={setSelectedHandler}
+          >
+            <img
+              className={`${classes.img} ${menu ? classes.imgSmall : ""}`}
+              alt="dostave"
+              src="./utilities/bill.png"
+            />
+            <span className={`${menu ? classes.smallText : ""}`}>Trebovanje</span>
+          </MenuButton>
           <MenuButton
             name={"Magacin"}
             activ={active}
@@ -173,6 +186,7 @@ function SideMenu({ userData, handleClick }) {
       )}
       {active === "Etičkiodbor" && <EtičkiOdbor />}
       {active === "Dostave" && <Dostave />}
+      {active === 'Trebovanje' && <Trebovanje />} 
       {active === "Magacin" && <Magacin />}
     </div>
   );
