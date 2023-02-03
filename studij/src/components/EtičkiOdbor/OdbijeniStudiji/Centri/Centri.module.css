@@ -47,7 +47,7 @@ h3 {
 .card {
   background: #f4f4fb;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
-  border-radius: 10px;
+  border-radius: 0.42rem;
 }
 
 .button {
@@ -58,7 +58,7 @@ h3 {
   padding: 0.25rem 1rem;
   cursor: pointer;
   font-family: "Poppins", sans-serif;
-  border-radius: 10px;
+  border-radius: 0.42rem;
   transition: 300ms;
   margin-right: 10px;
 }
@@ -68,6 +68,7 @@ h3 {
   background: #2f3e5e;
   border-color: #2f3e5e;
   transition: 300ms;
+  transform: scale(1.05);
 }
 
 .button:focus {
@@ -82,7 +83,7 @@ h3 {
   padding: 0.25rem 1rem;
   cursor: pointer;
   font-family: "Poppins", sans-serif;
-  border-radius: 10px;
+  border-radius: 0.42rem;
   transition: 300ms;
 }
 
@@ -91,6 +92,7 @@ h3 {
   background: #f18686;
   border-color: #f18686;
   transition: 300ms;
+  transform: scale(1.05);
 }
 
 .close:focus {
@@ -111,14 +113,4 @@ h3 {
     left: 40%;
     width: 25%;
   }
-}
-
-.green {
-  background-color: #42855b;
-  border: #42855b;
-}
-
-.green:hover {
-  background-color: #98c283;
-  border: #98c283;
 }

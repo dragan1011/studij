@@ -5,24 +5,13 @@
   padding-bottom: 20px;
   transition: 300ms;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-  border-radius: 20px 20px 20px 20px;
+  border-radius: 0.42rem;
 }
 .components {
   display: flex;
   margin: 0 50px 10px 50px;
 }
-.add {
-  margin-left: auto;
-  font-family: "Poppins", sans-serif;
-  font-weight: bold;
-  color: white;
-  background-color: #14213d;
-  border-radius: 10px;
-  letter-spacing: 1px;
-  cursor: pointer;
-  margin-top: 3rem;
-  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-}
+
 .cell {
   width: 20rem;
   text-align: left;

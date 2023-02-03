@@ -64,20 +64,6 @@ export default function DijetaTabela(props) {
             >
               <div className={classes.ispravljenje}>Ulaz</div>
             </TopMenuButton>
-            <TopMenuButton
-              name={"RezimCuvanja"}
-              activ={active}
-              select={setSelectedHandler}
-            >
-              <div className={classes.ispravljenje}>Režim čuvanja</div>
-            </TopMenuButton>
-            <TopMenuButton
-              name={"jm"}
-              activ={active}
-              select={setSelectedHandler}
-            >
-              <div className={classes.ispravljenje}>Jedinica mjere</div>
-            </TopMenuButton>
           </div>
 
           {active === "Ulaz" && (
@@ -95,8 +81,6 @@ export default function DijetaTabela(props) {
                 ))}{" "}
             </div>
           )}
-          {active === "RezimCuvanja" && <RezimCuvanja />}
-          {active === "jm" && <JedinicaMjere />}
         </div>
       )}
     </div>

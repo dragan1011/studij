@@ -1,52 +1,49 @@
-.dijeteWrapper{
-    position: relative;
-    margin: 0 50px;
-    border-radius: 5px;
-    /*box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;*/
+.dijeteWrapper {
+  position: relative;
+  margin: 0 50px;
+  border-radius: 5px;
 }
-.cell{
-    width: 20rem;
-    text-align: left;
-    display: flex;
-    align-items: center;
-    padding-left: 15px;
+.cell {
+  width: 20rem;
+  text-align: left;
+  display: flex;
+  align-items: center;
 }
-.row{
-    display: flex;
-    cursor: pointer;
-    background-color: white;
-    border: none;
-    height: 30px;
-    transition: 300ms;
+.row {
+  display: flex;
+  cursor: pointer;
+  background-color: white;
+  border: none;
+  height: 30px;
+  transition: 300ms;
 }
-.row:hover{
-    background-color: #F4F4FB;
-    transition: 300ms;
+.row:hover {
+  background-color: #f4f4fb;
+  transition: 300ms;
 }
-.lokacija{
-    width: 50%;
-    justify-content: center;
-}
-.naziv{
-    width: 50%;
-    font-weight: bold;
-    justify-content: center;
-    border-right: 1px solid rgba(0, 0, 0, 0.20);
-}
-.odjel{
+.lokacija {
+  width: 50%;
   justify-content: center;
-    width: 65%;
 }
-.x:hover{
-color: red;
+.naziv {
+  width: 50%;
+  justify-content: center;
+  border-right: 1px solid rgba(0, 0, 0, 0.2);
 }
-.drugiRed{
-    border-bottom: 1px solid rgba(0, 0, 0, 0.20);
-    border-left: 1px solid rgba(0, 0, 0, 0.20);
-    border-right: 1px solid rgba(0, 0, 0, 0.20);
+.odjel {
+  justify-content: center;
+  width: 65%;
 }
-.prviRed{
-    border-bottom: 1px solid rgba(0, 0, 0, 0.20);
-    border-left: 1px solid rgba(0, 0, 0, 0.20);
-    border-right: 1px solid rgba(0, 0, 0, 0.20);
+.x:hover {
+  color: red;
+}
+.drugiRed {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  border-left: 1px solid rgba(0, 0, 0, 0.2);
+  border-right: 1px solid rgba(0, 0, 0, 0.2);
+}
+.prviRed {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  border-left: 1px solid rgba(0, 0, 0, 0.2);
+  border-right: 1px solid rgba(0, 0, 0, 0.2);
 }

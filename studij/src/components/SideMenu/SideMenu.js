@@ -5,6 +5,7 @@ import Magacin from "../Magacin/Magacin";
 import EtičkiOdbor from "../EtičkiOdbor/EtičkiOdbora";
 import Chat from "../Chat/Chat";
 import Trebovanje from "../Trebovanje/Dostave/Dostave";
+import Sifrarnici from "../Šifrarnici/Sifrarnici";
 import MenuButton from "../UI/MenuButton/MenuButton";
 import classes from "./SideMenu.module.css";
 import Axios from "axios";
@@ -122,6 +123,22 @@ function SideMenu({ userData, afterLogout }) {
               </span>
             </MenuButton>
           )}
+          {userData?.user.role === "admin" && (
+            <MenuButton
+              name={"Šifrarnici"}
+              activ={active}
+              select={setSelectedHandler}
+            >
+              <img
+                className={`${classes.img} ${menu ? classes.imgSmall : ""}`}
+                alt="eodbor"
+                src="./utilities/search.png"
+              />
+              <span className={`${menu ? classes.smallText : ""}`}>
+                Šifrarnici
+              </span>
+            </MenuButton>
+          )}
           <MenuButton
             name={"Etičkiodbor"}
             activ={active}
@@ -201,6 +218,9 @@ function SideMenu({ userData, afterLogout }) {
 
       {active === "Administracija" && userData?.user.role === "admin" && (
         <Administracija />
+      )}
+      {active === "Šifrarnici" && userData?.user.role === "admin" && (
+        <Sifrarnici />
       )}
       {active === "Etičkiodbor" && <EtičkiOdbor />}
       {active === "Dostave" && <Dostave />}

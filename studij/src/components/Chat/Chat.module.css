@@ -67,7 +67,7 @@
   padding: 0.25rem 1rem;
   cursor: pointer;
   font-family: "Poppins", sans-serif;
-  border-radius: 10px;
+  border-radius: 0.42rem;
   transition: 300ms;
   margin-top: 15px;
 }

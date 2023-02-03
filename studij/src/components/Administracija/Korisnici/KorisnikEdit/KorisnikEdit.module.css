@@ -42,7 +42,7 @@
 .card {
   background: white;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
-  border-radius: 10px;
+  border-radius: 0.42rem;
 }
 
 .button {
@@ -53,7 +53,7 @@
   padding: 0.25rem 1rem;
   cursor: pointer;
   font-family: "Poppins", sans-serif;
-  border-radius: 10px;
+  border-radius: 0.42rem;
   transition: 300ms;
   margin-right: 10px;
 }
@@ -63,6 +63,7 @@
   background: #2f3e5e;
   border-color: #2f3e5e;
   transition: 300ms;
+  transform: scale(1.05);
 }
 
 .button:focus {
@@ -77,7 +78,7 @@
   padding: 0.25rem 1rem;
   cursor: pointer;
   font-family: "Poppins", sans-serif;
-  border-radius: 10px;
+  border-radius: 0.42rem;
   transition: 300ms;
 }
 
@@ -86,6 +87,7 @@
   background: #f18686;
   border-color: #f18686;
   transition: 300ms;
+  transform: scale(1.05);
 }
 
 .close:focus {
@@ -107,17 +109,16 @@
   height: 1.5rem;
   font-size: 1rem;
   margin-top: 5px;
-  border-radius: 8px;
-  border: 2px solid black;
+  border-radius: 0.42rem;
+  border: 1px solid #b1b3b9;
   font-family: "Poppins", sans-serif;
   width: 210px;
 }
 .input:focus {
   outline: none;
 }
-.inputRight{
+.inputRight {
   margin-left: 5px;
-
 }
 .labelUpozorenja {
   font-family: "Poppins", sans-serif;

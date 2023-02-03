@@ -1,24 +1,18 @@
-.back{
-    color: #14213d;
-    cursor: pointer;
-    margin-right: 90%;
-    margin-top: 2%;
+.back {
+  color: #14213d;
+  cursor: pointer;
+  margin-right: 90%;
+  margin-top: 2%;
 }
-.nazad{
-    transition: all 0.2s
+.nazad {
+  transition: all 0.2s;
 }
-.nazad:hover{
-    padding-left: 10px;
-  transition: .2s ease-in;
+.nazad:hover {
+  padding-left: 10px;
+  transition: 0.2s ease-in;
 }
 .menuLook {
-    display: flex;
-    flex-direction: row;
-    margin-left: 50px;
-  }
-  .ispravljenje {
-    -webkit-transform: skew(-20deg);
-    -moz-transform: skew(-20deg);
-    -o-transform: skew(-20deg);
-  }
-  
+  display: flex;
+  flex-direction: row;
+  margin-left: 50px;
+}
