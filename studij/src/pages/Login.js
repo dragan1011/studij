@@ -37,7 +37,7 @@ const Login = ({ setUserData, userData }) => {
         <form onSubmit={login}>
           <div className={classes.formBorder}>
             <img className={classes.avatar} src="utilities/test.png" />
-            <h2 className={classes.title}>Welcome</h2>
+            <h2 className={classes.title}>Dobro došli!</h2>
             <div /* className={`${classes.input_div} ${classes.one}`} */>
               <div className={`${classes.inputDiv} ${classes.one}`}>
                 <h5 className={classes.label}>Korisničko ime</h5>
