@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "nodemon ./index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
@@ -18,5 +19,8 @@
     "mysql2": "^2.3.3",
     "ssh2-sftp-client": "^9.0.4",
     "tunnel-ssh": "^5.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.20"
   }
 }

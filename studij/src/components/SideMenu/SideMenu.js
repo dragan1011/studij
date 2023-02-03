@@ -4,13 +4,14 @@ import Dostave from "../Dostave/Dostave/Dostave";
 import Magacin from "../Magacin/Magacin";
 import EtičkiOdbor from "../EtičkiOdbor/EtičkiOdbora";
 import Chat from "../Chat/Chat";
-import Trebovanje from '../Trebovanje/Dostave/Dostave'
+import Trebovanje from "../Trebovanje/Dostave/Dostave";
 import MenuButton from "../UI/MenuButton/MenuButton";
 import classes from "./SideMenu.module.css";
+import Axios from "axios";
 
-function SideMenu({ userData, handleClick }) {
+function SideMenu({ userData, afterLogout }) {
   const [active, setActive] = useState(
-    userData?.user[0].role === "admin" ? "Administracija" : "Etičkiodbor"
+    userData?.user?.role === "admin" ? "Administracija" : "Etičkiodbor"
   );
   const [menu, setMenu] = useState(false);
   const [chat, setChat] = useState(false);
@@ -25,6 +26,17 @@ function SideMenu({ userData, handleClick }) {
     messageFetch();
     usersFetch();
   }, [refresh]);
+
+  const onLogout = async () => {
+    try {
+      await Axios.post("http://localhost:3001/logout", {
+        name: "userId",
+      });
+      afterLogout();
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   const messageFetch = async () => {
     const data = await (await fetch("http://localhost:3001/poruke")).json();
@@ -45,6 +57,10 @@ function SideMenu({ userData, handleClick }) {
   const toggleChat = () => {
     setChat((prevState) => !prevState);
   };
+
+  if (!userData.user) {
+    return "Loading...";
+  }
 
   return (
     <div className={classes.show}>
@@ -75,7 +91,7 @@ function SideMenu({ userData, handleClick }) {
       >
         <div className={classes.userDataWrapper}>
           <span className={`${menu ? classes.ikonica : ""}`}>
-            {userData.user[0].pol === "M" ? (
+            {userData.user.pol === "M" ? (
               <img src="./utilities/male.png" />
             ) : (
               <img src="./utilities/business-woman.png" />
@@ -83,13 +99,13 @@ function SideMenu({ userData, handleClick }) {
           </span>
           <div className={`${classes.userIme}`}>
             <span className={` ${menu ? classes.smallmenu : ""}`}>
-              {userData.user[0].pol === "M" ? "Dobro došao " : "Dobro došla "}{" "}
-              <div className={classes.userData}>{userData.user[0].ime}</div>
+              {userData.user.pol === "M" ? "Dobro došao " : "Dobro došla "}{" "}
+              <div className={classes.userData}>{userData.user.ime}</div>
             </span>
           </div>
         </div>
         <div className={classes.margin}>
-          {userData?.user[0].role === "admin" && (
+          {userData?.user.role === "admin" && (
             <MenuButton
               name={"Administracija"}
               activ={active}
@@ -132,7 +148,7 @@ function SideMenu({ userData, handleClick }) {
             />
             <span className={`${menu ? classes.smallText : ""}`}>Dostave</span>
           </MenuButton>
-           <MenuButton
+          <MenuButton
             name={"Trebovanje"}
             activ={active}
             select={setSelectedHandler}
@@ -142,7 +158,9 @@ function SideMenu({ userData, handleClick }) {
               alt="dostave"
               src="./utilities/bill.png"
             />
-            <span className={`${menu ? classes.smallText : ""}`}>Trebovanje</span>
+            <span className={`${menu ? classes.smallText : ""}`}>
+              Trebovanje
+            </span>
           </MenuButton>
           <MenuButton
             name={"Magacin"}
@@ -159,7 +177,7 @@ function SideMenu({ userData, handleClick }) {
         </div>
 
         <div className={classes.logoutWrapper}>
-          <button onClick={() => handleClick()} className={classes.logout}>
+          <button onClick={onLogout} className={classes.logout}>
             <img
               className={`${classes.img} ${menu ? classes.imgSmall : ""}`}
               alt="magacin"
@@ -181,12 +199,12 @@ function SideMenu({ userData, handleClick }) {
       </div>
       </div>} */}
 
-      {active === "Administracija" && userData?.user[0].role === "admin" && (
+      {active === "Administracija" && userData?.user.role === "admin" && (
         <Administracija />
       )}
       {active === "Etičkiodbor" && <EtičkiOdbor />}
       {active === "Dostave" && <Dostave />}
-      {active === 'Trebovanje' && <Trebovanje />} 
+      {active === "Trebovanje" && <Trebovanje />}
       {active === "Magacin" && <Magacin />}
     </div>
   );

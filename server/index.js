@@ -123,9 +123,13 @@ app.post("/login", (req, res) => {
       if (result.length > 0) {
         bcrypt.compare(password, result[0].password, (error, response) => {
           if (response) {
-            req.session.user = result;
+            req.session.user = result[0];
             console.log(req.session.user);
-            res.send({ message: "Prijavljen si" });
+            res.send({
+              loggedIn: true,
+              user: result[0],
+              message: "Prijavljen si",
+            });
           } else {
             res.send({
               message: "Pogrešna kombinacija korisničkog imena i lozinke!",

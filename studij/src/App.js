@@ -5,6 +5,7 @@ import PrivateRoutes from "./utils/PrivateRoutes";
 import { useState, useEffect } from "react";
 import Axios from "axios";
 import SideMenu from "./components/SideMenu/SideMenu";
+import { useNavigate } from "react-router-dom";
 
 function App() {
   const [userData, setUserData] = useState();
@@ -13,10 +14,7 @@ function App() {
   useEffect(() => {
     Axios.get("http://localhost:3001/login")
       .then((response) => {
-        if (response.data.loggedIn == true) {
-          setUserData(response.data);
-        }
-        return;
+        setUserData(response.data);
       })
       .catch((error) => {
         console.log(error);
@@ -26,16 +24,14 @@ function App() {
       });
   }, []);
 
-   const handleClick = async () => {
-    try {
-      await Axios.post("http://localhost:3001/logout", {
-        name: "userId",
-      });
-      window.location.reload(true);
-    } catch (error) {
-      console.error(error);
-    }
+  const onLogout = () => {
+    setUserData(null);
   };
+
+  if (checking) {
+    return "Loading...";
+  }
+
   return (
     <div className="App">
       <Router>
@@ -43,7 +39,11 @@ function App() {
           <Route
             element={<PrivateRoutes userData={userData} checking={checking} />}
           >
-            <Route element={<SideMenu handleClick={handleClick} userData={userData} />} path="/" exact />
+            <Route
+              element={<SideMenu userData={userData} afterLogout={onLogout} />}
+              path="/"
+              exact
+            />
             {/*  <Route element={<Products />} path="/products" /> */}
           </Route>
           <Route

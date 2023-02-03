@@ -12,7 +12,6 @@ const Login = ({ setUserData, userData }) => {
   const navigate = useNavigate();
   const location = useLocation();
 
-
   Axios.defaults.withCredentials = true;
 
   const login = (e) => {
@@ -22,15 +21,12 @@ const Login = ({ setUserData, userData }) => {
       password: password,
     }).then((response) => {
       setUserData(response.data);
-      window.location.reload(true);
     });
   };
 
-  useEffect(() => {
-    if (userData) {
-      navigate("/");
-    }
-  }, [userData]);
+  if (userData?.loggedIn) {
+    navigate("/");
+  }
 
   return (
     <div className={classes.container}>
@@ -40,36 +36,36 @@ const Login = ({ setUserData, userData }) => {
       <div className={classes.login_content}>
         <form onSubmit={login}>
           <div className={classes.formBorder}>
-          <img className={classes.avatar} src="utilities/test.png" />
-          <h2 className={classes.title}>Welcome</h2>
-          <div /* className={`${classes.input_div} ${classes.one}`} */>
-            <div className={`${classes.inputDiv} ${classes.one}`}>
-              <h5 className={classes.label}>Korisničko ime</h5>
-              <input
-                onChange={(e) => {
-                  setUsername(e.target.value);
-                }}
-                type="text"
-                className={classes.input}
-              />
+            <img className={classes.avatar} src="utilities/test.png" />
+            <h2 className={classes.title}>Welcome</h2>
+            <div /* className={`${classes.input_div} ${classes.one}`} */>
+              <div className={`${classes.inputDiv} ${classes.one}`}>
+                <h5 className={classes.label}>Korisničko ime</h5>
+                <input
+                  onChange={(e) => {
+                    setUsername(e.target.value);
+                  }}
+                  type="text"
+                  className={classes.input}
+                />
+              </div>
             </div>
-          </div>
-          <div /* className={`${classes.input_div} ${classes.pass}`} */>
-            <div /* className="div" */>
-              <h5 className={classes.label}>Lozinka</h5>
-              <input
-                onChange={(e) => {
-                  setPassword(e.target.value);
-                }}
-                type="password"
-                className={classes.input}
-              />
+            <div /* className={`${classes.input_div} ${classes.pass}`} */>
+              <div /* className="div" */>
+                <h5 className={classes.label}>Lozinka</h5>
+                <input
+                  onChange={(e) => {
+                    setPassword(e.target.value);
+                  }}
+                  type="password"
+                  className={classes.input}
+                />
+              </div>
             </div>
-          </div>
 
-          <button type="submit" className={classes.button}>
-            Prijavi se
-          </button>
+            <button type="submit" className={classes.button}>
+              Prijavi se
+            </button>
           </div>
         </form>
         <h3 className={classes.labelUpozorenja}>{userData?.message}</h3>

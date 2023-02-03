@@ -10,7 +10,7 @@ const ModalOverlay = (props) => {
 
   useEffect(() => {
     document.addEventListener("keydown", hideOnEscape, true);
-    scrollToBottom()
+    scrollToBottom();
   }, []);
 
   const hideOnEscape = (e) => {
@@ -23,8 +23,6 @@ const ModalOverlay = (props) => {
     containerRef.current.scrollTop = containerRef.current.scrollHeight;
   };
 
-  
-
   const sendMessage = async (e) => {
     e.preventDefault();
 
@@ -33,7 +31,7 @@ const ModalOverlay = (props) => {
     }
 
     Axios.post("http://localhost:3001/porukaDodaj", {
-      id_korisnika: props.userData.user[0].id,
+      id_korisnika: props.userData.user.id,
       poruka: message.trim(),
     }).then((response) => {
       props.refresh((prevState) => !prevState);
@@ -67,8 +65,7 @@ const ModalOverlay = (props) => {
               return (
                 <div
                   className={`${classes.message} ${
-                    Number(item.id_korisnika) ===
-                    Number(props.userData.user[0].id)
+                    Number(item.id_korisnika) === Number(props.userData.user.id)
                       ? classes.right
                       : ""
                   }`}
@@ -77,10 +74,13 @@ const ModalOverlay = (props) => {
                   <div key={Math.random()}>{item.poruka} </div>
                   <div>
                     {Number(item.id_korisnika) ===
-                    Number(props.userData.user[0].id)
+                    Number(props.userData.user.id)
                       ? ""
                       : props.users.map((korisnik) => (
-                          <div key={Math.random()} className={classes.useraname}>
+                          <div
+                            key={Math.random()}
+                            className={classes.useraname}
+                          >
                             {Number(korisnik.id) === Number(item.id_korisnika)
                               ? korisnik.ime + " " + korisnik.prezime + " "
                               : ""}

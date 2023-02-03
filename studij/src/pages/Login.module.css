@@ -1,17 +1,16 @@
-body{
-   background-color: #F4F4FB;
+body {
+  background-color: #f4f4fb;
 }
 .container {
   display: flex;
   margin-left: 5rem;
   margin-top: 8rem;
- 
 }
 .slika {
   text-align: left;
   justify-content: left;
   margin-right: 50px;
-  padding: 3rem
+  padding: 3rem;
 }
 .login_content {
   margin-left: 10rem;
@@ -37,6 +36,10 @@ body{
   border-radius: 8px;
   border: 2px solid black;
   margin-bottom: 5px;
+  border: 1px solid #b1b3b9;
+  border-radius: 0.42rem;
+  -webkit-box-shadow: none;
+  box-shadow: none;
 }
 .input:focus {
   outline: none;
@@ -71,10 +74,9 @@ body{
   font-family: "Poppins", sans-serif;
   color: #e94d4d;
 }
-.formBorder{
-
+.formBorder {
   padding: 5rem;
-  border-radius: 15px;
+  border-radius: 5px;
   box-shadow: rgb(0 0 0 / 24%) 0px 3px 8px;
   background-color: white;
 }
