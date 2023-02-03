@@ -62,10 +62,12 @@
   -ms-user-select: none;
   user-select: none;
   transition: 1s;
+  opacity: 80%;
 }
 .imgChat:hover {
   transition: 300ms;
   transform: scale(1.1);
+  opacity: 100%;
 }
 .left {
   rotate: 180deg;
@@ -165,9 +167,6 @@ span {
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-}
-.userData {
-  margin-left: 5px;
 }
 .ikonica {
   opacity: 60%;
