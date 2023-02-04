@@ -8,8 +8,6 @@ import TopMenuButton from "../../UI/TopMenuButton/TopMenuButton";
 
 import classes from "./DostavaKartica.module.css";
 import { StatusiRed } from "./DostavaRed";
-import JedinicaMjere from "../JedinicaMjere/JedinicaMjere/JedinicaMjere";
-import RezimCuvanja from "../RezimCuvanja/RezimCuvanja/RezimCuvanja";
 
 export default function DijetaTabela(props) {
   const [edit, setEdit] = useState(false);
@@ -62,7 +60,7 @@ export default function DijetaTabela(props) {
               activ={active}
               select={setSelectedHandler}
             >
-              <div className={classes.ispravljenje}>Ulaz</div>
+              <div className={classes.ispravljenje}>Trebovanje</div>
             </TopMenuButton>
           </div>
 

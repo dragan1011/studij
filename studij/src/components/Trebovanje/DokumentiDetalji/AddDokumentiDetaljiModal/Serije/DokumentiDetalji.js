@@ -3,12 +3,11 @@ import ReactDOM from "react-dom";
 
 import classes from "./DokumentiDetalji.module.css";
 
-import DokumentiDetalji from "./AddDokumentiDetaljiModal/Serije/DokumentiDetalji";
-
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 import DokumentDetaljiTabela from "./DokumentDetaljiTabela";
+import Axios from "axios";
 
 const ModalOverlay = (props) => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -16,6 +15,9 @@ const ModalOverlay = (props) => {
   const [isModal, setIsModal] = useState(false);
   const [refresh, setRefresh] = useState(false);
   const [data, setData] = useState([]);
+  const [isDisabled, setIsDisabled] = useState(true);
+  const [isDisabledDelete, setIsDisabledDelete] = useState(true);
+  const [selectedIds, setSelectedIds] = useState([]);
 
   const modal = () => {
     setIsModal(true);
@@ -31,19 +33,17 @@ const ModalOverlay = (props) => {
       close();
     }
   };
-
-  const notify = () => {
-    toast.success("Uspješno izmijenjeno!", {
-      position: "top-right",
-      autoClose: 5000,
-      hideProgressBar: true,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "light",
-    });
-  };
+  useEffect(() => {
+    if (selectedIds.length === 0) {
+      setIsDisabled(selectedIds.length === 0);
+      setIsDisabledDelete(selectedIds.length === 0);
+    } else if (selectedIds.length === 1) {
+      setIsDisabled(selectedIds.length <= 0);
+      setIsDisabledDelete(selectedIds.length <= 0);
+    } else if (selectedIds.length === 2) {
+      setIsDisabled(selectedIds.length !== 1);
+    }
+  }, [selectedIds]);
 
   const search = (data) => {
     return data.filter(
@@ -71,7 +71,7 @@ const ModalOverlay = (props) => {
     );
   };
 
-  // fetch data centri
+  // fetch data serije
   const dataFetch = async () => {
     const data = await (
       await fetch("http://localhost:3001/dokumentiDetalji")
@@ -83,7 +83,7 @@ const ModalOverlay = (props) => {
 
   const [lijek, setLijek] = useState("");
 
-  // fetch data korisnici
+  // fetch data lijekovi
   const lijekFetch = async () => {
     const data = await (await fetch("http://localhost:3001/lijekovi")).json();
 
@@ -111,6 +111,22 @@ const ModalOverlay = (props) => {
     setCentarId(childData);
   };
 
+  const izaberiSeriju = async (e) => {
+    e.preventDefault();
+
+    for (let i = 0; i < selectedIds.length; i++) {
+      Axios.put("http://localhost:3001/serijeTrebovanjeUpdate", {
+        id: selectedIds[i],
+        kizlaz: 1,
+        id_dokumenta_trebovanje: props.data.id,
+      }).then((response) => {
+        props.refresh();
+        refreshFunc();
+        console.log(response);
+      });
+    }
+    close();
+  };
   return (
     <div>
       <ToastContainer />
@@ -123,7 +139,6 @@ const ModalOverlay = (props) => {
       <div className={`${classes.modal} ${classes.card}`}>
         <header className={classes.header}>
           <h2>{props.title}</h2>
-          <h3>Oznaka dokumenta: {props.data.oznaka}</h3>
         </header>
         <div className={classes.background}>
           <div className={classes.components}>
@@ -135,18 +150,6 @@ const ModalOverlay = (props) => {
               placeholder="Brza pretraga..."
               className={classes.search}
             />
-            <button onClick={modal} className={classes.add}>
-              Biranje serije
-            </button>
-            {isModal && (
-              <DokumentiDetalji
-                data={props.data}
-                refresh={refreshFunc}
-                closeModal={setIsModal}
-                title="Biranje serije"
-                studijId={props.studijId}
-              />
-            )}
           </div>
           <div className={classes.row_heading}>
             <div className={`${classes.heading} ${classes.half}`}>Lijek</div>
@@ -160,6 +163,8 @@ const ModalOverlay = (props) => {
             <div className={`${classes.heading} ${classes.half}`}>Pacijent</div>
           </div>
           <DokumentDetaljiTabela
+            selectedIds={selectedIds}
+            setSelectedIds={setSelectedIds}
             centarId={handleData}
             dokumentData={props.data}
             refresh={refreshFunc}
@@ -168,6 +173,13 @@ const ModalOverlay = (props) => {
           />
         </div>
         <footer className={classes.actions}>
+          <button
+            onClick={izaberiSeriju}
+            type="submit"
+            className={classes.button}
+          >
+            Dodaj
+          </button>
           <button
             onClick={() => {
               props.closeModal(false);
@@ -193,6 +205,7 @@ const Modal = (props) => {
           closeModal={props.closeModal}
           title={props.title}
           studijId={props.studijId}
+          refresh={props.refresh}
         >
           {props.children}
         </ModalOverlay>,

@@ -34,8 +34,9 @@ const ModalOverlay = (props) => {
   const refCloseCalendar = useRef(null);
 
   const data = [
-    { id: 1, naziv: "Aktivan" },
-    { id: 2, naziv: "Neaktivan" },
+    { id: 1, naziv: "Otključan" },
+    { id: 2, naziv: "Zaključan" },
+    { id: 3, naziv: "Karantin" },
   ];
 
   useEffect(() => {
@@ -87,8 +88,8 @@ const ModalOverlay = (props) => {
     }
 
     notify();
-    Axios.post("http://localhost:3001/dokumentDodaj", {
-      vrsta: "ulaz",
+    Axios.post("http://localhost:3001/dokumentTrebovanjeDodaj", {
+      vrsta: "trebovanje",
       datum: formatedDate,
       oznaka: oznaka,
       id_studijskog_centra: props.studijId,

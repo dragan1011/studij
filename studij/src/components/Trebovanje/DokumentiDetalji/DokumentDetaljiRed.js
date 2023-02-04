@@ -13,6 +13,7 @@ export const DokumentDetaljiRed = (props) => {
       serija: props.serija,
       sifra_pacijenta: props.sifra_pacijenta,
       id_dokumenta: props.id_dokumenta,
+      id_dokumenta_trebovanje: props.id_dokumenta_trebovanje,
     };
     props.open(tempData);
   };
@@ -30,7 +31,9 @@ export const DokumentDetaljiRed = (props) => {
       onClick={showUsers}
     >
       <div className={`${classes.cell} ${classes.naziv}`}>
-        {props.id_lijeka}
+        {Array.from(props.lijek).map((item) => {
+          return Number(item.id) === Number(props.id_lijeka) ? item.naziv : "";
+        })}
       </div>
       <div className={`${classes.cell} ${classes.naziv}`}>
         {props.rok_trajanja}

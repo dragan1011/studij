@@ -896,6 +896,88 @@ app.get("/poruke", (req, res) => {
   });
 });
 
+app.post("/dokumentTrebovanjeDodaj", (req, res) => {
+  const vrsta = req.body.vrsta;
+  const datum = req.body.datum;
+  const oznaka = req.body.oznaka;
+  const id_studijskog_centra = req.body.id_studijskog_centra;
+  const broj_dostavnice = req.body.broj_dostavnice;
+  const id_veze = req.body.id_veze;
+  const storno = req.body.storno;
+  const napomena = req.body.napomena;
+  const id_statusa = req.body.id_statusa;
+
+  db.query(
+    "INSERT INTO studij_dokumenti_trebovanje (vrsta, datum, oznaka, id_studijskog_centra,broj_dostavnice, id_veze, storno, napomena, id_status) values (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+    [
+      vrsta,
+      datum,
+      oznaka,
+      id_studijskog_centra,
+      broj_dostavnice,
+      id_veze,
+      storno,
+      napomena,
+      id_statusa,
+    ],
+    (err, result) => {
+      if (err) {
+        console.log(err);
+      }
+      res.send(result);
+    }
+  );
+});
+
+app.get("/dokumentiTrebovanje", (req, res) => {
+  db.query("SELECT * FROM studij_dokumenti_trebovanje", (error, results) => {
+    if (error) {
+      console.log(err);
+    } else {
+      res.send(results);
+    }
+  });
+});
+
+app.put("/dokumentTrebovanjeUpdate", (req, res) => {
+  const id = req.body.id;
+  const oznaka = req.body.oznaka;
+  const napomena = req.body.napomena;
+  const id_status = req.body.id_statusa;
+
+  db.query(
+    "UPDATE studij_dokumenti_trebovanje SET oznaka=?, napomena=?, id_status=? WHERE id=? ",
+    [oznaka, napomena, id_status, id],
+
+    (err, result) => {
+      if (err) {
+        console.log(err);
+      } else {
+        res.send(result);
+      }
+    }
+  );
+});
+
+app.put("/serijeTrebovanjeUpdate", (req, res) => {
+  const id = req.body.id;
+  const kizlaz = req.body.kizlaz;
+  const id_dokumenta_trebovanje = req.body.id_dokumenta_trebovanje;
+
+  db.query(
+    "UPDATE studij_dokumenti_detalji SET kizlaz=?, id_dokumenta_trebovanje=? WHERE id=? ",
+    [kizlaz, id_dokumenta_trebovanje, id],
+
+    (err, result) => {
+      if (err) {
+        console.log(err);
+      } else {
+        res.send(result);
+      }
+    }
+  );
+});
+
 app.listen(3001, () => {
   console.log("Server je pokrenut");
 });

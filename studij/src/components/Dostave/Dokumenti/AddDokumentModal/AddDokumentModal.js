@@ -34,8 +34,9 @@ const ModalOverlay = (props) => {
   const refCloseCalendar = useRef(null);
 
   const data = [
-    { id: 1, naziv: "Aktivan" },
-    { id: 2, naziv: "Neaktivan" },
+    { id: 1, naziv: "Otključan" },
+    { id: 2, naziv: "Zaključan" },
+    { id: 3, naziv: "Karantin" },
   ];
 
   useEffect(() => {

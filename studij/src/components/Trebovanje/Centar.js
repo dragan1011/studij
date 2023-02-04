@@ -3,8 +3,6 @@ import React, { useState } from "react";
 import classes from "./Centar.module.css";
 
 import TopMenuButton from "../UI/TopMenuButton/TopMenuButton";
-
-import Lijekovi from "./Lijekovi/Lijekovi/Lijekovi";
 import Dokumenti from "./Dokumenti/Dokumenti/Dokumenti";
 
 function Centar(props) {
@@ -39,18 +37,10 @@ function Centar(props) {
           >
             <div className={classes.ispravljenje}>Dokumenti</div>
           </TopMenuButton>
-          <TopMenuButton
-            name={"Lijek"}
-            activ={active}
-            select={setSelectedHandler}
-          >
-            <div className={classes.ispravljenje}>Lijek</div>
-          </TopMenuButton>
         </div>
         {active === "Dokumenti" && (
           <Dokumenti centarIme={props.centarIme} studijId={props.studijId} />
         )}
-        {active === "Lijek" && <Lijekovi studijId={props.studijId} />}
       </div>
     </div>
   );

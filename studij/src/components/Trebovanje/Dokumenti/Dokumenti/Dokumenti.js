@@ -36,7 +36,9 @@ function Statusi(props) {
 
   // fetch dokumenti
   const dataFetch = async () => {
-    const data = await (await fetch("http://localhost:3001/dokumenti")).json();
+    const data = await (
+      await fetch("http://localhost:3001/dokumentiTrebovanje")
+    ).json();
 
     // set state when the data received
     setData(data);

@@ -1,8 +1,30 @@
 .dijeteWrapper {
   position: relative;
   margin: 0 50px;
-  border-radius: 5px;
+  overflow-y: scroll;
+  height: 35rem;
 }
+
+/* width */
+::-webkit-scrollbar {
+  display: none;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  display: none;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  display: none;
+}
+
 .cell {
   width: 20rem;
   text-align: left;
@@ -14,7 +36,7 @@
   cursor: pointer;
   background-color: white;
   border: none;
-  height: 30px;
+  /*box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;*/
   transition: 300ms;
 }
 .row:hover {
@@ -46,4 +68,7 @@
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
   border-left: 1px solid rgba(0, 0, 0, 0.2);
   border-right: 1px solid rgba(0, 0, 0, 0.2);
+}
+.selectedRow {
+  background-color: #c9f4aa !important;
 }

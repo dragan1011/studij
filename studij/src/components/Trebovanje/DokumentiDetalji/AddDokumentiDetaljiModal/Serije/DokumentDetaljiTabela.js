@@ -17,9 +17,12 @@ export default function DijetaTabela(props) {
       {props.data
         .sort((a, b) => (+a.id > +b.id ? 1 : -1))
         .map((item) =>
-          Number(props.dokumentData.id) ===
-          Number(item.id_dokumenta_trebovanje) ? (
+          item.id_dokumenta_trebovanje >= 1 ? (
+            ""
+          ) : (
             <DokumentDetaljiRed
+              selectedIds={props.selectedIds}
+              setSelectedIds={props.setSelectedIds}
               lijek={props.lijek}
               dokumentData={props.dokumentData}
               centarId={props.centarId}
@@ -27,8 +30,6 @@ export default function DijetaTabela(props) {
               {...item}
               open={openModalHandler}
             ></DokumentDetaljiRed>
-          ) : (
-            ""
           )
         )}
     </div>
