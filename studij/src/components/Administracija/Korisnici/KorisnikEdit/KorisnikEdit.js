@@ -8,9 +8,6 @@ import Axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-import { Calendar } from "react-date-range";
-import { format } from "date-fns";
-
 const ModalOverlay = (props) => {
   const [ime, setIme] = useState(props.data.ime);
   const [prezime, setPrezime] = useState(props.data.prezime);

@@ -129,9 +129,9 @@
 }
 .options {
   position: absolute;
-  border: 1px solid black;
+  border: 1px solid #b1b3b9;
   width: 37.7rem;
-  margin-top: 3.75rem;
+  margin-top: 3.6rem;
   background-color: white;
   margin-left: 1px;
 }

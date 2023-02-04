@@ -79,8 +79,6 @@ const ModalOverlay = (props) => {
       return setKorisnikIsValid(true);
     }
 
-    console.log(props.data.id, korisnik, value[0], value[1], selectedOptionId);
-
     notify();
     Axios.put("http://localhost:3001/korisnikUpdate", {
       id: props.data.id,

@@ -149,13 +149,13 @@ select {
   width: fit-content;
   font-size: 1rem;
   margin-top: 5px;
-  border-radius: 8px;
-  border: 2px solid black;
+  border-radius: 0.42rem;
+  border: 1px solid #b1b3b9;
 }
 .option {
   font-size: 1rem;
   margin-top: 5px;
-  border-radius: 8px;
+  border-radius: 0.42rem;
   cursor: pointer;
   font-family: "Poppins", sans-serif;
 }
@@ -171,5 +171,5 @@ select {
   position: absolute;
   margin-top: -18rem;
   margin-left: 0rem;
-  border: 1px solid black;
+  border: 1px solid #b1b3b9;
 }
