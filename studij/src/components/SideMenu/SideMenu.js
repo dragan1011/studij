@@ -4,11 +4,14 @@ import Dostave from "../Dostave/Dostave/Dostave";
 import Magacin from "../Magacin/Magacin";
 import EtičkiOdbor from "../EtičkiOdbor/EtičkiOdbora";
 import Chat from "../Chat/Chat";
+import PodesavanjeProfila from "../PodešavanjeProfila/PodesavanjeProfila";
 import Trebovanje from "../Trebovanje/Dostave/Dostave";
 import Sifrarnici from "../Šifrarnici/Sifrarnici";
 import MenuButton from "../UI/MenuButton/MenuButton";
 import classes from "./SideMenu.module.css";
 import Axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function SideMenu({ userData, afterLogout }) {
   const [active, setActive] = useState(
@@ -19,7 +22,7 @@ function SideMenu({ userData, afterLogout }) {
   const [data, setData] = useState("");
   const [users, setUsers] = useState("");
   const [refresh, setRefresh] = useState(false);
-
+  const [settings, setSettings] = useState(false);
   const setSelectedHandler = (naziv) => {
     setActive(naziv);
   };
@@ -37,6 +40,19 @@ function SideMenu({ userData, afterLogout }) {
     } catch (error) {
       console.error(error);
     }
+  };
+
+  const notify = () => {
+    toast.success("Podaci su uspješno izmijenjeni!", {
+      position: "top-right",
+      autoClose: 1500,
+      hideProgressBar: true,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
   };
 
   const messageFetch = async () => {
@@ -58,13 +74,16 @@ function SideMenu({ userData, afterLogout }) {
   const toggleChat = () => {
     setChat((prevState) => !prevState);
   };
-
+  const toggleSettings = () => {
+    setSettings((prevState) => !prevState);
+  };
   if (!userData.user) {
     return "Loading...";
   }
 
   return (
     <div className={classes.show}>
+      <ToastContainer />
       {chat && (
         <Chat
           users={users}
@@ -75,11 +94,28 @@ function SideMenu({ userData, afterLogout }) {
           data={data}
         />
       )}
+      {settings && (
+        <PodesavanjeProfila
+          users={users}
+          userData={userData}
+          title="Podešavanja"
+          closeModal={setSettings}
+          notify={notify}
+        />
+      )}
       <img
         className={`${classes.imgArrow} ${!menu ? classes.left : ""}`}
         onClick={toggleMenu}
         alt="strelica"
         src="./utilities/right-arrow.png"
+      />
+      <img
+        className={`${classes.imgSettings} ${menu ? classes.smallIcon : ""} ${
+          settings ? classes.imgSettingsActive : ""
+        }`}
+        onClick={toggleSettings}
+        alt="settings"
+        src="./utilities/setting.png"
       />
       <img
         className={`${classes.imgChat} ${menu ? classes.smallIcon : ""}`}

@@ -221,3 +221,13 @@ h3 {
   padding: 1.5rem;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
+.buttonDisabled {
+  background-color: #606c88;
+  border-color: #606c88;
+}
+.buttonDisabled:hover {
+  background: #606c88;
+  border-color: #606c88;
+  transition: 300ms;
+  transform: scale(1);
+}

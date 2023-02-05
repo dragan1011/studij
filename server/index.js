@@ -143,6 +143,50 @@ app.post("/login", (req, res) => {
   );
 });
 
+app.put("/updateUserPassword", (req, res) => {
+  const id = req.body.id_korisnika;
+  const ime = req.body.ime;
+  const prezime = req.body.prezime;
+  const newPassword = req.body.newPassword;
+
+  bcrypt.hash(newPassword, saltRounds, (err, hash) => {
+    if (err) {
+      console.log(err);
+    }
+    db.query(
+      "UPDATE studij_users SET password=? WHERE id=? ",
+      [hash, id],
+
+      (err, result) => {
+        if (err) {
+          console.log(err);
+        } else {
+          res.send(result);
+        }
+      }
+    );
+  });
+});
+
+app.put("/updateUserData", (req, res) => {
+  const id = req.body.id_korisnika;
+  const ime = req.body.ime;
+  const prezime = req.body.prezime;
+
+  db.query(
+    "UPDATE studij_users SET ime=?, prezime=? WHERE id=? ",
+    [ime, prezime, id],
+
+    (err, result) => {
+      if (err) {
+        console.log(err);
+      } else {
+        res.send(result);
+      }
+    }
+  );
+});
+
 app.get("/users", (req, res) => {
   db.query("SELECT * FROM studij_users", (error, results) => {
     if (error) {

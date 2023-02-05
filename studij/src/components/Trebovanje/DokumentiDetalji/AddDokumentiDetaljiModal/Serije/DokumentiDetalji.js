@@ -176,7 +176,10 @@ const ModalOverlay = (props) => {
           <button
             onClick={izaberiSeriju}
             type="submit"
-            className={classes.button}
+            className={`${classes.button} ${
+              selectedIds.length === 0 ? classes.buttonDisabled : ""
+            }`}
+            disabled={selectedIds.length === 0 ? true : false}
           >
             Dodaj
           </button>
