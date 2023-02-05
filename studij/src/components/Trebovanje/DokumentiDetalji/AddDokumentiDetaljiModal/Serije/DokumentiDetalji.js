@@ -150,6 +150,9 @@ const ModalOverlay = (props) => {
               placeholder="Brza pretraga..."
               className={classes.search}
             />
+            <span className={classes.stavke}>
+              Stavki za dodati: {selectedIds.length}
+            </span>
           </div>
           <div className={classes.row_heading}>
             <div className={`${classes.heading} ${classes.half}`}>Lijek</div>

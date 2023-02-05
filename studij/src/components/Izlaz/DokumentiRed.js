@@ -74,7 +74,7 @@ export const Dokumenti = (props) => {
         className={`${classes.cell} ${classes.lokacija} ${classes.izmjena}`}
         onClick={openModalHandler}
       >
-        Izmjena
+        Zaključi izlaz
       </div>
     </div>
   );

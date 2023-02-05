@@ -1020,6 +1020,24 @@ app.put("/serijeTrebovanjeUpdate", (req, res) => {
   );
 });
 
+app.put("/zakljuciIzlazDokumenta", (req, res) => {
+  const id_dokumenta_trebovanje = req.body.id_dokumenta_trebovanje;
+  const knarudzba = req.body.knarudzba;
+
+  db.query(
+    "UPDATE studij_dokumenti_detalji SET knarudzba= ? WHERE id_dokumenta_trebovanje = ? ",
+    [knarudzba, id_dokumenta_trebovanje],
+
+    (err, result) => {
+      if (err) {
+        console.log(err);
+      } else {
+        res.send(result);
+      }
+    }
+  );
+});
+
 app.listen(3001, () => {
   console.log("Server je pokrenut");
 });

@@ -231,3 +231,7 @@ h3 {
   transition: 300ms;
   transform: scale(1);
 }
+.stavke {
+  position: relative;
+  margin-left: 60%;
+}

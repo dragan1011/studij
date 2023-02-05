@@ -1,3 +1,9 @@
-.magacin{
-    width: 100vw;
+.component {
+  width: 100vw;
+  background-color: #f4f4fb;
+}
+.menuLook {
+  display: flex;
+  flex-direction: row;
+  margin-left: 50px;
 }
