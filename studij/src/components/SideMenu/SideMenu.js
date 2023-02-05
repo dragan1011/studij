@@ -7,6 +7,7 @@ import Chat from "../Chat/Chat";
 import PodesavanjeProfila from "../PodešavanjeProfila/PodesavanjeProfila";
 import Trebovanje from "../Trebovanje/Dostave/Dostave";
 import Sifrarnici from "../Šifrarnici/Sifrarnici";
+import Izlaz from "../Izlaz/Izlaz";
 import MenuButton from "../UI/MenuButton/MenuButton";
 import classes from "./SideMenu.module.css";
 import Axios from "axios";
@@ -215,6 +216,14 @@ function SideMenu({ userData, afterLogout }) {
               Trebovanje
             </span>
           </MenuButton>
+          <MenuButton name={"Izlaz"} activ={active} select={setSelectedHandler}>
+            <img
+              className={`${classes.img} ${menu ? classes.imgSmall : ""}`}
+              alt="dostave"
+              src="./utilities/exit.png"
+            />
+            <span className={`${menu ? classes.smallText : ""}`}>Izlaz</span>
+          </MenuButton>
           <MenuButton
             name={"Magacin"}
             activ={active}
@@ -261,6 +270,7 @@ function SideMenu({ userData, afterLogout }) {
       {active === "Etičkiodbor" && <EtičkiOdbor />}
       {active === "Dostave" && <Dostave />}
       {active === "Trebovanje" && <Trebovanje />}
+      {active === "Izlaz" && <Izlaz />}
       {active === "Magacin" && <Magacin />}
     </div>
   );
