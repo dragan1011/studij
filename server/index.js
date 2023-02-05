@@ -145,8 +145,6 @@ app.post("/login", (req, res) => {
 
 app.put("/updateUserPassword", (req, res) => {
   const id = req.body.id_korisnika;
-  const ime = req.body.ime;
-  const prezime = req.body.prezime;
   const newPassword = req.body.newPassword;
 
   bcrypt.hash(newPassword, saltRounds, (err, hash) => {

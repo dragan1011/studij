@@ -7,7 +7,6 @@ import classes from "./PodesavanjeProfila.module.css";
 const ModalOverlay = (props) => {
   const [ime, setIme] = useState();
   const [prezime, setPrezime] = useState("");
-  const [lozinka, setLozinka] = useState("");
   const [novaLozinka, setNovaLozinka] = useState("");
   const [potvrdaNoveLozinke, setPotvrdaNoveLozinke] = useState("");
 
@@ -31,12 +30,12 @@ const ModalOverlay = (props) => {
     }
   };
 
-  const save = async (e) => {
+  const save = (e) => {
     e.preventDefault();
-    if (ime.trim() === "" || ime.trim().length === 0) {
+    if (ime.trim().length === "" || ime.trim().length === 0) {
       return;
     }
-    if (prezime.trim() === "" || prezime.trim().length === 0) {
+    if (prezime.trim().length === "" || prezime.trim().length === 0) {
       return;
     }
 
@@ -68,7 +67,6 @@ const ModalOverlay = (props) => {
 
       Axios.put("http://localhost:3001/updateUserPassword", {
         id_korisnika: props.userData.user.id,
-        staraLozinka: lozinka,
         newPassword: novaLozinka,
       }).then((response) => {
         console.log(response);
@@ -96,7 +94,9 @@ const ModalOverlay = (props) => {
         <div className={classes.content}>
           <input
             className={classes.input}
-            onChange={(e) => setIme(e.target.value)}
+            onChange={(e) => {
+              setIme(e.target.value);
+            }}
             defaultValue={ime}
             placeholder={"Ime"}
           />
@@ -121,7 +121,6 @@ const ModalOverlay = (props) => {
             type={"password"}
           />
         </div>
-
         <footer className={classes.actions}>
           <button onClick={save} className={classes.button}>
             Sačuvaj

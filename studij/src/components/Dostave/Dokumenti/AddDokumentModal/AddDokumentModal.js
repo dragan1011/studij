@@ -239,7 +239,9 @@ const ModalOverlay = (props) => {
                       key={option.id}
                       style={{
                         backgroundColor:
-                          option === focusedOption ? "#eee" : "white",
+                          Number(option.id) === Number(focusedOption.id)
+                            ? "#eee"
+                            : "white",
                       }}
                       onMouseDown={(event) => {
                         setSelectedOption(option.naziv);

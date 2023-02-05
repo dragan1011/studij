@@ -84,6 +84,7 @@ const ModalOverlay = (props) => {
     if (selectedOption === "" || selectedOption === null) {
       statusRef.current.focus();
       setShowList(true);
+
       return setStatusIsValid(true);
     }
 
@@ -239,7 +240,9 @@ const ModalOverlay = (props) => {
                       key={option.id}
                       style={{
                         backgroundColor:
-                          option === focusedOption ? "#eee" : "white",
+                          Number(option.id) === Number(focusedOption.id)
+                            ? "#eee"
+                            : "white",
                       }}
                       onMouseDown={(event) => {
                         setSelectedOption(option.naziv);

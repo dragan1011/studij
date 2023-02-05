@@ -132,6 +132,7 @@
   margin-top: 3.6rem;
   background-color: white;
   margin-left: 1px;
+  cursor: pointer;
 }
 
 .inputDate {
