@@ -7,6 +7,8 @@ function Statusi(props) {
   const [searchTerm, setSearchTerm] = useState("");
   const [isModal, setIsModal] = useState(false);
   const [data, setData] = useState([]);
+  const [dokumenti, setDokumenti] = useState([]);
+  const [trebovanje, setTrebovanje] = useState([]);
 
   const [refresh, setRefresh] = useState(false);
 
@@ -33,7 +35,7 @@ function Statusi(props) {
     );
   };
 
-  // fetch dokumenti
+  // fetch dokumenti detalji
   const dataFetch = async () => {
     const data = await (
       await fetch("http://localhost:3001/dokumentiDetalji")
@@ -42,9 +44,28 @@ function Statusi(props) {
     // set state when the data received
     setData(data);
   };
+  // fetch dokumenti
+  const dokumentiFetch = async () => {
+    const data = await (await fetch("http://localhost:3001/dokumenti")).json();
+
+    // set state when the data received
+    setDokumenti(data);
+  };
+
+  // fetch dokumenti
+  const dokumentiTrebovanjeFetch = async () => {
+    const data = await (
+      await fetch("http://localhost:3001/dokumentiTrebovanje")
+    ).json();
+
+    // set state when the data received
+    setTrebovanje(data);
+  };
 
   useEffect(() => {
     dataFetch();
+    dokumentiFetch();
+    dokumentiTrebovanjeFetch();
   }, [refresh]);
 
   const refreshFunc = () => {
@@ -77,6 +98,8 @@ function Statusi(props) {
         <div className={`${classes.heading} ${classes.half}`}>Količina</div>
       </div>
       <DokumentiTabela
+        dokumenti={dokumenti}
+        trebovanje={trebovanje}
         studijId={props.studijId}
         refresh={refreshFunc}
         data={data}

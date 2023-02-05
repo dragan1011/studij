@@ -1,7 +1,7 @@
 import { Fragment, useState, useRef, useEffect } from "react";
 import ReactDOM from "react-dom";
 
-import classes from "./ConfirmModal.module.css";
+import classes from "./InfoModal.module.css";
 
 import Axios from "axios";
 
@@ -40,7 +40,6 @@ const ModalOverlay = (props) => {
     props.closeModal(false);
     document.body.style.overflow = "visible";
   };
-
   return (
     <div>
       <div
@@ -52,16 +51,30 @@ const ModalOverlay = (props) => {
       <div className={`${classes.modal} ${classes.card}`}>
         <header className={classes.header}>
           <h2>{props.title}</h2>
-          {<h3>{props.data.oznaka}</h3>}
+          {<h3></h3>}
         </header>
         <div className={classes.content}>
-          Da li ste sigurni da želite zaključiti izlaz dokumenta?
+          <div className={classes.row}>
+            Ulazni datum:
+            {props.dokumenti.map((item) => {
+              return Number(item.id) === Number(props.rowData.id_dokumenta)
+                ? " " + item.datum_kreiranja.slice(0, 10)
+                : "";
+            })}
+          </div>
+          <div className={classes.row}>
+            Trebovani datum:
+            {props.trebovanje.map((item) => {
+              return Number(item.id) ===
+                Number(props.rowData.id_dokumenta_trebovanje)
+                ? " " + item.datum_kreiranja.slice(0, 10)
+                : "";
+            })}
+          </div>
+          <div className={classes.row}>Izlazni datum:</div>
         </div>
         <footer className={classes.actions}>
           <div className={classes.center}>
-            <button onClick={zakljuciIzlaz} className={classes.button}>
-              Zaključi izlaz
-            </button>
             <button
               onClick={() => {
                 props.closeModal(false);
@@ -84,12 +97,13 @@ const Modal = (props) => {
     <Fragment>
       {ReactDOM.createPortal(
         <ModalOverlay
-          notifyOdbij={props.notifyOdbij}
-          notify={props.notify}
           refresh={props.refresh}
           data={props.data}
           closeModal={props.closeModal}
           title={props.title}
+          rowData={props.rowData}
+          trebovanje={props.trebovanje}
+          dokumenti={props.dokumenti}
         >
           {props.children}
         </ModalOverlay>,

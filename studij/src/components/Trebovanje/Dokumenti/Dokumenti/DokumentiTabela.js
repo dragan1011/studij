@@ -32,7 +32,7 @@ export default function DijetaTabela(props) {
           closeModal={() => setEdit(false)}
         />
       )}
-      {dokumentiModal && Number(modalDataDokumenti.id_status) === Number(1) && (
+      {dokumentiModal && (
         <DokumentiDetalji
           studijId={props.studijId}
           refresh={props.refresh}

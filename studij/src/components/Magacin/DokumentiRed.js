@@ -16,12 +16,15 @@ export const Dokumenti = (props) => {
       kulaz: props.kulaz,
       knarudzba: props.knarudzba,
       jedinstveni_kod_lijeka: props.jedinstveni_kod_lijeka,
+      id_dokumenta_trebovanje: props.id_dokumenta_trebovanje,
+      id_dokumenta: props.id_dokumenta,
     };
     props.open(tempData);
   };
 
   return (
     <div
+      onClick={openModalHandler}
       className={`${classes.row} ${
         (props.id / 2) % 1 ? classes.drugiRed : classes.prviRed
       } ${
@@ -46,11 +49,8 @@ export const Dokumenti = (props) => {
       <div className={`${classes.cell} ${classes.naziv}`}>
         {props.jedinstveni_kod_lijeka}
       </div>
-      <div
-        className={`${classes.cell} ${classes.lokacija} ${classes.izmjena}`}
-        onClick={openModalHandler}
-      >
-        1
+      <div className={`${classes.cell} ${classes.lokacija} ${classes.izmjena}`}>
+        {Number(props.knarudzba) === 1 ? 0 : 1}
       </div>
     </div>
   );

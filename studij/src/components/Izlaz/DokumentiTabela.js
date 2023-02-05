@@ -25,6 +25,7 @@ export default function DijetaTabela(props) {
         <ConfirmModal
           title="Potvrda"
           data={modalData}
+          refresh={props.refresh}
           closeModal={() => setOdobri(false)}
         />
       )}

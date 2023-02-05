@@ -135,9 +135,11 @@ const ModalOverlay = (props) => {
               placeholder="Brza pretraga..."
               className={classes.search}
             />
-            <button onClick={modal} className={classes.add}>
-              Biranje serije
-            </button>
+            {Number(props.data.id_status) === Number(1) && (
+              <button onClick={modal} className={classes.add}>
+                Biranje serije
+              </button>
+            )}
             {isModal && (
               <DokumentiDetalji
                 data={props.data}
