@@ -2,17 +2,18 @@ import React, { useState } from "react";
 
 import classes from "./DokumentiTabela.module.css";
 import { Dokumenti } from "./DokumentiRed";
-import ConfirmModal from "./ConfirmModal/ConfirmModal";
+import DokumentiDetalji from './DokumentiIzlaz/Dokumenti/DokumentiDetalji'
 
 export default function DijetaTabela(props) {
-  const [odobri, setOdobri] = useState(false);
+  const [dokument, setDokument] = useState('')
   const [modalData, setModalData] = useState([]);
   const [modalDataDokumenti, setModalDataDokumenti] = useState([]);
   const [dokumentiModal, setDokumentiModal] = useState(false);
 
   const openModalHandler = (data) => {
     setModalData(data);
-    setOdobri(true);
+    setDokument(true);
+   
   };
   const centriModalHandler = (data) => {
     setModalDataDokumenti(data);
@@ -21,14 +22,10 @@ export default function DijetaTabela(props) {
 
   return (
     <div className={classes.dijeteWrapper}>
-      {odobri && (
-        <ConfirmModal
-          title="Potvrda"
+
+      {dokument && <DokumentiDetalji  title="Izmjena dokumenta"
           data={modalData}
-          refresh={props.refresh}
-          closeModal={() => setOdobri(false)}
-        />
-      )}
+          closeModal={() => setDokument(false)} />}
       {props.data
         .sort((a, b) => (+a.sifra > +b.sifra ? 1 : -1))
         .map((item) =>

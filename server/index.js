@@ -1020,13 +1020,51 @@ app.put("/serijeTrebovanjeUpdate", (req, res) => {
   );
 });
 
-app.put("/zakljuciIzlazDokumenta", (req, res) => {
+app.post("/dokumentIzlazDodaj", (req, res) => {
+  const vrsta = req.body.vrsta;
+  const datum = req.body.datum;
+  const oznaka = req.body.oznaka;
   const id_dokumenta_trebovanje = req.body.id_dokumenta_trebovanje;
-  const knarudzba = req.body.knarudzba;
+  const napomena = req.body.napomena;
+  const id_statusa = req.body.id_statusa
 
   db.query(
-    "UPDATE studij_dokumenti_detalji SET knarudzba= ? WHERE id_dokumenta_trebovanje = ? ",
-    [knarudzba, id_dokumenta_trebovanje],
+    "INSERT INTO studij_dokumenti_izlaz (vrsta, datum, oznaka, id_dokumenta_trebovanje, napomena, id_statusa) values (?, ?, ?, ?, ?, ?)",
+    [
+      vrsta,
+      datum,
+      oznaka,
+      id_dokumenta_trebovanje,
+      napomena,
+      id_statusa
+    ],
+    (err, result) => {
+      if (err) {
+        console.log(err);
+      }
+      res.send(result);
+    }
+  );
+});
+
+app.get("/dokumentiIzlaz", (req, res) => {
+  db.query("SELECT * FROM studij_dokumenti_izlaz", (error, results) => {
+    if (error) {
+      console.log(err);
+    } else {
+      res.send(results);
+    }
+  });
+});
+
+app.put("/serijeIzlazUpdate", (req, res) => {
+  const id = req.body.id;
+  const knarudzba = req.body.knarudzba;
+  const id_dokumenta_izlaz = req.body.id_dokumenta_izlaz;
+
+  db.query(
+    "UPDATE studij_dokumenti_detalji SET knarudzba=?, id_dokumenta_izlaz=? WHERE id=? ",
+    [knarudzba, id_dokumenta_izlaz, id],
 
     (err, result) => {
       if (err) {
@@ -1037,6 +1075,7 @@ app.put("/zakljuciIzlazDokumenta", (req, res) => {
     }
   );
 });
+
 
 app.listen(3001, () => {
   console.log("Server je pokrenut");

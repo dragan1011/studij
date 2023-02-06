@@ -1,0 +1,81 @@
+.dijeteWrapper{
+    position: relative;
+    margin:  0 50px;
+    overflow-y: scroll;
+    height: 35rem
+}
+
+/* width */
+::-webkit-scrollbar {
+    display: none;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  display: none;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  display: none;
+}
+
+.cell{
+    width: 20rem;
+    text-align: left;
+    display: flex;
+    align-items: center;
+}
+.row{
+    display: flex;
+    cursor: pointer;
+    background-color: white;
+    border: none;
+    /*box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;*/
+    transition: 300ms;
+}
+.row:hover{
+    background-color: #F4F4FB;
+    transition: 300ms;
+}
+.lokacija{
+    width: 50%;
+    justify-content: center;
+}
+.naziv{
+    width: 50%;
+    justify-content: center;
+    border-right: 1px solid rgba(0, 0, 0, 0.20);
+}
+.odjel{
+  justify-content: center;
+    width: 65%;
+}
+.x:hover{
+color: red;
+}
+.drugiRed{
+    border-bottom: 1px solid rgba(0, 0, 0, 0.20);
+    border-left: 1px solid rgba(0, 0, 0, 0.20);
+    border-right: 1px solid rgba(0, 0, 0, 0.20);
+}
+.prviRed{
+    border-bottom: 1px solid rgba(0, 0, 0, 0.20);
+    border-left: 1px solid rgba(0, 0, 0, 0.20);
+    border-right: 1px solid rgba(0, 0, 0, 0.20);
+}
+.izmjena{
+    transition: 100ms;
+}
+.izmjena:hover{
+    transform: 100ms;
+    font-weight: 600;
+}
+.red {
+  background-color: #fadcda;
+}

@@ -68,9 +68,7 @@ function Statusi(props) {
         <div className={`${classes.heading} ${classes.half}`}>Oznaka</div>
         <div className={`${classes.heading} ${classes.half}`}>Datum</div>
         <div className={`${classes.heading} ${classes.half}`}>Napomena</div>
-        <div className={`${classes.heading} ${classes.half}`}>Status</div>
-        <div className={`${classes.heading} ${classes.half}`}>Opcije</div>
-      </div>
+        </div>
       <DokumentiTabela
         studijId={props.studijId}
         refresh={refreshFunc}

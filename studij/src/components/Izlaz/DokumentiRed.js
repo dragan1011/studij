@@ -44,38 +44,24 @@ export const Dokumenti = (props) => {
     >
       <div
         className={`${classes.cell} ${classes.naziv}`}
-        onClick={openDokumentiModal}
+        onClick={openModalHandler}
       >
         {props.oznaka}
       </div>
       <div
         className={`${classes.cell} ${classes.naziv}`}
-        onClick={openDokumentiModal}
+        onClick={openModalHandler}
       >
         {props.datum}
       </div>
       <div
         className={`${classes.cell} ${classes.naziv}`}
-        onClick={openDokumentiModal}
+        onClick={openModalHandler}
       >
         {props.napomena}
       </div>
-      <div
-        className={`${classes.cell} ${classes.naziv}`}
-        onClick={openDokumentiModal}
-      >
-        {Number(props.id_status) === Number(1)
-          ? "Otključan"
-          : Number(props.id_status) === Number(2)
-          ? "Zaključan"
-          : "Karantin"}
-      </div>
-      <div
-        className={`${classes.cell} ${classes.lokacija} ${classes.izmjena}`}
-        onClick={openModalHandler}
-      >
-        Zaključi izlaz
-      </div>
+      
+      
     </div>
   );
 };
