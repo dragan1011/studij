@@ -1096,6 +1096,47 @@ app.put("/dokumentIzlazUpdate", (req, res) => {
   );
 });
 
+
+app.put("/dokumentDetaljiTrebovanjeIzbaci", (req, res) => {
+  const id = req.body.id;
+  const kizlaz = req.body.kizlaz
+  const id_dokumenta_trebovanje = req.body.id_dokumenta_trebovanje
+
+  db.query(
+    "UPDATE studij_dokumenti_detalji SET kizlaz=?, id_dokumenta_trebovanje=? WHERE id=? ",
+    [kizlaz,id_dokumenta_trebovanje, id],
+
+    (err, result) => {
+      if (err) {
+        console.log(err);
+      } else {
+        res.send(result);
+      }
+    }
+  );
+});
+
+app.put("/dokumentDetaljiIzlazIzbaci", (req, res) => {
+  const id = req.body.id;
+  const knarudzba = req.body.knarudzba
+  const id_dokumenta_izlaz = req.body.id_dokumenta_izlaz
+
+  db.query(
+    "UPDATE studij_dokumenti_detalji SET knarudzba=?, id_dokumenta_izlaz=? WHERE id=? ",
+    [knarudzba,id_dokumenta_izlaz, id],
+
+    (err, result) => {
+      if (err) {
+        console.log(err);
+      } else {
+        res.send(result);
+      }
+    }
+  );
+});
+
+
+
 app.listen(3001, () => {
   console.log("Server je pokrenut");
 });

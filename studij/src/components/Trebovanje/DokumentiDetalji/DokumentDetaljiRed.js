@@ -25,10 +25,18 @@ export const DokumentDetaljiRed = (props) => {
     <div
       className={`${classes.row} ${
         (props.id / 2) % 1 ? classes.drugiRed : classes.prviRed
-      }`}
+      } ${props.selectedIds.includes(props.id) ? classes.selectedRow : ""}`}
       key={props.sifra}
       onDoubleClick={openModalHandler}
-      onClick={showUsers}
+      onClick={() => {
+        if (props.selectedIds.includes(props.id)) {
+          props.setSelectedIds(
+            props.selectedIds.filter((id) => id !== props.id)
+          );
+        } else {
+          props.setSelectedIds([...props.selectedIds, props.id]);
+        }
+      }}
     >
       <div className={`${classes.cell} ${classes.naziv}`}>
         {Array.from(props.lijek).map((item) => {

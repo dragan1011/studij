@@ -69,3 +69,6 @@ color: red;
     border-left: 1px solid rgba(0, 0, 0, 0.20);
     border-right: 1px solid rgba(0, 0, 0, 0.20);
 }
+.selectedRow {
+  background-color: #c9f4aa !important;
+}

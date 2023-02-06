@@ -20,6 +20,8 @@ export default function DijetaTabela(props) {
           Number(props.dokumentData.id) ===
           Number(item.id_dokumenta_trebovanje) ? (
             <DokumentDetaljiRed
+             selectedIds={props.selectedIds}
+              setSelectedIds={props.setSelectedIds}
               lijek={props.lijek}
               dokumentData={props.dokumentData}
               centarId={props.centarId}

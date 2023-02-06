@@ -131,7 +131,7 @@ h3 {
 }
 .add {
   position: relative;
-  margin-left: 70%;
+  margin-left: 1%;
   font-family: "Poppins", sans-serif;
   font-weight: bold;
   color: white;
@@ -219,4 +219,40 @@ h3 {
   border-radius: 20px;
   padding: 1.5rem;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.ukloniSeriju{
+  position: relative;
+  margin-left: 65%;
+  font-family: "Poppins", sans-serif;
+  font-weight: bold;
+  color: white;
+  background-color: #14213d;
+  border-radius: 10px;
+  letter-spacing: 1px;
+  cursor: pointer;
+  margin-top: 1rem;
+  height: 2rem;
+  transition: 300ms;
+}
+.ukloniSeriju:hover,
+.ukloniSeriju:active {
+  background: #2f3e5e;
+  border-color: #2f3e5e;
+  transition: 300ms;
+  transform: scale(1.05);
+}
+
+.ukloniSeriju:focus {
+  outline: none;
+}
+.buttonDisabled {
+  background-color: #606c88;
+  border-color: #606c88;
+}
+.buttonDisabled:hover {
+  background: #606c88;
+  border-color: #606c88;
+  transition: 300ms;
+  transform: scale(1);
 }

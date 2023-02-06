@@ -10,12 +10,17 @@ import "react-toastify/dist/ReactToastify.css";
 
 import DokumentDetaljiTabela from "./DokumentDetaljiTabela";
 
+import Axios from 'axios'
+
 const ModalOverlay = (props) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [searchUser, setSearchUser] = useState("");
   const [isModal, setIsModal] = useState(false);
   const [refresh, setRefresh] = useState(false);
   const [data, setData] = useState([]);
+  const [isDisabled, setIsDisabled] = useState(true);
+  const [isDisabledDelete, setIsDisabledDelete] = useState(true);
+  const [selectedIds, setSelectedIds] = useState([]);
 
   const modal = () => {
     setIsModal(true);
@@ -31,6 +36,18 @@ const ModalOverlay = (props) => {
       close();
     }
   };
+
+  useEffect(() => {
+    if (selectedIds.length === 0) {
+      setIsDisabled(selectedIds.length === 0);
+      setIsDisabledDelete(selectedIds.length === 0);
+    } else if (selectedIds.length === 1) {
+      setIsDisabled(selectedIds.length <= 0);
+      setIsDisabledDelete(selectedIds.length <= 0);
+    } else if (selectedIds.length === 2) {
+      setIsDisabled(selectedIds.length !== 1);
+    }
+  }, [selectedIds]);
 
   const notify = () => {
     toast.success("Uspješno izmijenjeno!", {
@@ -91,6 +108,7 @@ const ModalOverlay = (props) => {
     setLijek(data);
   };
 
+
   useEffect(() => {
     dataFetch();
     lijekFetch();
@@ -109,6 +127,23 @@ const ModalOverlay = (props) => {
 
   const handleData = (childData) => {
     setCentarId(childData);
+  };
+
+  const ukloniSeriju = async (e) => {
+    e.preventDefault();
+
+    for (let i = 0; i < selectedIds.length; i++) {
+
+      Axios.put("http://localhost:3001/dokumentDetaljiTrebovanjeIzbaci", {
+        id: selectedIds[i],
+        kizlaz: 0,
+        id_dokumenta_trebovanje: ''
+      }).then((response) => {
+        refreshFunc();
+        console.log(response);
+      });
+    }
+    setSelectedIds([])
   };
 
   return (
@@ -135,6 +170,13 @@ const ModalOverlay = (props) => {
               placeholder="Brza pretraga..."
               className={classes.search}
             />
+              {Number(props.data.id_status) === Number(1) && (
+              <button disabled={selectedIds.length >= 1 ? false : true} onClick={ukloniSeriju} className={`${classes.ukloniSeriju} ${
+              selectedIds.length === 0 ? classes.buttonDisabled : ""
+            }`}>
+                Ukloni seriju
+              </button>
+            )}
             {Number(props.data.id_status) === Number(1) && (
               <button onClick={modal} className={classes.add}>
                 Biranje serije
@@ -162,6 +204,8 @@ const ModalOverlay = (props) => {
             <div className={`${classes.heading} ${classes.half}`}>Pacijent</div>
           </div>
           <DokumentDetaljiTabela
+            selectedIds={selectedIds}
+            setSelectedIds={setSelectedIds}
             centarId={handleData}
             dokumentData={props.data}
             refresh={refreshFunc}
