@@ -112,6 +112,7 @@ const ModalOverlay = (props) => {
   };
 
 
+
   const izaberiSeriju = async (e) => {
     e.preventDefault();
 
@@ -167,6 +168,7 @@ const ModalOverlay = (props) => {
             <div className={`${classes.heading} ${classes.half}`}>Pacijent</div>
           </div>
           <DokumentDetaljiTabela
+          trebovanjeData={props.trebovanjeData}
             selectedIds={selectedIds}
             setSelectedIds={setSelectedIds}
             centarId={handleData}
@@ -213,6 +215,7 @@ const Modal = (props) => {
           title={props.title}
           studijId={props.studijId}
           refresh={props.refresh}
+          trebovanjeData={props.trebovanjeData}
         >
           {props.children}
         </ModalOverlay>,

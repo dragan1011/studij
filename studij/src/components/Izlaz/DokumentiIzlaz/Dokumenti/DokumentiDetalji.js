@@ -162,6 +162,7 @@ const ModalOverlay = (props) => {
         </div>
         <DokumentDetaljiTabela
           centarId={handleData}
+          trebovanjeData={props.data}
           dokumentData={props.data}
           refresh={refreshFunc}
           data={search(data)}

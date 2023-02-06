@@ -15,7 +15,7 @@ const ModalOverlay = (props) => {
   const [napomenaIsValid, setNapomenaIsValid] = useState(false);
   const [showCalendar, setShowCalendar] = useState(false);
   const [selectedOption, setSelectedOption] = useState(
-    Number(props.data.id_status) === Number(1)
+    Number(props.dokumentData.id_statusa) === Number(1)
       ? "Otključan"
       :  "Zaključan"
      
@@ -23,7 +23,7 @@ const ModalOverlay = (props) => {
   const [focusedOption, setFocusedOption] = useState("");
   const [showList, setShowList] = useState(false);
   const [selectedOptionId, setSelectedOptionId] = useState(
-    Number(props.data.id_status) === Number(1)
+    Number(props.dokumentData.id_statusa) === Number(1)
       ? "1"
       : "2"
      
@@ -78,7 +78,7 @@ const ModalOverlay = (props) => {
     notify();
 
     setTimeout(async () => {
-      Axios.put("http://localhost:3001/dokumentUpdate", {
+      Axios.put("http://localhost:3001/dokumentIzlazUpdate", {
         id: props.data.id,
         oznaka: oznaka,
         napomena: napomena,
@@ -252,6 +252,7 @@ const Modal = (props) => {
           refresh={props.refresh}
           closeModal={props.closeModal}
           title={props.title}
+          dokumentData={props.data}
         >
           {props.children}
         </ModalOverlay>,

@@ -13,6 +13,7 @@ export const DokumentDetaljiRed = (props) => {
       oznaka: props.oznaka,
       id_dokumenta_trebovanje: props.id_dokumenta_trebovanje,
       napomena: props.napomena,
+       id_statusa: props.id_statusa
     };
     props.open(tempData);
   };

@@ -22,6 +22,7 @@ export default function DijetaTabela(props) {
     setSerije(true);
   };
 
+
   return (
     <div className={classes.dijeteWrapper}>
       {edit && (
@@ -34,6 +35,7 @@ export default function DijetaTabela(props) {
       )} 
        {serije && (
         <DokumentiDetalji
+        trebovanjeData={props.trebovanjeData}
           refresh={props.refresh}
           title="Serije"
           data={modalData}

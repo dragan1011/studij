@@ -1076,6 +1076,25 @@ app.put("/serijeIzlazUpdate", (req, res) => {
   );
 });
 
+app.put("/dokumentIzlazUpdate", (req, res) => {
+  const id = req.body.id;
+  const oznaka = req.body.oznaka;
+  const napomena = req.body.napomena;
+  const id_status = req.body.id_statusa;
+
+  db.query(
+    "UPDATE studij_dokumenti_izlaz SET oznaka=?, napomena=?, id_statusa=? WHERE id=? ",
+    [oznaka, napomena, id_status, id],
+
+    (err, result) => {
+      if (err) {
+        console.log(err);
+      } else {
+        res.send(result);
+      }
+    }
+  );
+});
 
 app.listen(3001, () => {
   console.log("Server je pokrenut");

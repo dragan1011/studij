@@ -111,6 +111,7 @@ const ModalOverlay = (props) => {
     setCentarId(childData);
   };
 
+
   return (
     <div>
       <ToastContainer />
@@ -147,6 +148,7 @@ const ModalOverlay = (props) => {
                 closeModal={setIsModal}
                 title="Biranje serije"
                 studijId={props.studijId}
+                trebovanjeData={props.trebovanjeData}
               />
             )}
           </div>
@@ -195,6 +197,7 @@ const Modal = (props) => {
           closeModal={props.closeModal}
           title={props.title}
           studijId={props.studijId}
+          trebovanjeData={props.trebovanjeData}
         >
           {props.children}
         </ModalOverlay>,

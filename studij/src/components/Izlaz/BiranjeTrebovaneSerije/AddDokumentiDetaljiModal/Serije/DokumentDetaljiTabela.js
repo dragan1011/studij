@@ -17,7 +17,7 @@ export default function DijetaTabela(props) {
       {props.data
         .sort((a, b) => (+a.id > +b.id ? 1 : -1))
         .map((item) =>
-          item.id_dokumenta_trebovanje >= 1 && item.id_dokumenta_izlaz < 1 ? (
+          item.id_dokumenta_trebovanje >= 1 && item.id_dokumenta_izlaz < 1 && Number(item.id_dokumenta_trebovanje) === Number(props.trebovanjeData.id) ? (
             <DokumentDetaljiRed
               selectedIds={props.selectedIds}
               setSelectedIds={props.setSelectedIds}
