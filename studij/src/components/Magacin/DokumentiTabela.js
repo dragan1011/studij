@@ -30,6 +30,7 @@ export default function DijetaTabela(props) {
           dokumenti={props.dokumenti}
           rowData={modalData}
           closeModal={() => setInfo(false)}
+          izlaz={props.izlaz}
         />
       )}
       {props.data

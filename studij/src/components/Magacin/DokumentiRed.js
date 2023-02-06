@@ -18,6 +18,7 @@ export const Dokumenti = (props) => {
       jedinstveni_kod_lijeka: props.jedinstveni_kod_lijeka,
       id_dokumenta_trebovanje: props.id_dokumenta_trebovanje,
       id_dokumenta: props.id_dokumenta,
+      id_dokumenta_izlaz: props.id_dokumenta_izlaz
     };
     props.open(tempData);
   };

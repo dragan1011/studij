@@ -111,7 +111,6 @@ const ModalOverlay = (props) => {
     setCentarId(childData);
   };
 
-
   return (
     <div>
       <ToastContainer />
@@ -136,10 +135,10 @@ const ModalOverlay = (props) => {
               placeholder="Brza pretraga..."
               className={classes.search}
             />
-            {(
+            {( Number(props.data.id_statusa) === 1 ? 
               <button onClick={modal} className={classes.add}>
                 Biranje serije
-              </button>
+              </button> : ''
             )}
             {isModal && (
               <DokumentiDetalji

@@ -9,6 +9,7 @@ function Statusi(props) {
   const [data, setData] = useState([]);
   const [dokumenti, setDokumenti] = useState([]);
   const [trebovanje, setTrebovanje] = useState([]);
+  const [izlaz, setIzlaz] = useState([])
 
   const [refresh, setRefresh] = useState(false);
 
@@ -52,7 +53,7 @@ function Statusi(props) {
     setDokumenti(data);
   };
 
-  // fetch dokumenti
+  // fetch dokumenti trebovanje
   const dokumentiTrebovanjeFetch = async () => {
     const data = await (
       await fetch("http://localhost:3001/dokumentiTrebovanje")
@@ -60,6 +61,16 @@ function Statusi(props) {
 
     // set state when the data received
     setTrebovanje(data);
+  };
+
+  // fetch dokumenti izlaz
+  const dokumentiIzlazFetch = async () => {
+    const data = await (
+      await fetch("http://localhost:3001/dokumentiIzlaz")
+    ).json();
+
+    // set state when the data received
+    setIzlaz(data);
   };
 
   useEffect(() => {
@@ -103,6 +114,7 @@ function Statusi(props) {
         studijId={props.studijId}
         refresh={refreshFunc}
         data={data}
+        izlaz={izlaz}
       />
     </div>
   );

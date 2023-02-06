@@ -202,6 +202,18 @@ function SideMenu({ userData, afterLogout }) {
             />
             <span className={`${menu ? classes.smallText : ""}`}>Dostave</span>
           </MenuButton>
+            <MenuButton
+            name={"Magacin"}
+            activ={active}
+            select={setSelectedHandler}
+          >
+            <img
+              className={`${classes.img} ${menu ? classes.imgSmall : ""}`}
+              alt="magacin"
+              src="./utilities/clinic-building.png"
+            />
+            <span className={`${menu ? classes.smallText : ""}`}>Magacin</span>
+          </MenuButton>
           <MenuButton
             name={"Trebovanje"}
             activ={active}
@@ -224,18 +236,7 @@ function SideMenu({ userData, afterLogout }) {
             />
             <span className={`${menu ? classes.smallText : ""}`}>Izlaz</span>
           </MenuButton>
-          <MenuButton
-            name={"Magacin"}
-            activ={active}
-            select={setSelectedHandler}
-          >
-            <img
-              className={`${classes.img} ${menu ? classes.imgSmall : ""}`}
-              alt="magacin"
-              src="./utilities/clinic-building.png"
-            />
-            <span className={`${menu ? classes.smallText : ""}`}>Magacin</span>
-          </MenuButton>
+        
         </div>
 
         <div className={classes.logoutWrapper}>

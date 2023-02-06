@@ -23,6 +23,8 @@ const ModalOverlay = (props) => {
     }
   };
 
+  console.log(props.rowData)
+
   const zakljuciIzlaz = () => {
     Axios.put("http://localhost:3001/zakljuciIzlazDokumenta", {
       id_dokumenta_trebovanje: props.data.id,
@@ -71,7 +73,12 @@ const ModalOverlay = (props) => {
                 : "";
             })}
           </div>
-          <div className={classes.row}>Izlazni datum:</div>
+          <div className={classes.row}>Izlazni datum: {props.trebovanje.map((item) => {
+              return Number(item.id) ===
+                Number(props.rowData.id_dokumenta_izlaz)
+                ? " " + item.datum_kreiranja.slice(0, 10)
+                : "";
+            })}</div>
         </div>
         <footer className={classes.actions}>
           <div className={classes.center}>
