@@ -17,18 +17,16 @@ const ModalOverlay = (props) => {
   const [selectedOption, setSelectedOption] = useState(
     Number(props.data.id_status) === Number(1)
       ? "Otključan"
-      : Number(props.data.id_status) === Number(2)
-      ? "Zaključan"
-      : "Karantin"
+      : "Zaključan"
+     
   );
   const [focusedOption, setFocusedOption] = useState("");
   const [showList, setShowList] = useState(false);
   const [selectedOptionId, setSelectedOptionId] = useState(
     Number(props.data.id_status) === Number(1)
       ? "1"
-      : Number(props.data.id_status) === Number(2)
-      ? "2"
-      : "3"
+      :"2"
+      
   );
 
   const oznakaRef = useRef(null);
@@ -51,7 +49,6 @@ const ModalOverlay = (props) => {
   const data = [
     { id: 1, naziv: "Otključan" },
     { id: 2, naziv: "Zaključan" },
-    { id: 3, naziv: "Karantin" },
   ];
 
   useEffect(() => {

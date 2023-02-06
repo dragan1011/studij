@@ -36,9 +36,7 @@ export const Dokumenti = (props) => {
       } ${
         Number(props.id_status) === Number(2)
           ? classes.red
-          : Number(props.id_status) === Number(3)
-          ? classes.karantin
-          : ""
+          :  ""
       }`}
       key={props.id}
     >
@@ -66,9 +64,8 @@ export const Dokumenti = (props) => {
       >
         {Number(props.id_status) === Number(1)
           ? "Otključan"
-          : Number(props.id_status) === Number(2)
-          ? "Zaključan"
-          : "Karantin"}
+          : "Zaključan"
+          }
       </div>
       <div
         className={`${classes.cell} ${classes.lokacija} ${classes.izmjena}`}

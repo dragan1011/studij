@@ -36,7 +36,6 @@ const ModalOverlay = (props) => {
   const data = [
     { id: 1, naziv: "Otključan" },
     { id: 2, naziv: "Zaključan" },
-    { id: 3, naziv: "Karantin" },
   ];
 
   useEffect(() => {
